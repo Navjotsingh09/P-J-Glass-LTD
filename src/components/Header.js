@@ -1,217 +1,235 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [categoryMenuOpen, setCategoryMenuOpen] = useState(false);
+  const router = useRouter();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/products?search=${encodeURIComponent(searchQuery)}`);
+    }
+  };
 
-  const navigation = [
-    {
-      name: 'Services',
-      href: '/services',
-      dropdown: [
-        { name: 'Glass Balustrades', href: '/services/balustrades' },
-        { name: 'Kitchen Splashbacks', href: '/services/splashbacks' },
-        { name: 'Shower Screens', href: '/showers' },
-        { name: 'Mirrors & Glazing', href: '/services/mirrors' },
-      ],
-    },
-    { name: 'Products', href: '/products' },
-    { name: 'Online Store', href: '/store' },
+  const categories = [
+    { name: 'Glass Balustrades', href: '/services/balustrades' },
+    { name: 'Kitchen Splashbacks', href: '/services/splashbacks' },
+    { name: 'Shower Screens', href: '/showers' },
+    { name: 'Mirrors & Glass', href: '/services/mirrors' },
+    { name: 'Trade Services', href: '/trade' },
+  ];
+
+  const quickLinks = [
+    { name: 'All Products', href: '/products' },
+    { name: 'Best Sellers', href: '/products' },
+    { name: 'About Us', href: '/about' },
     { name: 'Portfolio', href: '/portfolio' },
-    { name: 'Trade', href: '/trade' },
-    { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-white shadow-lg'
-          : 'bg-white shadow-md'
-      }`}
-    >
-      {/* Top Bar */}
-      <div className="bg-charcoal text-white text-sm">
-        <div className="container-custom py-2 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <span>📞 01708 123 456</span>
-            <span>✉️ info@pjglass.co.uk</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <Link href="/trade" className="hover:text-secondary transition-colors">Trade Account</Link>
-            <Link href="/about" className="hover:text-secondary transition-colors">About Us</Link>
+    <header className="bg-[#131921] sticky top-0 z-50">
+      {/* Top Navigation Bar */}
+      <div className="border-b border-[#3a4553]">
+        <div className="container-custom">
+          <div className="flex items-center justify-between py-2">
+            {/* Logo */}
+            <Link href="/" className="flex items-center space-x-2 px-2 py-1 hover:border hover:border-white rounded transition-all">
+              <div className="w-12 h-12 bg-white rounded flex items-center justify-center">
+                <span className="font-bold text-2xl text-[#131921]">P&J</span>
+              </div>
+              <div className="hidden sm:block">
+                <div className="font-bold text-lg text-white">P&J Glass</div>
+                <div className="text-xs text-gray-300">Premium Glass Solutions</div>
+              </div>
+            </Link>
+
+            {/* Delivery Location (Amazon-style) */}
+            <button className="hidden lg:flex items-center gap-1 px-2 py-1 hover:border hover:border-white rounded text-white text-sm">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+              </svg>
+              <div className="text-left">
+                <div className="text-xs text-gray-300">Deliver to</div>
+                <div className="font-bold">UK</div>
+              </div>
+            </button>
+
+            {/* Search Bar - Amazon Style */}
+            <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-3xl mx-4">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search for glass products, balustrades, splashbacks..."
+                className="flex-1 px-4 py-2.5 text-sm focus:outline-none rounded-l"
+              />
+              <button
+                type="submit"
+                className="px-6 bg-[#febd69] hover:bg-[#f3a847] transition-colors rounded-r flex items-center justify-center"
+              >
+                <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+            </form>
+
+            {/* Account & Cart */}
+            <div className="flex items-center gap-4">
+              <Link href="/contact" className="hidden lg:flex flex-col items-start px-2 py-1 hover:border hover:border-white rounded text-white text-sm">
+                <div className="text-xs text-gray-300">Hello, Customer</div>
+                <div className="font-bold">Get a Quote</div>
+              </Link>
+
+              <Link href="/products" className="relative px-2 py-1 hover:border hover:border-white rounded flex items-center gap-2 text-white">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <div className="hidden sm:block">
+                  <div className="font-bold text-sm">Basket</div>
+                </div>
+              </Link>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden text-white p-2"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
 
-      <nav className="container-custom">
-        <div className="flex items-center justify-between h-16 gap-4">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 flex-shrink-0">
-            <div className="w-10 h-10 bg-primary rounded flex items-center justify-center text-white font-bold text-lg">
-              PJ
-            </div>
-            <span className="text-xl md:text-2xl font-bold text-charcoal">P&J Glass</span>
-          </Link>
-
-          {/* Search Bar */}
-          <div className="hidden md:flex flex-1 max-w-2xl">
-            <div className="relative w-full">
-              <input
-                type="text"
-                placeholder="Search products, colors, glass types..."
-                className="w-full px-4 py-2 pr-12 border-2 border-neutral-light rounded-lg focus:border-primary focus:outline-none"
-              />
-              <button className="absolute right-0 top-0 bottom-0 px-4 bg-primary text-white rounded-r-lg hover:bg-primary/90 transition-colors">
+      {/* Secondary Navigation - Category Bar */}
+      <div className="bg-[#232f3e]">
+        <div className="container-custom">
+          <div className="flex items-center gap-6 py-2 text-white text-sm overflow-x-auto">
+            {/* All Categories Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setCategoryMenuOpen(!categoryMenuOpen)}
+                onMouseEnter={() => setCategoryMenuOpen(true)}
+                onMouseLeave={() => setCategoryMenuOpen(false)}
+                className="flex items-center gap-2 px-3 py-1 hover:border hover:border-white rounded whitespace-nowrap font-semibold"
+              >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
+                All Categories
               </button>
-            </div>
-          </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-6">
-            {navigation.map((item) => (
-              <div key={item.name} className="relative group">
-                <Link
-                  href={item.href}
-                  className="text-neutral-dark hover:text-primary font-medium transition-colors"
+              {/* Category Dropdown Menu */}
+              {categoryMenuOpen && (
+                <div
+                  onMouseEnter={() => setCategoryMenuOpen(true)}
+                  onMouseLeave={() => setCategoryMenuOpen(false)}
+                  className="absolute top-full left-0 mt-1 bg-white text-black shadow-lg rounded w-64 py-2 z-50"
                 >
-                  {item.name}
-                  {item.dropdown && (
-                    <svg
-                      className="inline-block ml-1 w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+                  {categories.map((category) => (
+                    <Link
+                      key={category.name}
+                      href={category.href}
+                      className="block px-4 py-2 hover:bg-gray-100 transition-colors"
+                      onClick={() => setCategoryMenuOpen(false)}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  )}
-                </Link>
+                      {category.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
-                {/* Dropdown Menu */}
-                {item.dropdown && (
-                  <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                    <div className="bg-white shadow-lg rounded-lg py-2 min-w-[220px]">
-                      {item.dropdown.map((subItem) => (
-                        <Link
-                          key={subItem.name}
-                          href={subItem.href}
-                          className="block px-4 py-2 text-neutral-dark hover:bg-primary/5 hover:text-primary transition-colors"
-                        >
-                          {subItem.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
+            {/* Quick Links */}
+            {quickLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="px-2 py-1 hover:border hover:border-white rounded whitespace-nowrap hidden lg:block"
+              >
+                {link.name}
+              </Link>
             ))}
-          </div>
 
-          {/* CTA Buttons */}
-          <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
-            <Link href="/contact" className="text-neutral-dark hover:text-primary transition-colors text-sm font-medium">
-              Get Quote
-            </Link>
-            <Link href="/portfolio" className="text-neutral-dark hover:text-primary transition-colors text-sm font-medium">
-              Portfolio
-            </Link>
-            <Link href="/store" className="relative group">
-              <div className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-all">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                <span className="text-sm font-medium">Shop</span>
-                <span className="absolute -top-2 -right-2 bg-secondary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">0</span>
-              </div>
+            <Link href="/contact" className="px-2 py-1 hover:border hover:border-white rounded whitespace-nowrap text-[#febd69] font-semibold hidden md:block">
+              🎉 Free Quote - Limited Time
             </Link>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
         </div>
+      </div>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-neutral-light">
-            {navigation.map((item) => (
-              <div key={item.name}>
+      {/* Mobile Search Bar */}
+      <div className="md:hidden bg-[#232f3e] px-4 py-2 border-t border-[#3a4553]">
+        <form onSubmit={handleSearch} className="flex">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search products..."
+            className="flex-1 px-4 py-2 text-sm focus:outline-none rounded-l"
+          />
+          <button
+            type="submit"
+            className="px-4 bg-[#febd69] hover:bg-[#f3a847] transition-colors rounded-r"
+          >
+            <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-white border-t shadow-lg">
+          <nav className="py-4">
+            <div className="space-y-1 px-4">
+              <div className="font-bold text-lg mb-3 text-gray-900">Categories</div>
+              {categories.map((category) => (
                 <Link
-                  href={item.href}
-                  className="block py-3 text-neutral-dark hover:text-primary font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  key={category.name}
+                  href={category.href}
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
-                  {item.name}
+                  {category.name}
                 </Link>
-                {item.dropdown && (
-                  <div className="pl-4 space-y-2">
-                    {item.dropdown.map((subItem) => (
-                      <Link
-                        key={subItem.name}
-                        href={subItem.href}
-                        className="block py-2 text-sm text-neutral-grey hover:text-primary"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        {subItem.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
+              ))}
+              
+              <div className="border-t my-3 pt-3">
+                <div className="font-bold text-lg mb-3 text-gray-900">Quick Links</div>
+                {quickLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
               </div>
-            ))}
-            <div className="pt-4 space-y-3">
+
               <Link
                 href="/contact"
-                className="btn-secondary w-full"
-                onClick={() => setIsMobileMenuOpen(false)}
+                className="block mt-4 bg-[#febd69] text-center py-3 rounded font-bold hover:bg-[#f3a847] transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
               >
-                Get Quote
-              </Link>
-              <Link
-                href="/store"
-                className="btn-primary w-full"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Design Your Glass →
+                Get Free Quote
               </Link>
             </div>
-          </div>
-        )}
-      </nav>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
