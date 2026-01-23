@@ -428,6 +428,16 @@ export const julietBalconies = [
 ];
 
 // Helper functions
+export function getAllProducts() {
+  return [
+    ...balustrades,
+    ...splashbackColors,
+    ...splashbackPrints,
+    ...mirrors,
+    ...bathScreens,
+  ];
+}
+
 export function getProductsByCategory(category) {
   switch (category) {
     case 'balustrades':
