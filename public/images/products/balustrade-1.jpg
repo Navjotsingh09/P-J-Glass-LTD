@@ -1,0 +1,7 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#f0f0f0"/>
+  <rect x="50" y="100" width="700" height="400" fill="white" opacity="0.8"/>
+  <rect x="100" y="150" width="600" height="300" fill="#1E88E5" opacity="0.1"/>
+  <text x="400" y="320" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#1E88E5" text-anchor="middle" opacity="0.5">GLASS</text>
+  <text x="400" y="360" font-family="Arial, sans-serif" font-size="32" fill="#00ACC1" text-anchor="middle" opacity="0.5">BALUSTRADE</text>
+</svg>
