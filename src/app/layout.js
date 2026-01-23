@@ -10,36 +10,16 @@ const inter = Inter({
 });
 
 export const metadata = {
+  metadataBase: new URL('https://pjglass.co.uk'),
   title: {
-    default: 'P&J Glass | Custom Glass Solutions in Romford & London',
+    default: 'P&J Glass | Premium Glass Solutions in Romford & Essex',
     template: '%s | P&J Glass',
   },
-  description: 'Expert glass balustrades, kitchen splashbacks, shower screens & mirrors. Premium custom glass solutions in Romford and Greater London. 15+ years experience, 2500+ projects.',
-  keywords: ['glass balustrades', 'kitchen splashbacks', 'shower screens', 'glass mirrors', 'Romford', 'Essex', 'London', 'custom glass'],
+  description: 'Transform your space with P&J Glass. Expert glass balustrades, kitchen splashbacks, shower screens, and mirrors. Professional installation across London & Essex. Free quotes. Call 01708 123 456.',
+  keywords: ['glass balustrades', 'kitchen splashbacks', 'shower screens', 'glass mirrors', 'bespoke glass', 'Romford glass', 'Essex glass', 'London glass services', 'glass installation', 'frameless glass'],
   authors: [{ name: 'P&J Glass' }],
   creator: 'P&J Glass',
-  openGraph: {
-    type: 'website',
-    locale: 'en_GB',
-    url: 'https://pjglass.co.uk',
-    siteName: 'P&J Glass',
-    title: 'P&J Glass | Custom Glass Solutions in Romford & London',
-    description: 'Expert glass balustrades, kitchen splashbacks, shower screens & mirrors. Premium custom glass solutions.',
-    images: [
-      {
-        url: '/images/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'P&J Glass - Custom Glass Solutions',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'P&J Glass | Custom Glass Solutions',
-    description: 'Expert glass balustrades, kitchen splashbacks, shower screens & mirrors.',
-    images: ['/images/og-image.jpg'],
-  },
+  publisher: 'P&J Glass',
   robots: {
     index: true,
     follow: true,
@@ -51,8 +31,34 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
+  openGraph: {
+    type: 'website',
+    locale: 'en_GB',
+    url: 'https://pjglass.co.uk',
+    siteName: 'P&J Glass',
+    title: 'P&J Glass | Premium Glass Solutions in Romford & Essex',
+    description: 'Transform your space with expert glass solutions. Balustrades, splashbacks, shower screens, and more. Professional installation across London & Essex.',
+    images: [
+      {
+        url: '/images/hero-balustrade.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'P&J Glass - Premium Glass Solutions',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'P&J Glass | Premium Glass Solutions',
+    description: 'Transform your space with expert glass solutions. Balustrades, splashbacks, shower screens & mirrors.',
+    images: ['/images/hero-balustrade.jpg'],
+  },
+  alternates: {
+    canonical: 'https://pjglass.co.uk',
+  },
+  category: 'home improvement',
   verification: {
-    google: 'your-google-verification-code',
+    google: 'YOUR_GOOGLE_VERIFICATION_CODE',
   },
 };
 

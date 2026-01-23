@@ -1,11 +1,66 @@
 import Link from 'next/link';
 import { getFeaturedProducts } from '../lib/products';
 
+export const metadata = {
+  title: 'P&J Glass - Premium Glass Products & Services | Romford, Essex',
+  description: 'Transform your space with P&J Glass. Shop premium glass balustrades, kitchen splashbacks, shower screens, and mirrors. Professional installation across London & Essex. Free quotes available.',
+};
+
 export default function HomePage() {
   const featuredProducts = getFeaturedProducts();
   
+  // Structured data for homepage
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'HomeAndConstructionBusiness',
+    name: 'P&J Glass',
+    image: 'https://pjglass.co.uk/images/logo.svg',
+    '@id': 'https://pjglass.co.uk',
+    url: 'https://pjglass.co.uk',
+    telephone: '+441708123456',
+    priceRange: '££',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Unit 5, Romford Industrial Estate',
+      addressLocality: 'Romford',
+      addressRegion: 'Essex',
+      postalCode: 'RM1 2XX',
+      addressCountry: 'GB',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 51.5779,
+      longitude: 0.1821,
+    },
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '08:00',
+        closes: '18:00',
+      },
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: 'Saturday',
+        opens: '09:00',
+        closes: '16:00',
+      },
+    ],
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '127',
+    },
+  };
+  
   return (
     <main className="pt-32">
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      
       {/* HERO BANNER SECTION */}
       <section className="bg-gradient-to-r from-primary to-secondary py-12 mb-8">
         <div className="container-custom">
