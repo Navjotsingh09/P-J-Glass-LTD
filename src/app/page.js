@@ -48,7 +48,7 @@ function HeroSection() {
           alt="Modern architectural glass"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1a2055]/90 via-[#1a2055]/50 to-[#1a2055]/30" />
       </div>
 
       {/* Hero Content */}
@@ -93,10 +93,10 @@ function HeroSection() {
 /* ─── About Section ─── */
 function AboutSection() {
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-black">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-navy">
       <div className="max-w-7xl mx-auto">
         <Reveal>
-          <p className="section-label mb-6">About P&J Glass</p>
+          <p className="section-label mb-6 text-brand-accent">About P&J Glass</p>
         </Reveal>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
@@ -165,10 +165,10 @@ function ProductCollection() {
   };
 
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-dark">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-[#0f1540]">
       <div className="max-w-7xl mx-auto">
         <Reveal>
-          <p className="section-label mb-6">Product Collection</p>
+          <p className="section-label mb-6 text-brand-accent">Product Collection</p>
         </Reveal>
 
         <Reveal>
@@ -197,7 +197,7 @@ function ProductCollection() {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`px-5 py-2.5 text-[0.75rem] tracking-[0.1em] uppercase font-medium transition-all duration-300 ${
                   activeCategory === cat.id
-                    ? 'text-brand-white bg-white/10'
+                    ? 'text-brand-white bg-brand-blue/30 border-b-2 border-brand-accent'
                     : 'text-brand-grey hover:text-brand-white'
                 }`}
               >
@@ -254,10 +254,10 @@ function ProductCollection() {
 /* ─── Showroom Section ─── */
 function ShowroomSection() {
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-black">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-navy">
       <div className="max-w-7xl mx-auto">
         <Reveal>
-          <p className="section-label mb-6">Showroom</p>
+          <p className="section-label mb-6 text-brand-accent">Showroom</p>
         </Reveal>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
@@ -337,11 +337,11 @@ function FeaturedProjects() {
   ];
 
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-charcoal">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-[#141a4a]">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
           <Reveal>
-            <p className="section-label mb-4">Featured Projects</p>
+            <p className="section-label mb-4 text-brand-accent">Featured Projects</p>
             <h2 className="text-display-md text-brand-white">
               Crafted with precision,<br />built to inspire.
             </h2>
@@ -429,10 +429,10 @@ function ClientStories() {
   }, [testimonials.length]);
 
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-black">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-navy">
       <div className="max-w-7xl mx-auto">
         <Reveal>
-          <p className="section-label mb-6">Client Stories</p>
+          <p className="section-label mb-6 text-brand-accent">Client Stories</p>
         </Reveal>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
@@ -549,10 +549,10 @@ function ValuesSection() {
   ];
 
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-dark">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-[#0f1540]">
       <div className="max-w-7xl mx-auto">
         <Reveal>
-          <p className="section-label mb-6">Our Values</p>
+          <p className="section-label mb-6 text-brand-accent">Our Values</p>
         </Reveal>
 
         <div className="grid md:grid-cols-3 gap-8 md:gap-12">
@@ -583,7 +583,7 @@ function ImageBreak() {
         alt="Architectural glass installation"
         className="w-full h-full object-cover"
       />
-      <div className="absolute inset-0 bg-black/30" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#1a2055]/60 to-[#2d6db5]/30" />
     </section>
   );
 }

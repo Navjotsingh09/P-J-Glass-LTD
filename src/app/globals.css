@@ -13,11 +13,11 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: #0a0a0a;
+  background-color: #1a2055;
 }
 
 body {
-  background-color: #0a0a0a;
+  background-color: #1a2055;
   color: #f5f5f5;
   overflow-x: hidden;
 }
@@ -38,7 +38,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p {
-  color: #888888;
+  color: #94a3c4;
   line-height: 1.7;
   font-weight: 300;
 }
@@ -60,14 +60,14 @@ img {
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #888888;
+  color: #5ec4d4;
   font-weight: 500;
 }
 
 .divider {
   width: 100%;
   height: 1px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(94, 196, 212, 0.15);
 }
 
 /* Image reveal on hover */
@@ -90,13 +90,14 @@ img {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   font-weight: 500;
-  color: #f5f5f5;
+  color: #5ec4d4;
   transition: all 0.4s ease;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(94, 196, 212, 0.4);
   padding-bottom: 0.5rem;
 }
 .btn-fluid:hover {
-  border-bottom-color: #f5f5f5;
+  border-bottom-color: #5ec4d4;
+  color: #fff;
 }
 
 .btn-filled {
@@ -105,8 +106,8 @@ img {
   justify-content: center;
   gap: 0.75rem;
   padding: 1rem 2.5rem;
-  background-color: #f5f5f5;
-  color: #0a0a0a;
+  background-color: #5ec4d4;
+  color: #1a2055;
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -114,8 +115,8 @@ img {
   transition: all 0.4s ease;
 }
 .btn-filled:hover {
-  background-color: #5ec4d4;
-  color: #0a0a0a;
+  background-color: #fff;
+  color: #1a2055;
 }
 
 .btn-outline-fluid {
@@ -124,8 +125,8 @@ img {
   justify-content: center;
   gap: 0.75rem;
   padding: 1rem 2.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #f5f5f5;
+  border: 1px solid rgba(94, 196, 212, 0.4);
+  color: #5ec4d4;
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -133,8 +134,9 @@ img {
   transition: all 0.4s ease;
 }
 .btn-outline-fluid:hover {
-  border-color: #f5f5f5;
-  background-color: rgba(255, 255, 255, 0.05);
+  border-color: #5ec4d4;
+  background-color: rgba(94, 196, 212, 0.1);
+  color: #fff;
 }
 
 /* Project card hover */
@@ -198,12 +200,12 @@ img {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #1a2055;
 }
 ::-webkit-scrollbar-thumb {
-  background: #333;
+  background: #2d6db5;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #5ec4d4;
 }

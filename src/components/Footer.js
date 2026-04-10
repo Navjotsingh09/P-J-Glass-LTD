@@ -1,12 +1,13 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-brand-black border-t border-white/10">
+    <footer className="bg-brand-navy border-t border-white/10">
       {/* CTA Section */}
       <section className="py-section px-6 md:px-10 lg:px-16">
         <div className="max-w-7xl mx-auto">
@@ -38,11 +39,15 @@ export default function Footer() {
             {/* Logo & Info */}
             <div className="lg:col-span-1">
               <Link href="/" className="inline-block mb-6">
-                <span className="text-brand-white text-lg tracking-[0.2em] font-light uppercase">
-                  P&J Glass
-                </span>
+                <Image
+                  src="/images/logo-white.svg"
+                  alt="P&J Glass"
+                  width={160}
+                  height={42}
+                  className="h-10 w-auto"
+                />
               </Link>
-              <p className="text-brand-grey text-sm leading-relaxed">
+              <p className="text-white/60 text-sm leading-relaxed">
                 Premium glazing solutions for ambitious architectural projects.
                 Every pane reflects our commitment to clarity, quality, and collaboration.
               </p>
