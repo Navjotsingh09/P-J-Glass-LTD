@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { productCategories, getAllProducts, getProductsByCategory } from '../../lib/products';
 
@@ -34,8 +35,22 @@ function Reveal({ children, className = '', delay = 0 }) {
 }
 
 export default function ProductsPage() {
-  const [activeCategory, setActiveCategory] = useState('all');
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-brand-black" />}>
+      <ProductsContent />
+    </Suspense>
+  );
+}
+
+function ProductsContent() {
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get('category');
+  const [activeCategory, setActiveCategory] = useState(categoryParam || 'all');
   const allProducts = getAllProducts();
+
+  useEffect(() => {
+    if (categoryParam) setActiveCategory(categoryParam);
+  }, [categoryParam]);
 
   const categories = [
     { id: 'all', name: 'All' },

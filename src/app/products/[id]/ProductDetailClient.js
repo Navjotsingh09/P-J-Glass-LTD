@@ -99,7 +99,7 @@ export default function ProductDetailClient({ product, relatedProducts }) {
 
                 {/* Description */}
                 <p className="text-brand-grey text-base font-light leading-relaxed mb-8">
-                  {product.description}
+                  {product.shortDesc}
                 </p>
 
                 {/* Sizes */}

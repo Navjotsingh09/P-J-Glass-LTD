@@ -100,49 +100,21 @@ export default function MirrorsPage() {
                 transition={{ delay: index * 0.1 }}
                 className="card hover:shadow-xl transition-all"
               >
-                <div className="relative h-64 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg flex items-center justify-center mb-4">
-                  <span className="text-8xl">🪞</span>
-                  {mirror.trending && (
-                    <span className="absolute top-3 left-3 bg-primary text-white text-xs px-3 py-1 rounded-full">
-                      Trending
-                    </span>
-                  )}
-                  {mirror.popular && (
-                    <span className="absolute top-3 left-3 bg-success text-white text-xs px-3 py-1 rounded-full">
-                      Popular
-                    </span>
-                  )}
+                <div className="relative h-64 overflow-hidden rounded-lg bg-gray-100 mb-4">
+                  <img src={mirror.image} alt={mirror.name} className="w-full h-full object-cover" />
                 </div>
 
                 <h3 className="text-xl font-bold mb-2">{mirror.name}</h3>
-                <p className="text-sm text-gray-600 mb-3">
-                  {mirror.thickness} • {mirror.finish}
-                </p>
-
-                <ul className="text-sm text-gray-600 mb-4 space-y-1">
-                  {mirror.features.slice(0, 3).map((feature, i) => (
-                    <li key={i} className="flex items-start">
-                      <span className="text-success mr-2">✓</span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                {mirror.rating && (
-                  <div className="flex items-center gap-1 mb-3">
-                    <div className="flex text-amber-400">
-                      {'★'.repeat(Math.floor(mirror.rating))}
-                    </div>
-                    <span className="text-xs text-gray-500">({mirror.reviews || 0})</span>
-                  </div>
+                {mirror.shortDesc && (
+                  <p className="text-sm text-gray-600 mb-3">{mirror.shortDesc}</p>
                 )}
 
                 <div className="text-3xl font-bold text-primary mb-4">
                   {mirror.priceDisplay}
                 </div>
 
-                <Link href="/contact" className="btn-primary w-full text-center">
-                  Get Quote
+                <Link href={`/products/${mirror.id}`} className="btn-primary w-full text-center">
+                  View Details
                 </Link>
               </motion.div>
             ))}
