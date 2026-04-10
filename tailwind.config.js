@@ -8,51 +8,53 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // P&J Glass Brand Colors
-        primary: {
-          DEFAULT: '#1E88E5',
-          dark: '#1565C0',
-          light: '#42A5F5',
+        brand: {
+          black: '#0a0a0a',
+          dark: '#111111',
+          charcoal: '#1a1a1a',
+          grey: '#888888',
+          light: '#cccccc',
+          white: '#f5f5f5',
+          accent: '#c8a97e',
         },
-        secondary: {
-          DEFAULT: '#00ACC1',
-          dark: '#00838F',
-          light: '#26C6DA',
-        },
-        neutral: {
-          dark: '#263238',
-          grey: '#546E7A',
-          light: '#ECEFF1',
-          white: '#FFFFFF',
-        },
-        success: '#43A047',
-        warning: '#FB8C00',
-        error: '#E53935',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        heading: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-inter)', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        'h1': 'clamp(2rem, 5vw, 3rem)',
-        'h2': 'clamp(1.75rem, 4vw, 2.25rem)',
-        'h3': 'clamp(1.5rem, 3vw, 1.75rem)',
+        'display-xl': ['clamp(3rem, 8vw, 7rem)', { lineHeight: '0.95', letterSpacing: '-0.02em', fontWeight: '300' }],
+        'display-lg': ['clamp(2.5rem, 6vw, 5rem)', { lineHeight: '1', letterSpacing: '-0.02em', fontWeight: '300' }],
+        'display-md': ['clamp(1.75rem, 4vw, 3rem)', { lineHeight: '1.1', letterSpacing: '-0.01em', fontWeight: '300' }],
+        'display-sm': ['clamp(1.25rem, 2vw, 1.5rem)', { lineHeight: '1.3', fontWeight: '400' }],
+        'label': ['0.75rem', { lineHeight: '1', letterSpacing: '0.15em', fontWeight: '500' }],
       },
       spacing: {
-        'section': 'clamp(4rem, 8vw, 6rem)',
-      },
-      borderRadius: {
-        'card': '0.5rem',
-      },
-      boxShadow: {
-        'card': '0 2px 4px rgba(0,0,0,0.1)',
-        'card-hover': '0 4px 12px rgba(0,0,0,0.15)',
-        'button': '0 2px 8px rgba(67, 160, 71, 0.3)',
+        'section': 'clamp(5rem, 12vw, 10rem)',
       },
       transitionDuration: {
-        'fast': '150ms',
-        'base': '300ms',
-        'slow': '500ms',
+        '600': '600ms',
+        '800': '800ms',
+        '1000': '1000ms',
+      },
+      keyframes: {
+        'fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(40px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        'slide-in': {
+          '0%': { transform: 'translateY(100%)' },
+          '100%': { transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        'fade-up': 'fade-up 0.8s ease-out forwards',
+        'fade-in': 'fade-in 0.6s ease-out forwards',
+        'slide-in': 'slide-in 0.6s ease-out forwards',
       },
     },
   },

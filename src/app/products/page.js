@@ -1,276 +1,168 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { 
-  balustrades, 
-  splashbackColors, 
-  splashbackPrints, 
-  mirrors, 
-  bathScreens,
-  productCategories 
-} from '../../lib/products';
+import { getAllProducts, getProductsByCategory } from '../../lib/products';
+
+function useReveal() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('visible');
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return ref;
+}
+
+function Reveal({ children, className = '', delay = 0 }) {
+  const ref = useReveal();
+  return (
+    <div ref={ref} className={`reveal ${delay ? `reveal-delay-${delay}` : ''} ${className}`}>
+      {children}
+    </div>
+  );
+}
 
 export default function ProductsPage() {
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [priceFilter, setPriceFilter] = useState('all');
+  const [activeCategory, setActiveCategory] = useState('all');
+  const allProducts = getAllProducts();
 
-  const allProducts = [
-    ...balustrades,
-    ...splashbackColors,
-    ...splashbackPrints,
-    ...mirrors,
-    ...bathScreens,
+  const categories = [
+    { id: 'all', name: 'All' },
+    { id: 'balustrades', name: 'Balustrades' },
+    { id: 'splashbacks-colours', name: 'Splashback Colours' },
+    { id: 'splashbacks-prints', name: 'Splashback Prints' },
+    { id: 'mirrors', name: 'Mirrors' },
+    { id: 'bath-screens', name: 'Bath Screens' },
+    { id: 'juliet-balconies', name: 'Juliet Balconies' },
   ];
 
-  const filteredProducts = allProducts.filter(product => {
-    if (selectedCategory !== 'all' && product.category !== selectedCategory) {
-      return false;
-    }
-    
-    if (priceFilter !== 'all') {
-      if (priceFilter === 'under100' && product.priceFrom >= 100) return false;
-      if (priceFilter === '100-200' && (product.priceFrom < 100 || product.priceFrom >= 200)) return false;
-      if (priceFilter === 'over200' && product.priceFrom < 200) return false;
-    }
-    
-    return true;
-  });
+  const filteredProducts =
+    activeCategory === 'all'
+      ? allProducts
+      : allProducts.filter((p) => p.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary to-secondary text-white py-20">
-        <div className="container-custom text-center">
-          <motion.h1 
-            className="text-5xl font-bold mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            Our Products
-          </motion.h1>
-          <motion.p 
-            className="text-xl opacity-90 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-          >
-            Premium glass products for your home and business
-          </motion.p>
+    <>
+      {/* Hero */}
+      <section className="relative h-[50vh] min-h-[400px] flex items-end overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1920&auto=format&fit=crop&q=80"
+            alt="P&J Glass Collection"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/60" />
+        </div>
+        <div className="relative z-10 px-6 md:px-10 lg:px-16 pb-16 md:pb-24 w-full">
+          <div className="max-w-7xl mx-auto">
+            <p className="section-label mb-4">Collection</p>
+            <h1 className="text-display-xl text-brand-white">PRODUCT COLLECTION</h1>
+          </div>
         </div>
       </section>
 
-      {/* Filters */}
-      <section className="py-8 bg-white shadow-sm sticky top-0 z-10">
-        <div className="container-custom">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            {/* Category Filter */}
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => setSelectedCategory('all')}
-                className={`px-4 py-2 rounded-lg transition-all ${
-                  selectedCategory === 'all'
-                    ? 'bg-primary text-white'
-                    : 'bg-gray-100 hover:bg-gray-200'
-                }`}
-              >
-                All Products
-              </button>
-              {Object.entries(productCategories).map(([key, cat]) => (
+      {/* Intro */}
+      <section className="py-16 md:py-24 px-6 md:px-10 lg:px-16 bg-brand-black">
+        <div className="max-w-7xl mx-auto">
+          <Reveal>
+            <div className="max-w-3xl">
+              <h2 className="text-display-md text-brand-white mb-6">
+                Our glazing collection is defined by exceptional craftsmanship, refined
+                design, and enduring quality.
+              </h2>
+              <p className="text-brand-grey text-lg font-light">
+                Made for bold architecture and uncompromising vision.
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Product Grid */}
+      <section className="pb-section px-6 md:px-10 lg:px-16 bg-brand-black">
+        <div className="max-w-7xl mx-auto">
+          {/* Category Tabs */}
+          <Reveal>
+            <div className="flex flex-wrap gap-2 mb-12 border-b border-white/10 pb-4">
+              {categories.map((cat) => (
                 <button
-                  key={key}
-                  onClick={() => setSelectedCategory(key)}
-                  className={`px-4 py-2 rounded-lg transition-all ${
-                    selectedCategory === key
-                      ? 'bg-primary text-white'
-                      : 'bg-gray-100 hover:bg-gray-200'
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`px-4 py-2.5 text-[0.7rem] tracking-[0.1em] uppercase font-medium transition-all duration-300 ${
+                    activeCategory === cat.id
+                      ? 'text-brand-white bg-white/10'
+                      : 'text-brand-grey hover:text-brand-white'
                   }`}
                 >
-                  {cat.icon} {cat.name}
+                  {cat.name}
                 </button>
               ))}
             </div>
+          </Reveal>
 
-            {/* Price Filter */}
-            <select
-              value={priceFilter}
-              onChange={(e) => setPriceFilter(e.target.value)}
-              className="px-4 py-2 border rounded-lg"
-            >
-              <option value="all">All Prices</option>
-              <option value="under100">Under £100</option>
-              <option value="100-200">£100 - £200</option>
-              <option value="over200">Over £200</option>
-            </select>
-          </div>
-
-          {/* Results Count */}
-          <div className="mt-4 text-sm text-gray-600">
-            Showing {filteredProducts.length} products
-          </div>
-        </div>
-      </section>
-
-      {/* Products Grid */}
-      <section className="py-16">
-        <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredProducts.map((product, index) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-                className="card group hover:shadow-xl transition-all duration-300"
-              >
-                {/* Product Image */}
-                <div className="relative h-64 bg-gray-200 rounded-t-lg overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                    <span className="text-6xl">{
-                      product.category === 'balustrades' ? '🪜' :
-                      product.category === 'splashbacks' ? '🎨' :
-                      product.category === 'mirrors' ? '🪞' :
-                      product.category === 'bathScreens' ? '🛁' : '✨'
-                    }</span>
+          {/* Products */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProducts.map((product) => (
+              <Reveal key={product.id}>
+                <Link
+                  href={`/products/${product.id}`}
+                  className="group block"
+                >
+                  <div className="aspect-[3/4] overflow-hidden mb-4 img-reveal bg-brand-charcoal">
+                    <img
+                      src={product.image || 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&auto=format&fit=crop&q=80'}
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  
-                  {/* Badges */}
-                  <div className="absolute top-3 left-3 flex flex-col gap-2">
-                    {product.popular && (
-                      <span className="bg-success text-white text-xs px-2 py-1 rounded">
-                        Popular
-                      </span>
-                    )}
-                    {product.bestSeller && (
-                      <span className="bg-amber-500 text-white text-xs px-2 py-1 rounded">
-                        Best Seller
-                      </span>
-                    )}
-                    {product.trending && (
-                      <span className="bg-primary text-white text-xs px-2 py-1 rounded">
-                        Trending
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Color Swatch for Splashbacks */}
-                  {product.hex && (
-                    <div className="absolute bottom-3 right-3">
-                      <div 
-                        className="w-10 h-10 rounded-full border-2 border-white shadow-lg"
-                        style={{ backgroundColor: product.hex }}
-                      />
-                    </div>
-                  )}
-                </div>
-
-                {/* Product Info */}
-                <div className="p-4">
-                  <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
-                    {product.name}
-                  </h3>
-                  
-                  {/* Product Details */}
-                  <div className="text-sm text-gray-600 mb-3 space-y-1">
-                    {product.thickness && (
-                      <div>Thickness: <span className="font-medium">{product.thickness}</span></div>
-                    )}
-                    {product.finish && (
-                      <div>Finish: <span className="font-medium">{product.finish}</span></div>
-                    )}
-                    {product.colorName && (
-                      <div>Color: <span className="font-medium">{product.colorName}</span></div>
-                    )}
-                  </div>
-
-                  {/* Features */}
-                  {product.features && product.features.length > 0 && (
-                    <ul className="text-xs text-gray-500 mb-3 space-y-1">
-                      {product.features.slice(0, 2).map((feature, i) => (
-                        <li key={i} className="flex items-start">
-                          <span className="text-success mr-1">✓</span>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-
-                  {/* Rating */}
-                  {product.rating && (
-                    <div className="flex items-center gap-1 mb-3">
-                      <div className="flex text-amber-400">
-                        {'★'.repeat(Math.floor(product.rating))}
-                      </div>
-                      <span className="text-xs text-gray-500">
-                        ({product.reviews || 0})
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Price */}
-                  <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-start justify-between gap-4">
                     <div>
-                      <div className="text-2xl font-bold text-primary">
-                        {product.priceDisplay || `£${product.priceFrom}`}
-                      </div>
-                      {product.priceFrom < product.priceTo && (
-                        <div className="text-xs text-gray-500">Starting from</div>
+                      {product.badges?.includes('popular') && (
+                        <span className="text-[0.65rem] tracking-[0.15em] uppercase text-brand-accent font-medium">
+                          Popular
+                        </span>
                       )}
+                      {product.badges?.includes('bestseller') && (
+                        <span className="text-[0.65rem] tracking-[0.15em] uppercase text-brand-accent font-medium">
+                          Best Seller
+                        </span>
+                      )}
+                      <h3 className="text-brand-white text-sm font-light mt-1 group-hover:text-brand-accent transition-colors">
+                        {product.name}
+                      </h3>
+                      <p className="text-brand-grey text-xs mt-1">
+                        From &pound;{product.priceFrom}
+                      </p>
                     </div>
-                  </div>
-
-                  {/* CTA Buttons */}
-                  <div className="flex gap-2">
-                    <Link 
-                      href={`/products/${product.id}`}
-                      className="btn-primary flex-1 text-center text-sm py-2"
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="text-brand-grey group-hover:text-brand-white transition-colors mt-1 flex-shrink-0"
                     >
-                      View Details
-                    </Link>
-                    <Link 
-                      href="/contact"
-                      className="btn-outline flex-1 text-center text-sm py-2"
-                    >
-                      Get Quote
-                    </Link>
+                      <path d="M7 17L17 7M17 7H7M17 7v10" />
+                    </svg>
                   </div>
-                </div>
-              </motion.div>
+                </Link>
+              </Reveal>
             ))}
           </div>
-
-          {/* No Results */}
-          {filteredProducts.length === 0 && (
-            <div className="text-center py-20">
-              <p className="text-xl text-gray-500">No products found matching your filters.</p>
-              <button 
-                onClick={() => {
-                  setSelectedCategory('all');
-                  setPriceFilter('all');
-                }}
-                className="btn-primary mt-4"
-              >
-                Clear Filters
-              </button>
-            </div>
-          )}
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="bg-gradient-to-r from-primary to-secondary text-white py-16">
-        <div className="container-custom text-center">
-          <h2 className="text-3xl font-bold mb-4">Can't Find What You're Looking For?</h2>
-          <p className="text-lg mb-6 opacity-90">
-            We offer custom solutions tailored to your specific needs
-          </p>
-          <Link href="/contact" className="btn-secondary">
-            Contact Us for Custom Quote
-          </Link>
-        </div>
-      </section>
-    </div>
+    </>
   );
 }

@@ -3,20 +3,21 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './globals.css';
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
+  weight: ['100', '200', '300', '400', '500', '600', '700'],
 });
 
 export const metadata = {
   metadataBase: new URL('https://pjglass.co.uk'),
   title: {
-    default: 'P&J Glass | Premium Glass Solutions in Romford & Essex',
+    default: 'P&J Glass | Premium Glazing Specialists',
     template: '%s | P&J Glass',
   },
-  description: 'Transform your space with P&J Glass. Expert glass balustrades, kitchen splashbacks, shower screens, and mirrors. Professional installation across London & Essex. Free quotes. Call 01708 123 456.',
-  keywords: ['glass balustrades', 'kitchen splashbacks', 'shower screens', 'glass mirrors', 'bespoke glass', 'Romford glass', 'Essex glass', 'London glass services', 'glass installation', 'frameless glass'],
+  description: 'We design and install bespoke glass systems for ambitious architectural projects. Premium balustrades, splashbacks, shower screens, and mirrors across London & Essex.',
+  keywords: ['glass balustrades', 'kitchen splashbacks', 'shower screens', 'glass mirrors', 'bespoke glass', 'architectural glazing', 'Romford glass', 'Essex glass', 'London glass services'],
   authors: [{ name: 'P&J Glass' }],
   creator: 'P&J Glass',
   publisher: 'P&J Glass',
@@ -36,38 +37,34 @@ export const metadata = {
     locale: 'en_GB',
     url: 'https://pjglass.co.uk',
     siteName: 'P&J Glass',
-    title: 'P&J Glass | Premium Glass Solutions in Romford & Essex',
-    description: 'Transform your space with expert glass solutions. Balustrades, splashbacks, shower screens, and more. Professional installation across London & Essex.',
+    title: 'P&J Glass | Premium Glazing Specialists',
+    description: 'We design and install bespoke glass systems for ambitious architectural projects.',
     images: [
       {
         url: '/images/hero-balustrade.jpg',
         width: 1200,
         height: 630,
-        alt: 'P&J Glass - Premium Glass Solutions',
+        alt: 'P&J Glass - Premium Glazing Specialists',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'P&J Glass | Premium Glass Solutions',
-    description: 'Transform your space with expert glass solutions. Balustrades, splashbacks, shower screens & mirrors.',
+    title: 'P&J Glass | Premium Glazing Specialists',
+    description: 'We design and install bespoke glass systems for ambitious architectural projects.',
     images: ['/images/hero-balustrade.jpg'],
   },
   alternates: {
     canonical: 'https://pjglass.co.uk',
   },
-  category: 'home improvement',
-  verification: {
-    google: 'YOUR_GOOGLE_VERIFICATION_CODE',
-  },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className={inter.className}>
+    <html lang="en" className={`${inter.variable} bg-brand-black`}>
+      <body className={`${inter.className} bg-brand-black text-brand-white`}>
         <Header />
-        {children}
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
