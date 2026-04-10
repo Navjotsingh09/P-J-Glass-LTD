@@ -7,7 +7,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-brand-navy border-t border-white/10">
+    <footer className="bg-brand-black border-t border-white/10">
       {/* CTA Section */}
       <section className="py-section px-6 md:px-10 lg:px-16">
         <div className="max-w-7xl mx-auto">
@@ -40,11 +40,11 @@ export default function Footer() {
             <div className="lg:col-span-1">
               <Link href="/" className="inline-block mb-6">
                 <Image
-                  src="/images/logo-white.svg"
+                  src="/images/logo.png"
                   alt="P&J Glass"
                   width={160}
                   height={42}
-                  className="h-10 w-auto"
+                  className="h-10 w-auto brightness-0 invert"
                 />
               </Link>
               <p className="text-white/60 text-sm leading-relaxed">

@@ -38,7 +38,7 @@ export default function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-brand-navy/95 backdrop-blur-md shadow-lg'
+            ? 'bg-brand-black/95 backdrop-blur-md shadow-lg'
             : 'bg-transparent'
         }`}
       >
@@ -46,12 +46,12 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="relative z-50 flex items-center gap-3">
             <Image
-              src={scrolled ? '/images/logo-white.svg' : '/images/logo-white.svg'}
+              src="/images/logo.png"
               alt="P&J Glass"
               width={180}
               height={48}
               priority
-              className="h-10 md:h-12 w-auto"
+              className="h-10 md:h-12 w-auto brightness-0 invert"
             />
           </Link>
 
@@ -72,7 +72,7 @@ export default function Header() {
           <div className="hidden lg:flex items-center gap-6">
             <Link
               href="/contact"
-              className="bg-brand-accent text-brand-navy px-6 py-3 text-[0.7rem] tracking-[0.15em] uppercase font-semibold hover:bg-white transition-colors duration-300"
+              className="bg-brand-accent text-brand-black px-6 py-3 text-[0.7rem] tracking-[0.15em] uppercase font-semibold hover:bg-white transition-colors duration-300"
             >
               Get a Quote
             </Link>
@@ -100,7 +100,7 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-brand-navy transition-opacity duration-500 lg:hidden ${
+        className={`fixed inset-0 z-40 bg-brand-black transition-opacity duration-500 lg:hidden ${
           mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >

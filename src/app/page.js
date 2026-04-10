@@ -48,7 +48,7 @@ function HeroSection() {
           alt="Modern architectural glass"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1a2055]/90 via-[#1a2055]/50 to-[#1a2055]/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/90 via-[#0a0a0a]/50 to-[#0a0a0a]/30" />
       </div>
 
       {/* Hero Content */}
@@ -93,7 +93,7 @@ function HeroSection() {
 /* ─── About Section ─── */
 function AboutSection() {
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-navy">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-black">
       <div className="max-w-7xl mx-auto">
         <Reveal>
           <p className="section-label mb-6 text-brand-accent">About P&J Glass</p>
@@ -165,7 +165,7 @@ function ProductCollection() {
   };
 
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-[#0f1540]">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-dark">
       <div className="max-w-7xl mx-auto">
         <Reveal>
           <p className="section-label mb-6 text-brand-accent">Product Collection</p>
@@ -254,7 +254,7 @@ function ProductCollection() {
 /* ─── Showroom Section ─── */
 function ShowroomSection() {
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-navy">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-charcoal">
       <div className="max-w-7xl mx-auto">
         <Reveal>
           <p className="section-label mb-6 text-brand-accent">Showroom</p>
@@ -337,7 +337,7 @@ function FeaturedProjects() {
   ];
 
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-[#141a4a]">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-dark">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
           <Reveal>
@@ -429,7 +429,7 @@ function ClientStories() {
   }, [testimonials.length]);
 
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-navy">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-black">
       <div className="max-w-7xl mx-auto">
         <Reveal>
           <p className="section-label mb-6 text-brand-accent">Client Stories</p>
@@ -549,7 +549,7 @@ function ValuesSection() {
   ];
 
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-[#0f1540]">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-charcoal">
       <div className="max-w-7xl mx-auto">
         <Reveal>
           <p className="section-label mb-6 text-brand-accent">Our Values</p>
@@ -583,7 +583,7 @@ function ImageBreak() {
         alt="Architectural glass installation"
         className="w-full h-full object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#1a2055]/60 to-[#2d6db5]/30" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/60 to-transparent" />
     </section>
   );
 }
