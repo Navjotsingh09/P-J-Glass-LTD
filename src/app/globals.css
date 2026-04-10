@@ -23,7 +23,7 @@ body {
 }
 
 ::selection {
-  background-color: rgba(200, 169, 126, 0.3);
+  background-color: rgba(94, 196, 212, 0.3);
   color: #fff;
 }
 
@@ -114,7 +114,7 @@ img {
   transition: all 0.4s ease;
 }
 .btn-filled:hover {
-  background-color: #c8a97e;
+  background-color: #5ec4d4;
   color: #0a0a0a;
 }
 

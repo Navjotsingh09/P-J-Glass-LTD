@@ -85,7 +85,7 @@ export default function ProductDetailClient({ product, relatedProducts }) {
                   <div className="flex items-center gap-3 mb-6">
                     <div className="flex items-center gap-0.5">
                       {[...Array(5)].map((_, i) => (
-                        <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill={i < Math.floor(product.rating) ? '#c8a97e' : 'none'} stroke="#c8a97e" strokeWidth="1.5">
+                        <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill={i < Math.floor(product.rating) ? '#5ec4d4' : 'none'} stroke="#5ec4d4" strokeWidth="1.5">
                           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                         </svg>
                       ))}

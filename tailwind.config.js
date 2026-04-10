@@ -15,7 +15,9 @@ module.exports = {
           grey: '#888888',
           light: '#cccccc',
           white: '#f5f5f5',
-          accent: '#c8a97e',
+          accent: '#5ec4d4',
+          navy: '#1a2055',
+          blue: '#2d6db5',
         },
       },
       fontFamily: {
