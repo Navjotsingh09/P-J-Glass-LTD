@@ -83,18 +83,27 @@ export default function Footer() {
             <div>
               <ul className="space-y-3 text-sm text-brand-grey">
                 <li>
-                  <a href="tel:01708123456" className="hover:text-brand-white transition-colors">
-                    01708 123 456
+                  <a href="tel:02085991622" className="hover:text-brand-white transition-colors">
+                    020 8599 1622
                   </a>
                 </li>
                 <li>
-                  <a href="mailto:info@pjglass.co.uk" className="hover:text-brand-white transition-colors">
-                    info@pjglass.co.uk
+                  <a href="tel:+447733309314" className="hover:text-brand-white transition-colors">
+                    +44 7733 309 314
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:info@pj-glass.co.uk" className="hover:text-brand-white transition-colors">
+                    info@pj-glass.co.uk
                   </a>
                 </li>
                 <li className="leading-relaxed">
-                  Unit 5, Romford Industrial Estate<br />
-                  Romford, Essex RM1 2XX, UK
+                  1181 High Rd, Romford<br />
+                  RM6 4AL, UK
+                </li>
+                <li className="leading-relaxed">
+                  Mon–Sat: 8 AM – 5 PM<br />
+                  Sun: 10 AM – 2 PM
                 </li>
               </ul>
             </div>

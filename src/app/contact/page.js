@@ -103,19 +103,26 @@ export default function ContactPage() {
             <Reveal>
               <p className="section-label mb-3">Talk to us</p>
               <a
-                href="tel:01708123456"
+                href="tel:02085991622"
                 className="text-brand-white text-2xl md:text-3xl font-light hover:text-brand-accent transition-colors"
               >
-                01708 123 456
+                020 8599 1622
+              </a>
+              <br />
+              <a
+                href="tel:+447733309314"
+                className="text-brand-grey text-lg font-light hover:text-brand-accent transition-colors mt-2 inline-block"
+              >
+                +44 7733 309 314
               </a>
             </Reveal>
             <Reveal delay={1}>
               <p className="section-label mb-3">Write us</p>
               <a
-                href="mailto:info@pjglass.co.uk"
+                href="mailto:info@pj-glass.co.uk"
                 className="text-brand-white text-lg md:text-xl font-light hover:text-brand-accent transition-colors uppercase tracking-wide"
               >
-                info@pjglass.co.uk
+                info@pj-glass.co.uk
               </a>
             </Reveal>
             <Reveal delay={2}>
@@ -134,11 +141,14 @@ export default function ContactPage() {
             <div className="border-t border-white/10 pt-10">
               <p className="section-label mb-4">Address</p>
               <p className="text-brand-light text-xl md:text-2xl font-light">
-                Unit 5, Romford Industrial Estate<br />
-                Romford, Essex RM1 2XX, UK
+                1181 High Rd, Romford<br />
+                RM6 4AL, UK
+              </p>
+              <p className="text-brand-grey text-sm mt-4">
+                Mon–Sat: 8 AM – 5 PM &nbsp;|&nbsp; Sun: 10 AM – 2 PM
               </p>
               <a
-                href="https://maps.google.com/?q=Romford+Industrial+Estate"
+                href="https://maps.google.com/?q=1181+High+Rd+Romford+RM6+4AL"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-fluid mt-6 inline-flex"

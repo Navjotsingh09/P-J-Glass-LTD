@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { projects } from '@/lib/projects';
 
 function useReveal() {
   const ref = useRef(null);
@@ -15,7 +16,7 @@ function useReveal() {
           observer.unobserve(el);
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.1 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -33,56 +34,11 @@ function Reveal({ children, className = '', delay = 0 }) {
 }
 
 export default function PortfolioPage() {
-  const projects = [
-    {
-      title: 'Modern Residence',
-      location: 'Brentwood, Essex',
-      tags: ['Frameless Balustrade', 'Glass Staircase'],
-      image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&auto=format&fit=crop&q=80',
-    },
-    {
-      title: 'Kitchen Transformation',
-      location: 'Islington, London',
-      tags: ['Duck Egg Splashback', 'Custom Cut'],
-      image: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&auto=format&fit=crop&q=80',
-    },
-    {
-      title: 'Luxury Bathroom Suite',
-      location: 'Chelsea, London',
-      tags: ['Walk-in Shower', 'Frameless Screen'],
-      image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&auto=format&fit=crop&q=80',
-    },
-    {
-      title: 'Commercial Office',
-      location: 'Canary Wharf, London',
-      tags: ['Glass Partitions', 'Mirror Feature Wall'],
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80',
-    },
-    {
-      title: 'Penthouse Renovation',
-      location: 'Mayfair, London',
-      tags: ['Juliet Balcony', 'Glass Railing'],
-      image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c30f8bf?w=800&auto=format&fit=crop&q=80',
-    },
-    {
-      title: 'Restaurant Interior',
-      location: 'Shoreditch, London',
-      tags: ['Tinted Mirror Wall', 'Splashback'],
-      image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&auto=format&fit=crop&q=80',
-    },
-    {
-      title: 'Residential Extension',
-      location: 'Hornchurch, Essex',
-      tags: ['Semi-Frameless Balustrade'],
-      image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&auto=format&fit=crop&q=80',
-    },
-    {
-      title: 'Boutique Hotel',
-      location: 'Kensington, London',
-      tags: ['Custom Shower Enclosures', 'Mirrors'],
-      image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&auto=format&fit=crop&q=80',
-    },
-  ];
+  const [filter, setFilter] = useState('All');
+
+  const categories = ['All', ...new Set(projects.map((p) => p.category))];
+
+  const filtered = filter === 'All' ? projects : projects.filter((p) => p.category === filter);
 
   return (
     <>
@@ -121,13 +77,36 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Project Grid */}
+      {/* Filters + Grid */}
       <section className="pb-section px-6 md:px-10 lg:px-16 bg-brand-black">
         <div className="max-w-7xl mx-auto">
+          {/* Category Filter */}
+          <Reveal>
+            <div className="flex flex-wrap gap-2 mb-12 border-b border-white/10 pb-4">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setFilter(cat)}
+                  className={`px-4 py-2.5 text-[0.7rem] tracking-[0.1em] uppercase font-medium transition-all duration-300 ${
+                    filter === cat
+                      ? 'text-brand-white bg-white/10'
+                      : 'text-brand-grey hover:text-brand-white'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </Reveal>
+
+          {/* Project Grid */}
           <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-            {projects.map((project, idx) => (
-              <Reveal key={project.title} delay={idx % 2 === 0 ? 0 : 1}>
-                <div className="project-card group block relative aspect-[16/10] overflow-hidden cursor-pointer">
+            {filtered.map((project, idx) => (
+              <Reveal key={project.slug} delay={idx % 2 === 0 ? 0 : 1}>
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="project-card group block relative aspect-[16/10] overflow-hidden"
+                >
                   <img
                     src={project.image}
                     alt={project.title}
@@ -135,24 +114,17 @@ export default function PortfolioPage() {
                   />
                   <div className="overlay" />
                   <div className="content">
+                    <p className="text-[0.6rem] tracking-[0.15em] uppercase text-brand-accent mb-2">
+                      {project.category}
+                    </p>
                     <h3 className="text-brand-white text-xl md:text-2xl font-light mb-1">
                       {project.title}
                     </h3>
-                    <p className="text-brand-grey text-xs tracking-[0.1em] uppercase mb-2">
+                    <p className="text-brand-grey text-xs tracking-[0.1em] uppercase">
                       {project.location}
                     </p>
-                    <div className="flex flex-wrap gap-3">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-[0.65rem] tracking-[0.1em] uppercase text-brand-light/70"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
                   </div>
-                </div>
+                </Link>
               </Reveal>
             ))}
           </div>

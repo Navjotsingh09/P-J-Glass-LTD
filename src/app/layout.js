@@ -11,12 +11,12 @@ const inter = Inter({
 });
 
 export const metadata = {
-  metadataBase: new URL('https://pjglass.co.uk'),
+  metadataBase: new URL('https://pj-glass.co.uk'),
   title: {
     default: 'P&J Glass | Premium Glazing Specialists',
     template: '%s | P&J Glass',
   },
-  description: 'We design and install bespoke glass systems for ambitious architectural projects. Premium balustrades, splashbacks, shower screens, and mirrors across London & Essex.',
+  description: 'P&J Glass LTD — your trusted glass design and cutting specialist in England. Premium balustrades, kitchen splashbacks, shower screens, mirrors, and custom glass installations across London & Essex.',
   keywords: ['glass balustrades', 'kitchen splashbacks', 'shower screens', 'glass mirrors', 'bespoke glass', 'architectural glazing', 'Romford glass', 'Essex glass', 'London glass services'],
   authors: [{ name: 'P&J Glass' }],
   creator: 'P&J Glass',

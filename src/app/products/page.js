@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { getAllProducts, getProductsByCategory } from '../../lib/products';
+import { productCategories, getAllProducts, getProductsByCategory } from '../../lib/products';
 
 function useReveal() {
   const ref = useRef(null);
@@ -39,18 +39,13 @@ export default function ProductsPage() {
 
   const categories = [
     { id: 'all', name: 'All' },
-    { id: 'balustrades', name: 'Balustrades' },
-    { id: 'splashbacks-colours', name: 'Splashback Colours' },
-    { id: 'splashbacks-prints', name: 'Splashback Prints' },
-    { id: 'mirrors', name: 'Mirrors' },
-    { id: 'bath-screens', name: 'Bath Screens' },
-    { id: 'juliet-balconies', name: 'Juliet Balconies' },
+    ...Object.entries(productCategories).map(([key, cat]) => ({ id: key, name: cat.name })),
   ];
 
   const filteredProducts =
     activeCategory === 'all'
       ? allProducts
-      : allProducts.filter((p) => p.category === activeCategory);
+      : getProductsByCategory(activeCategory);
 
   return (
     <>
@@ -128,21 +123,21 @@ export default function ProductsPage() {
                   </div>
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      {product.badges?.includes('popular') && (
+                      {product.popular && (
                         <span className="text-[0.65rem] tracking-[0.15em] uppercase text-brand-accent font-medium">
                           Popular
                         </span>
                       )}
-                      {product.badges?.includes('bestseller') && (
+                      {product.trending && (
                         <span className="text-[0.65rem] tracking-[0.15em] uppercase text-brand-accent font-medium">
-                          Best Seller
+                          Trending
                         </span>
                       )}
                       <h3 className="text-brand-white text-sm font-light mt-1 group-hover:text-brand-accent transition-colors">
                         {product.name}
                       </h3>
                       <p className="text-brand-grey text-xs mt-1">
-                        From &pound;{product.priceFrom}
+                        {product.priceDisplay}
                       </p>
                     </div>
                     <svg

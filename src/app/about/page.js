@@ -87,12 +87,14 @@ export default function AboutPage() {
             <Reveal>
               <p className="section-label mb-6">Manifesto</p>
               <h2 className="text-display-md text-brand-white leading-tight">
-                P&J Glass transforms architectural vision into built reality. We specialise
-                in bespoke glazing that shapes light, defines space, and elevates design.
+                Welcome to P&J Glass LTD, your trusted glass design and cutting
+                specialist in England. With years of expertise in the glass industry,
+                we deliver precision and quality in every project we undertake.
               </h2>
               <p className="text-brand-grey mt-6 text-lg font-light leading-relaxed">
-                Every project is guided by precision, craftsmanship, and a commitment to
-                enduring beauty.
+                Whether you need glass cut to size for windows, tabletops, or custom
+                installations — from bespoke shower screens to vibrant kitchen splashbacks
+                and elegant glass balustrades — we are here to meet your exact specifications.
               </p>
               <div className="mt-10">
                 <Link href="/portfolio" className="btn-fluid">
@@ -125,15 +127,18 @@ export default function AboutPage() {
           <Reveal>
             <div className="max-w-4xl">
               <p className="text-brand-light text-xl md:text-2xl font-light leading-relaxed">
-                We&apos;re a collective of craftsmen, engineers, and thinkers united by a deep
-                respect for detail. Our culture is built on collaboration and care. Every project
-                begins with understanding and ends with precision.
+                Our services extend beyond just cutting glass. We specialise in crafting
+                bespoke shower screens tailored to your space and style, vibrant coloured
+                kitchen splashbacks, custom glass balustrades, and precision-cut mirrors.
+                From sleek, modern designs to more traditional aesthetics, our products
+                enhance the beauty and functionality of your home.
               </p>
               <p className="text-brand-grey text-lg font-light leading-relaxed mt-6">
-                Guided by clarity in how we think, communicate, and build, we turn complex ideas
-                into seamless architectural experiences that endure. Based in Romford, Essex,
-                we serve London and the surrounding counties with over 15 years of expertise
-                in premium glass installations.
+                At P&J Glass LTD, we understand that every project is unique. That&apos;s why
+                we work closely with our clients to ensure our products not only meet
+                but exceed their expectations. Based at 1181 High Rd, Romford, we serve
+                London, Essex, and the surrounding counties with a commitment to quality
+                craftsmanship and customer satisfaction at the heart of everything we do.
               </p>
             </div>
           </Reveal>

@@ -1,488 +1,116 @@
 // P&J GLASS - PRODUCT DATABASE
-// Complete product catalog with pricing, specifications, and details
+// Complete product catalog sourced from real EGW products with pricing
 
 export const productCategories = {
   balustrades: {
     name: 'Glass Balustrades',
     slug: 'balustrades',
-    description: 'Premium toughened glass balustrade systems',
-    icon: '🪜',
+    description: 'Premium toughened glass balustrade systems for stairs, balconies, and decking',
   },
   splashbacks: {
     name: 'Kitchen Splashbacks',
     slug: 'splashbacks',
-    description: 'Painted & printed glass splashbacks',
-    icon: '🎨',
-  },
-  bathScreens: {
-    name: 'Bath Screens',
-    slug: 'bath-screens',
-    description: 'Frameless toughened glass bath screens',
-    icon: '🛁',
-  },
-  showers: {
-    name: 'Shower Screens',
-    slug: 'showers',
-    description: 'Custom shower enclosures & screens',
-    icon: '🚿',
-  },
-  julietBalconies: {
-    name: 'Juliet Balconies',
-    slug: 'juliet-balconies',
-    description: 'Complete Juliet balcony systems',
-    icon: '🏛️',
+    description: 'Painted & printed glass splashbacks — heat resistant, easy to clean',
   },
   mirrors: {
     name: 'Mirrors',
     slug: 'mirrors',
-    description: 'Frameless mirrors in various styles',
-    icon: '🪞',
+    description: 'Frameless mirrors in various styles — leaner, arch, pebble, gym & more',
+  },
+  julietBalconies: {
+    name: 'Juliet Balconies',
+    slug: 'juliet-balconies',
+    description: 'Complete Juliet balcony systems with toughened laminate glass & fittings',
+  },
+  bathScreens: {
+    name: 'Bath Screens',
+    slug: 'bath-screens',
+    description: 'Frameless toughened glass bath screens with premium hinges',
+  },
+  tableTopGlass: {
+    name: 'Table Top Glass',
+    slug: 'table-top-glass',
+    description: 'Toughened glass table top protectors in rectangle, round & square',
   },
 };
 
-// GLASS BALUSTRADES
 export const balustrades = [
-  {
-    id: 'bal-10-clear',
-    sku: 'BAL-10-CLEAR',
-    name: '10mm Clear Toughened Glass Balustrade',
-    category: 'balustrades',
-    thickness: '10mm',
-    material: 'Toughened Glass',
-    finish: 'Clear',
-    priceFrom: 44.34,
-    priceTo: 147.83,
-    priceDisplay: '£44.34 - £147.83',
-    image: '/images/products/balustrade-1.jpg',
-    features: [
-      'Polished edges included',
-      'BS EN 12150 compliant',
-      'Suitable for indoor/outdoor',
-      'Lead time: 10-15 working days',
-    ],
-    sizes: ['800mm x 900mm', '1000mm x 900mm', '1200mm x 900mm', 'Custom sizes available'],
-    image: '/images/products/balustrade-clear-10mm.jpg',
-    popular: true,
-  },
-  {
-    id: 'bal-10-satin',
-    sku: 'BAL-10-SATIN',
-    name: '10mm Satin/Frosted Toughened Glass Balustrade',
-    category: 'balustrades',
-    thickness: '10mm',
-    material: 'Satin Toughened Glass',
-    finish: 'Frosted/Satin',
-    priceFrom: 69.85,
-    priceTo: 341.51,
-    priceDisplay: '£69.85 - £341.51',
-    features: [
-      'Privacy without blocking light',
-      'Acid-etched finish',
-      'Non-slip when wet',
-      'Ideal for privacy applications',
-    ],
-    useCases: ['Balconies requiring privacy', 'Indoor staircases', 'Pool surrounds'],
-    image: '/images/products/balustrade-satin-10mm.jpg',
-  },
-  {
-    id: 'bal-12-clear',
-    sku: 'BAL-12-CLEAR',
-    name: '12mm Toughened Glass Balustrade',
-    category: 'balustrades',
-    thickness: '12mm',
-    material: 'Toughened Glass',
-    finish: 'Clear',
-    priceFrom: 58.63,
-    priceTo: 195.42,
-    priceDisplay: '£58.63 - £195.42',
-    features: [
-      'Thicker for added strength',
-      'BS 6180:2011 compliant',
-      'Domestic & commercial use',
-      'Premium quality',
-    ],
-    image: '/images/products/balustrade-clear-12mm.jpg',
-    popular: true,
-  },
-  {
-    id: 'bal-13-lam',
-    sku: 'BAL-13-LAM',
-    name: '13mm Toughened Laminated Glass Balustrade',
-    category: 'balustrades',
-    thickness: '13mm',
-    material: 'Toughened Laminate Glass',
-    finish: 'Clear',
-    priceFrom: 90.44,
-    priceTo: 331.62,
-    priceDisplay: '£90.44 - £331.62',
-    features: [
-      'Ultimate safety glass',
-      'Holds together if broken',
-      'Commercial grade',
-      '6mm + PVB + 6mm construction',
-    ],
-    composition: '6mm toughened + 1mm PVB interlayer + 6mm toughened',
-    image: '/images/products/balustrade-laminate-13mm.jpg',
-    recommended: true,
-  },
-  {
-    id: 'bal-17-lam',
-    sku: 'BAL-17-LAM',
-    name: '17mm Toughened Laminated Glass Balustrade',
-    category: 'balustrades',
-    thickness: '17mm',
-    material: 'Toughened Laminate Glass',
-    finish: 'Clear',
-    priceFrom: 96.68,
-    priceTo: 354.49,
-    priceDisplay: '£96.68 - £354.49',
-    features: [
-      'Premium safety standard',
-      'Building regs compliant',
-      'Maximum strength',
-      '8mm + PVB + 8mm construction',
-    ],
-    composition: '8mm toughened + 1.52mm PVB + 8mm toughened',
-    image: '/images/products/balustrade-laminate-17mm.jpg',
-  },
+  { id: 'bal-10-clear', name: '10mm Toughened Glass Balustrade Panels', category: 'balustrades', shortDesc: 'Clear 10mm toughened safety glass panels for balconies, stairs and decking.', description: 'Our 10mm clear toughened glass balustrade panels are the ideal choice for domestic balconies, staircases, and decking areas. Each panel is manufactured from premium-grade toughened safety glass with polished edges, compliant with BS EN 12150.', thickness: '10mm', material: 'Toughened Glass', finish: 'Clear', priceFrom: 44.34, priceTo: 147.83, priceDisplay: '\u00a344.34 \u2013 \u00a3147.83', image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c30f8bf?w=800&auto=format&fit=crop&q=80', features: ['Polished edges included', 'BS EN 12150 compliant', 'Suitable for indoor & outdoor', 'Lead time: 10\u201315 working days'], sizes: ['800x900mm', '1000x900mm', '1200x900mm', 'Custom sizes'], rating: 5.0, popular: true },
+  { id: 'bal-10-grey', name: '10mm Grey Tinted Toughened Balustrade Panels', category: 'balustrades', shortDesc: 'Stylish grey tinted 10mm balustrade panels for a contemporary look.', description: 'Add a contemporary edge to your space with our 10mm grey tinted toughened glass balustrade panels.', thickness: '10mm', material: 'Toughened Glass', finish: 'Grey Tinted', priceFrom: 79.70, priceTo: 389.64, priceDisplay: '\u00a379.70 \u2013 \u00a3389.64', image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&auto=format&fit=crop&q=80', features: ['Grey tinted finish', 'UV stable', 'BS EN 12150 compliant', 'Reduced solar gain'], sizes: ['800x900mm', '1000x1100mm', '1200x1100mm', 'Custom'], rating: 4.8, popular: true },
+  { id: 'bal-10-bronze', name: '10mm Bronze Tinted Toughened Balustrade Panels', category: 'balustrades', shortDesc: 'Warm bronze tinted 10mm glass balustrade panels.', description: 'Our 10mm bronze tinted toughened glass balustrade panels bring a warm, luxurious tone to any setting.', thickness: '10mm', material: 'Toughened Glass', finish: 'Bronze Tinted', priceFrom: 79.70, priceTo: 389.64, priceDisplay: '\u00a379.70 \u2013 \u00a3389.64', image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&auto=format&fit=crop&q=80', features: ['Bronze tinted finish', 'Warm aesthetic', 'Toughened safety glass', 'Polished edges'], sizes: ['800x900mm', '1000x1100mm', '1200x1100mm', 'Custom'], rating: 4.9 },
+  { id: 'bal-10-satin', name: '10mm Satin / Frosted Toughened Balustrade Panels', category: 'balustrades', shortDesc: 'Privacy-focused satin frosted 10mm glass balustrade panels.', description: 'Our 10mm satin frosted toughened glass balustrade panels offer the perfect balance of privacy and light transmission.', thickness: '10mm', material: 'Satin Toughened Glass', finish: 'Frosted', priceFrom: 69.85, priceTo: 341.51, priceDisplay: '\u00a369.85 \u2013 \u00a3341.51', image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&auto=format&fit=crop&q=80', features: ['Acid-etched satin finish', 'Privacy without blocking light', 'Non-slip when wet', 'Ideal for wet areas'], sizes: ['800x900mm', '1000x1100mm', '1200x1100mm', 'Custom'], rating: 5.0 },
+  { id: 'bal-12-clear', name: '12mm Toughened Glass Balustrade Panels', category: 'balustrades', shortDesc: 'Extra-thick 12mm clear toughened glass for heavy-duty applications.', description: 'Our 12mm toughened glass balustrade panels provide superior strength for domestic and light commercial applications.', thickness: '12mm', material: 'Toughened Glass', finish: 'Clear', priceFrom: 58.63, priceTo: 195.42, priceDisplay: '\u00a358.63 \u2013 \u00a3195.42', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&auto=format&fit=crop&q=80', features: ['Thicker for added strength', 'BS 6180:2011 compliant', 'Domestic & commercial', 'Premium quality'], sizes: ['800x900mm', '1000x1100mm', '1200x1100mm', 'Custom'], rating: 5.0, popular: true },
+  { id: 'bal-17-lam', name: '17mm Toughened Laminated Glass Balustrade Panels', category: 'balustrades', shortDesc: 'Commercial-grade 17mm laminated safety glass balustrade panels.', description: '17mm toughened laminated glass balustrade panels \u2014 the ultimate safety specification for commercial applications.', thickness: '17mm', material: 'Toughened Laminate', finish: 'Clear', priceFrom: 96.68, priceTo: 354.49, priceDisplay: '\u00a396.68 \u2013 \u00a3354.49', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80', features: ['8mm+PVB+8mm construction', 'Holds together if broken', 'Commercial grade', 'Building regs compliant'], sizes: ['800x900mm', '1000x1100mm', '1200x1100mm', 'Custom'], rating: 5.0 },
+  { id: 'bal-21-lam', name: '21mm Toughened Laminated Glass Balustrade Panels', category: 'balustrades', shortDesc: 'Heavy-duty 21mm laminated glass panels for demanding installations.', description: 'The ultimate in structural glazing \u2014 21mm toughened laminated glass for the most demanding applications.', thickness: '21mm', material: 'Toughened Laminate', finish: 'Clear', priceFrom: 102.91, priceTo: 377.35, priceDisplay: '\u00a3102.91 \u2013 \u00a3377.35', image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&auto=format&fit=crop&q=80', features: ['10mm+PVB+10mm construction', 'Maximum strength', 'Structural glazing grade', 'Premium commercial spec'], sizes: ['800x900mm', '1000x1100mm', '1500x1100mm', 'Custom'], rating: 5.0 },
+  { id: 'bal-bespoke', name: 'Bespoke Clear Toughened Glass Balustrade Panels', category: 'balustrades', shortDesc: 'Custom-made balustrade panels cut to your exact measurements.', description: 'Our bespoke clear toughened glass balustrade panels are custom manufactured to your exact measurements.', thickness: 'Custom', material: 'Toughened Glass', finish: 'Clear', priceFrom: 41.00, priceTo: null, priceDisplay: 'From \u00a341.00', image: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&auto=format&fit=crop&q=80', features: ['Cut to your exact size', 'Polished edges included', 'BS EN 12150 certified', 'Fast turnaround'], sizes: ['Custom \u2014 up to 2500x1200mm'], rating: 5.0, popular: true },
 ];
 
-// KITCHEN SPLASHBACKS - Popular Colors
-export const splashbackColors = [
-  {
-    id: 'splash-duck-egg',
-    sku: 'SPLASH-DUCK-EGG',
-    name: 'Duck Egg Blue Splashback',
-    category: 'splashbacks',
-    type: 'painted',
-    colorName: 'Duck Egg Blue',
-    colorCode: '16C33 Dulux',
-    hex: '#A4C4C4',
-    priceFrom: 66.60,
-    priceTo: 185.00,
-    priceDisplay: '£66.60 - £185.00',
-    features: ['6mm toughened glass', 'Heat resistant to 400°C', 'Easy clean surface', 'RAL color match available'],
-    sizes: [
-      { size: '600mm x 750mm', price: 66.60 },
-      { size: '900mm x 750mm', price: 95.00 },
-      { size: '1200mm x 750mm', price: 125.00 },
-      { size: '1500mm x 750mm', price: 155.00 },
-      { size: '1800mm x 750mm', price: 165.00 },
-      { size: '2400mm x 750mm', price: 175.00 },
-      { size: '2800mm x 750mm', price: 185.00 },
-    ],
-    image: '/images/products/splash-duck-egg.jpg',
-    popular: true,
-  },
-  {
-    id: 'splash-teal',
-    sku: 'SPLASH-TEAL',
-    name: 'Teal Glass Splashback',
-    category: 'splashbacks',
-    type: 'painted',
-    colorName: 'Teal',
-    colorCode: '7467C Pantone',
-    hex: '#00677F',
-    priceFrom: 66.60,
-    priceTo: 185.00,
-    priceDisplay: '£66.60 - £185.00',
-    features: ['6mm toughened glass', 'Heat resistant to 400°C', 'Easy clean surface', 'Custom sizes available'],
-    image: '/images/products/splash-teal.jpg',
-    popular: true,
-  },
-  {
-    id: 'splash-sage-green',
-    sku: 'SPLASH-SAGE-GREEN',
-    name: 'Sage Green Glass Splashback',
-    category: 'splashbacks',
-    type: 'painted',
-    colorName: 'Sage Green',
-    colorCode: 'Little Greene 80',
-    hex: '#92B5A0',
-    priceFrom: 66.60,
-    priceTo: 185.00,
-    priceDisplay: '£66.60 - £185.00',
-    features: ['6mm toughened glass', 'Heat resistant to 400°C', 'On-trend color', 'Free color matching'],
-    image: '/images/products/splash-sage.jpg',
-    trending: true,
-  },
-  {
-    id: 'splash-copper-metallic',
-    sku: 'SPLASH-COPPER-METALLIC',
-    name: 'Copper Metallic Glass Splashback',
-    category: 'splashbacks',
-    type: 'painted',
-    colorName: 'Copper Metallic',
-    colorCode: 'Custom Metallic',
-    hex: '#B87333',
-    priceFrom: 66.60,
-    priceTo: 185.00,
-    priceDisplay: '£66.60 - £185.00',
-    features: ['6mm toughened glass', 'Metallic shimmer finish', 'Heat resistant', 'Luxurious appearance'],
-    image: '/images/products/splash-copper-metallic.jpg',
-    popular: true,
-  },
-  {
-    id: 'splash-rose-gold',
-    sku: 'SPLASH-ROSE-GOLD',
-    name: 'Rose Gold Glass Splashback',
-    category: 'splashbacks',
-    type: 'painted',
-    colorName: 'Rose Gold',
-    colorCode: 'Custom Metallic',
-    hex: '#B76E79',
-    priceFrom: 66.60,
-    priceTo: 185.00,
-    priceDisplay: '£66.60 - £185.00',
-    features: ['6mm toughened glass', 'Metallic shimmer finish', 'Instagram-worthy', 'On-trend color'],
-    image: '/images/products/splash-rose-gold.jpg',
-    trending: true,
-  },
+export const splashbacks = [
+  { id: 'splash-bespoke-painted', name: 'Bespoke Painted Glass Splashbacks', category: 'splashbacks', type: 'painted', shortDesc: 'Custom colour-matched painted glass splashbacks. Any RAL or Pantone shade.', description: 'Our bespoke painted glass splashbacks are made from 6mm toughened low-iron safety glass, painted on the reverse in any colour you choose. We can match RAL, Pantone, Dulux, Farrow & Ball, or Little Greene shades. Heat resistant up to 400\u00b0C.', priceFrom: 5.28, priceTo: null, priceDisplay: 'From \u00a35.28 per unit', image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&auto=format&fit=crop&q=80', features: ['6mm toughened safety glass', 'Heat resistant to 400\u00b0C', 'Any RAL/Pantone colour', 'Polished edges', 'Made in the UK'], sizes: ['600x750mm', '900x750mm', '1200x750mm', '1500x750mm', '1800x750mm', 'Custom sizes'], rating: 5.0, popular: true },
+  { id: 'splash-black', name: '6mm Toughened Painted Glass Splashback \u2014 Black', category: 'splashbacks', type: 'painted', shortDesc: 'Sleek black painted glass splashback for a bold, modern kitchen.', description: 'Make a statement with our jet-black painted glass splashback. 6mm toughened safety glass with a high-gloss black finish that reflects light beautifully.', priceFrom: 66.60, priceTo: 185.00, priceDisplay: '\u00a366.60 \u2013 \u00a3185.00', image: 'https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?w=800&auto=format&fit=crop&q=80', features: ['6mm toughened glass', 'Heat resistant to 400\u00b0C', 'High-gloss black finish', 'Easy to clean'], sizes: ['600x750mm', '900x750mm', '1200x750mm', '1500x750mm', '1800x750mm', '2400x750mm', '2800x750mm'], rating: 3.0 },
+  { id: 'splash-white', name: '6mm Toughened Painted Glass Splashback \u2014 White', category: 'splashbacks', type: 'painted', shortDesc: 'Classic white painted glass splashback for a clean, timeless kitchen look.', description: 'Our white painted glass splashback delivers a clean, timeless look that brightens any kitchen.', priceFrom: 66.60, priceTo: 185.00, priceDisplay: '\u00a366.60 \u2013 \u00a3185.00', image: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&auto=format&fit=crop&q=80', features: ['6mm toughened glass', 'Heat resistant to 400\u00b0C', 'Bright white finish', 'Easy to clean'], sizes: ['600x750mm', '900x750mm', '1200x750mm', '1500x750mm', '1800x750mm', '2400x750mm', '2800x750mm'], rating: 5.0, popular: true },
+  { id: 'splash-grey-light', name: '6mm Toughened Painted Glass Splashback \u2014 Light Grey', category: 'splashbacks', type: 'painted', shortDesc: 'Subtle light grey painted glass splashback \u2014 Pantone 1C.', description: 'A sophisticated light grey finish that complements almost any kitchen colour scheme.', priceFrom: 66.60, priceTo: 185.00, priceDisplay: '\u00a366.60 \u2013 \u00a3185.00', image: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&auto=format&fit=crop&q=80', features: ['6mm toughened glass', 'Pantone 1C colour', 'Neutral tone', 'Easy to clean'], sizes: ['600x750mm', '900x750mm', '1200x750mm', '1500x750mm', '1800x750mm', '2400x750mm', '2800x750mm'], rating: 4.5 },
+  { id: 'splash-copper-metallic', name: '6mm Toughened Painted Glass Splashback \u2014 Copper Metallic', category: 'splashbacks', type: 'painted', shortDesc: 'Luxurious metallic copper shimmer splashback for a premium kitchen.', description: 'Our metallic copper shimmer splashback brings a warm, luxurious glow to your kitchen.', priceFrom: 66.60, priceTo: 157.25, priceDisplay: '\u00a366.60 \u2013 \u00a3157.25', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop&q=80', features: ['Metallic shimmer finish', '6mm toughened glass', 'Heat resistant to 400\u00b0C', 'Luxurious appearance'], sizes: ['600x750mm', '900x750mm', '1200x750mm', '1500x750mm', '1800x750mm', '2400x750mm'], rating: 5.0, popular: true },
+  { id: 'splash-rose-gold', name: '6mm Toughened Painted Glass Splashback \u2014 Rose Gold', category: 'splashbacks', type: 'painted', shortDesc: 'On-trend rose gold metallic glass splashback for a stylish kitchen.', description: 'Rose gold brings a contemporary, on-trend warmth to any kitchen with subtle shimmer particles.', priceFrom: 66.60, priceTo: 185.00, priceDisplay: '\u00a366.60 \u2013 \u00a3185.00', image: 'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&auto=format&fit=crop&q=80', features: ['Metallic shimmer finish', '6mm toughened glass', 'On-trend colour', 'Heat resistant'], sizes: ['600x750mm', '900x750mm', '1200x750mm', '1500x750mm', '1800x750mm', '2400x750mm'], rating: 4.8, trending: true },
+  { id: 'splash-grey-glitter', name: '6mm Toughened Painted Glass Splashback \u2014 Grey Glitter', category: 'splashbacks', type: 'painted', shortDesc: 'Sparkling grey glitter glass splashback \u2014 Pantone 7C.', description: 'Our grey glitter splashback adds a touch of sparkle to your kitchen with embedded glitter particles.', priceFrom: 66.60, priceTo: 157.25, priceDisplay: '\u00a366.60 \u2013 \u00a3157.25', image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&auto=format&fit=crop&q=80', features: ['Glitter-infused finish', '6mm toughened glass', 'Pantone 7C base', 'Eye-catching sparkle'], sizes: ['600x750mm', '900x750mm', '1200x750mm', '1500x750mm', '1800x750mm', '2400x750mm'], rating: 4.5 },
+  { id: 'splash-black-glitter', name: '6mm Toughened Painted Glass Splashback \u2014 Black with Glitter', category: 'splashbacks', type: 'painted', shortDesc: 'Bold black glass splashback with sparkling glitter particles.', description: 'Combine the drama of jet black with the glamour of glitter for a stunning kitchen focal point.', priceFrom: 66.60, priceTo: 185.00, priceDisplay: '\u00a366.60 \u2013 \u00a3185.00', image: 'https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=800&auto=format&fit=crop&q=80', features: ['Glitter-infused finish', '6mm toughened glass', 'Bold black base', 'Heat resistant to 400\u00b0C'], sizes: ['600x750mm', '900x750mm', '1200x750mm', '1500x750mm', '1800x750mm', '2400x750mm'], rating: 5.0 },
+  { id: 'splash-clear', name: '6mm Clear Toughened Kitchen Glass Splashback', category: 'splashbacks', type: 'clear', shortDesc: 'Transparent clear glass splashback \u2014 protects your wall while keeping the look.', description: 'Our clear toughened glass splashback provides invisible wall protection behind your hob and worktops.', priceFrom: 65.00, priceTo: 170.00, priceDisplay: '\u00a365.00 \u2013 \u00a3170.00', image: 'https://images.unsplash.com/photo-1600566752547-33a038569773?w=800&auto=format&fit=crop&q=80', features: ['Crystal clear glass', '6mm toughened', 'Heat resistant to 400\u00b0C', 'Shows wall beneath'], sizes: ['600x750mm', '900x750mm', '1200x750mm', '1500x750mm', '1800x750mm', '2400x750mm'], rating: 5.0 },
+  { id: 'splash-copper-marble', name: '6mm Printed Glass Splashback \u2014 Copper Marble 105', category: 'splashbacks', type: 'printed', shortDesc: 'Luxurious copper marble effect printed glass splashback.', description: 'Bring the opulence of natural copper-veined marble into your kitchen with our high-resolution digitally printed glass splashback.', designNumber: '105', priceFrom: 79.20, priceTo: 195.50, priceDisplay: '\u00a379.20 \u2013 \u00a3195.50', image: 'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=800&auto=format&fit=crop&q=80', features: ['High-resolution digital print', '6mm toughened glass', 'Heat resistant to 400\u00b0C', 'UV stable'], sizes: ['600x750mm', '900x750mm', '1200x750mm', '1500x750mm', '1800x750mm', '2400x750mm'], rating: 5.0, popular: true },
+  { id: 'splash-luxury-marble', name: '6mm Printed Glass Splashback \u2014 Luxury Abstract Marble Fluid 134', category: 'splashbacks', type: 'printed', shortDesc: 'Flowing abstract marble fluid design in luxurious tones.', description: 'Stunning abstract marble fluid design features swirling veins of gold, cream, and deep grey on 6mm toughened glass.', designNumber: '134', priceFrom: 79.20, priceTo: 220.00, priceDisplay: '\u00a379.20 \u2013 \u00a3220.00', image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&auto=format&fit=crop&q=80', features: ['Ultra HD digital print', '6mm toughened glass', 'Abstract marble design', 'UV stable inks'], sizes: ['600x750mm', '900x750mm', '1200x750mm', '1500x750mm', '1800x750mm', '2400x750mm'], rating: 5.0, popular: true },
+  { id: 'splash-gold-marble', name: '6mm Printed Glass Splashback \u2014 Gold Marble 109', category: 'splashbacks', type: 'printed', shortDesc: 'Elegant gold marble effect printed glass splashback.', description: 'Rich gold veins flow through a white marble backdrop, creating a timeless and opulent kitchen feature.', designNumber: '109', priceFrom: 79.20, priceTo: 220.00, priceDisplay: '\u00a379.20 \u2013 \u00a3220.00', image: 'https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=800&auto=format&fit=crop&q=80', features: ['Luxury gold marble effect', '6mm toughened glass', 'Heat resistant', 'Easy to clean'], sizes: ['600x750mm', '900x750mm', '1200x750mm', '1500x750mm', '1800x750mm', '2400x750mm'], rating: 5.0 },
+  { id: 'splash-white-marble', name: '6mm Printed Glass Splashback \u2014 White Marble 140', category: 'splashbacks', type: 'printed', shortDesc: 'Classic white marble effect printed glass splashback.', description: 'The timeless elegance of white Carrara marble, recreated in stunning detail on 6mm toughened glass.', designNumber: '140', priceFrom: 79.20, priceTo: 220.00, priceDisplay: '\u00a379.20 \u2013 \u00a3220.00', image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&auto=format&fit=crop&q=80', features: ['Classic marble look', '6mm toughened glass', 'Timeless design', 'Premium quality'], sizes: ['600x750mm', '900x750mm', '1200x750mm', '1500x750mm', '1800x750mm', '2400x750mm'], rating: 5.0 },
+  { id: 'splash-emerald', name: '6mm Printed Glass Splashback \u2014 Emerald Green 137', category: 'splashbacks', type: 'printed', shortDesc: 'Bold emerald green abstract fluid design printed splashback.', description: 'Make a bold statement with our emerald green printed splashback featuring deep jewel-toned green with fluid abstract patterns.', designNumber: '137', priceFrom: 79.20, priceTo: 220.00, priceDisplay: '\u00a379.20 \u2013 \u00a3220.00', image: 'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&auto=format&fit=crop&q=80', features: ['Bold emerald design', '6mm toughened glass', 'Modern abstract art', 'Vibrant colours'], sizes: ['600x750mm', '900x750mm', '1200x750mm', '1500x750mm', '1800x750mm', '2400x750mm'], rating: 5.0 },
+  { id: 'splash-black-marble', name: '6mm Printed Glass Splashback \u2014 Black Marble 192', category: 'splashbacks', type: 'printed', shortDesc: 'Dramatic black marble effect printed glass splashback.', description: 'Dramatic white veins against a deep black marble backdrop. Sophisticated and high-contrast.', designNumber: '192', priceFrom: 79.20, priceTo: 220.00, priceDisplay: '\u00a379.20 \u2013 \u00a3220.00', image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c30f8bf?w=800&auto=format&fit=crop&q=80', features: ['Dramatic black marble', '6mm toughened glass', 'High-contrast design', 'UV stable print'], sizes: ['600x750mm', '900x750mm', '1200x750mm', '1500x750mm', '1800x750mm', '2400x750mm'], rating: 4.8 },
 ];
 
-// SPLASHBACKS - Popular Printed Designs
-export const splashbackPrints = [
-  {
-    id: 'splash-copper-marble',
-    sku: 'SPLASH-COPPER-MARBLE',
-    name: 'Copper Marble Splashback',
-    category: 'splashbacks',
-    type: 'printed',
-    designNumber: '105',
-    pattern: 'Copper Marble',
-    priceFrom: 79.20,
-    priceTo: 220.00,
-    priceDisplay: '£79.20 - £220.00',
-    features: ['High-resolution digital print', '6mm toughened glass', 'Heat resistant to 400°C', 'UV stable'],
-    image: '/images/products/splash-copper-marble.jpg',
-    rating: 5.0,
-    reviews: 4,
-    bestSeller: true,
-  },
-  {
-    id: 'splash-gold-marble',
-    sku: 'SPLASH-GOLD-MARBLE',
-    name: 'Gold Marble Splashback',
-    category: 'splashbacks',
-    type: 'printed',
-    designNumber: '109',
-    pattern: 'Gold Marble',
-    priceFrom: 79.20,
-    priceTo: 220.00,
-    priceDisplay: '£79.20 - £220.00',
-    features: ['Luxury marble effect', '6mm toughened glass', 'Heat resistant', 'Easy to clean'],
-    image: '/images/products/splash-gold-marble.jpg',
-    popular: true,
-  },
-  {
-    id: 'splash-white-marble',
-    sku: 'SPLASH-WHITE-MARBLE',
-    name: 'White Marble Splashback',
-    category: 'splashbacks',
-    type: 'printed',
-    designNumber: '140',
-    pattern: 'White Marble',
-    priceFrom: 79.20,
-    priceTo: 220.00,
-    priceDisplay: '£79.20 - £220.00',
-    features: ['Classic marble look', '6mm toughened glass', 'Timeless design', 'Premium quality'],
-    image: '/images/products/splash-white-marble.jpg',
-    popular: true,
-  },
-  {
-    id: 'splash-emerald-green',
-    sku: 'SPLASH-EMERALD-GREEN',
-    name: 'Emerald Green Splashback',
-    category: 'splashbacks',
-    type: 'printed',
-    designNumber: '137',
-    pattern: 'Abstract Fluid',
-    priceFrom: 79.20,
-    priceTo: 220.00,
-    priceDisplay: '£79.20 - £220.00',
-    features: ['Bold statement piece', '6mm toughened glass', 'Modern design', 'Vibrant colors'],
-    image: '/images/products/splash-emerald.jpg',
-    rating: 5.0,
-    reviews: 3,
-  },
-];
-
-// MIRRORS
 export const mirrors = [
-  {
-    id: 'mirror-leaner-rect',
-    sku: 'MIRROR-LEANER-RECT',
-    name: 'Frameless Leaner Mirror',
-    category: 'mirrors',
-    type: 'Leaner',
-    shape: 'Rectangle',
-    thickness: '6mm',
-    finish: 'Silver',
-    priceFrom: 75.00,
-    priceTo: 395.00,
-    priceDisplay: '£75 - £395',
-    features: ['Free-standing design', 'Polished edges', 'Safety backing', 'Made to measure'],
-    sizes: [
-      { size: '400mm x 1200mm', price: 75.00 },
-      { size: '600mm x 1600mm', price: 145.00 },
-      { size: '800mm x 2000mm', price: 245.00 },
-    ],
-    image: '/images/products/mirror-leaner-rect.jpg',
-    rating: 5.0,
-    popular: true,
-  },
-  {
-    id: 'mirror-leaner-arch',
-    sku: 'MIRROR-LEANER-ARCH',
-    name: 'Frameless Arch Leaner Mirror',
-    category: 'mirrors',
-    type: 'Leaner',
-    shape: 'Arch',
-    thickness: '6mm',
-    finish: 'Silver',
-    priceFrom: 105.00,
-    priceTo: 425.00,
-    priceDisplay: '£105 - £425',
-    features: ['Arched top design', 'Free-standing', 'Polished edges', 'On-trend shape'],
-    image: '/images/products/mirror-leaner-arch.jpg',
-    rating: 5.0,
-    trending: true,
-  },
-  {
-    id: 'mirror-silver-round',
-    sku: 'MIRROR-SILVER-ROUND',
-    name: 'Silver Round Mirror',
-    category: 'mirrors',
-    type: 'Wall Mount',
-    shape: 'Round',
-    thickness: '6mm',
-    finish: 'Silver',
-    priceFrom: 71.50,
-    priceTo: 100.00,
-    priceDisplay: '£71.50 - £100',
-    features: ['Polished edges', 'Drill holes optional', 'Safety backing', 'Various sizes'],
-    image: '/images/products/mirror-round.jpg',
-    popular: true,
-  },
+  { id: 'mirror-leaner-rect', name: 'Frameless Free Standing Leaner Mirror', category: 'mirrors', shortDesc: 'Full-length frameless leaner mirror for bedrooms and hallways.', description: 'Our frameless free standing leaner mirror makes a stunning statement in any room. 6mm silver mirror glass with polished edges and safety backing.', priceFrom: 75.00, priceTo: 395.00, priceDisplay: '\u00a375.00 \u2013 \u00a3395.00', image: 'https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=800&auto=format&fit=crop&q=80', features: ['6mm silver mirror glass', 'Polished edges', 'Safety vinyl backing', 'Free-standing design'], sizes: ['400x1200mm', '500x1400mm', '600x1600mm', '700x1800mm', '800x2000mm'], rating: 5.0, popular: true },
+  { id: 'mirror-leaner-arch', name: 'Frameless Free Standing Arch Leaner Mirror', category: 'mirrors', shortDesc: 'On-trend arched frameless leaner mirror for a contemporary aesthetic.', description: 'The arch-top leaner mirror is one of the most sought-after interior design pieces right now. Beautifully curved top with clean frameless edges.', priceFrom: 105.00, priceTo: 425.00, priceDisplay: '\u00a3105.00 \u2013 \u00a3425.00', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop&q=80', features: ['Arched top design', 'Free-standing', 'Polished edges', 'On-trend shape'], sizes: ['500x1200mm', '600x1400mm', '700x1600mm', '800x1800mm'], rating: 5.0, trending: true },
+  { id: 'mirror-pebble', name: 'Silver Pebble Mirror', category: 'mirrors', shortDesc: 'Unique organic pebble-shaped silver mirror \u2014 a sculptural wall feature.', description: 'Our pebble mirror features a soft, organic shape that brings a natural, sculptural quality to any wall.', priceFrom: 70.00, priceTo: 120.00, priceDisplay: '\u00a370.00 \u2013 \u00a3120.00', image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&auto=format&fit=crop&q=80', features: ['Organic pebble shape', 'Polished edges', 'Wall-mount fittings included', 'Safety backing'], sizes: ['400x600mm', '500x700mm', '600x800mm'], rating: 5.0, popular: true },
+  { id: 'mirror-gym', name: '6mm Silver Gym & Dance Studio Mirror', category: 'mirrors', shortDesc: 'Large-format silver mirror for gyms, dance studios & commercial spaces.', description: 'Designed for commercial fitness environments, our 6mm silver gym mirrors feature high-quality mirror glass with safety vinyl backing. Available in extra-large sizes.', priceFrom: 82.99, priceTo: 199.99, priceDisplay: '\u00a382.99 \u2013 \u00a3199.99', image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&auto=format&fit=crop&q=80', features: ['6mm silver mirror', 'Large format sizes', 'Safety vinyl backing', 'Commercial grade'], sizes: ['1000x600mm', '1200x600mm', '1500x600mm', '1800x600mm', '2000x1000mm'], rating: 4.8 },
+  { id: 'mirror-rect-square', name: 'Silver Rectangle & Square Mirror', category: 'mirrors', shortDesc: 'Simple, classic rectangular or square mirrors in various standard sizes.', description: 'Our standard rectangle and square mirrors are perfect for bathrooms, hallways, or anywhere you need a clean, high-quality mirror.', priceFrom: 36.95, priceTo: 74.99, priceDisplay: '\u00a336.95 \u2013 \u00a374.99', image: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&auto=format&fit=crop&q=80', features: ['6mm silver mirror', 'Polished edges', 'Pre-drilled holes optional', 'Safety backing'], sizes: ['300x300mm', '400x400mm', '400x600mm', '500x700mm', '600x900mm'], rating: 4.9 },
 ];
 
-// BATH SCREENS
-export const bathScreens = [
-  {
-    id: 'bath-8-black',
-    sku: 'BATH-8-BLACK',
-    name: '8mm Bath Screen with Matt Black Hinges',
-    category: 'bathScreens',
-    thickness: '8mm',
-    material: 'Toughened Glass',
-    hardware: 'Matt Black',
-    priceFrom: 255.00,
-    priceTo: 300.00,
-    priceDisplay: '£255 - £300',
-    features: ['Frameless design', '8mm toughened glass', 'Matt black hinges', 'Easy clean coating option'],
-    sizes: ['800mm x 1400mm', '900mm x 1400mm', '1000mm x 1400mm'],
-    image: '/images/products/bath-screen-black.jpg',
-    popular: true,
-  },
-  {
-    id: 'bath-8-brass',
-    sku: 'BATH-8-BRASS',
-    name: '8mm Bath Screen with Brass Hinges',
-    category: 'bathScreens',
-    thickness: '8mm',
-    material: 'Toughened Glass',
-    hardware: 'Brushed Brass',
-    priceFrom: 245.00,
-    priceTo: 290.00,
-    priceDisplay: '£245 - £290',
-    features: ['Frameless design', '8mm toughened glass', 'Brushed brass hinges', 'Luxury finish'],
-    image: '/images/products/bath-screen-brass.jpg',
-    trending: true,
-  },
-];
-
-// JULIET BALCONIES
 export const julietBalconies = [
-  {
-    id: 'juliet-skyforce-top',
-    sku: 'JULIET-SKYFORCE-TOP-BLACK',
-    name: 'SkyForce Top Mount Juliet Balcony',
-    category: 'julietBalconies',
-    type: 'Complete System',
-    mounting: 'Top Mount',
-    priceFrom: 295.99,
-    priceTo: 994.11,
-    priceDisplay: '£295.99 - £994.11',
-    features: [
-      '13mm, 17mm, or 21mm glass',
-      'Anodised aluminium profiles',
-      'Building regs compliant',
-      'Invisible mounting',
-      'Multiple colors available',
-    ],
-    glassThickness: ['13mm', '17mm', '21mm'],
-    widthRange: '1000mm - 3000mm',
-    image: '/images/products/juliet-skyforce.jpg',
-    rating: 4.0,
-  },
+  { id: 'juliet-lam-fittings', name: 'Juliet Balcony \u2014 Toughened Laminate Glass with Fittings', category: 'julietBalconies', shortDesc: 'Complete Juliet balcony system with laminated glass and all fittings included.', description: 'Our best-selling Juliet balcony system includes toughened laminate glass and all required fixings for a complete installation. Complies with all Building Regulations.', priceFrom: 289.99, priceTo: 744.99, priceDisplay: '\u00a3289.99 \u2013 \u00a3744.99', image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c30f8bf?w=800&auto=format&fit=crop&q=80', features: ['Toughened laminate glass', 'All fittings included', 'Building regs compliant', 'Easy to install'], sizes: ['1000mm', '1200mm', '1500mm', '1800mm', '2000mm', '2500mm', '3000mm'], rating: 4.8, popular: true },
+  { id: 'juliet-top-mount-colour', name: 'Juliet Balcony & Top Mount System (White, Grey or Black)', category: 'julietBalconies', shortDesc: 'Premium top-mount Juliet balcony with colour options.', description: 'SkyForce-style top-mount Juliet balcony system in white, grey, or black powder-coated aluminium with toughened laminate glass.', priceFrom: 295.99, priceTo: 994.11, priceDisplay: '\u00a3295.99 \u2013 \u00a3994.11', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&auto=format&fit=crop&q=80', features: ['Top-mount installation', 'White / Grey / Black finish', 'Toughened laminate glass', 'Invisible fixing'], sizes: ['1000mm', '1500mm', '2000mm', '2500mm', '3000mm'], rating: 4.0 },
+  { id: 'juliet-side-mount-colour', name: 'Juliet Balcony & Side Mount System (White, Grey or Black)', category: 'julietBalconies', shortDesc: 'Side-mount Juliet balcony system with colour-matched profiles.', description: 'Our side-mount system fixes to the inside face of the wall reveal for a discreet mounting solution.', priceFrom: 295.99, priceTo: 844.99, priceDisplay: '\u00a3295.99 \u2013 \u00a3844.99', image: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&auto=format&fit=crop&q=80', features: ['Side-mount installation', 'White / Grey / Black finish', 'Toughened laminate glass', 'Discreet profile'], sizes: ['1000mm', '1500mm', '2000mm', '2500mm', '3000mm'], rating: 4.5 },
+  { id: 'juliet-oversized', name: 'Oversized Toughened Glass Juliet Balcony', category: 'julietBalconies', shortDesc: 'Extra-large Juliet balcony for oversized openings and bi-fold doors.', description: 'Designed for wide openings such as bi-fold or large French doors, our oversized Juliet balconies are available in widths beyond standard sizes.', priceFrom: 948.77, priceTo: 1823.94, priceDisplay: '\u00a3948.77 \u2013 \u00a31,823.94', image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&auto=format&fit=crop&q=80', features: ['For oversized openings', 'Up to 4000mm wide', 'Toughened laminate glass', 'Building regs compliant'], sizes: ['2500mm', '3000mm', '3500mm', '4000mm'], rating: 5.0 },
+  { id: 'juliet-top-profiles', name: 'Top Mount Juliet Balcony Profiles', category: 'julietBalconies', shortDesc: 'Aluminium top-mount profiles only \u2014 glass sold separately.', description: 'Already have the glass? Our top-mount aluminium profiles and fixings allow you to build your own Juliet balcony system.', priceFrom: 149.99, priceTo: null, priceDisplay: '\u00a3149.99', image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&auto=format&fit=crop&q=80', features: ['Profiles & fixings only', 'Aluminium construction', 'Rubber gaskets included', 'Glass sold separately'], sizes: ['1000mm', '1500mm', '2000mm', '2500mm', '3000mm'], rating: 5.0 },
+  { id: 'juliet-side-profiles', name: 'Side Mount Juliet Balcony Profiles', category: 'julietBalconies', shortDesc: 'Aluminium side-mount profiles only \u2014 profiles and fixings kit.', description: 'Side-mount aluminium profiles and fixings for building your own Juliet balcony system. Glass sold separately.', priceFrom: 149.99, priceTo: null, priceDisplay: '\u00a3149.99', image: 'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&auto=format&fit=crop&q=80', features: ['Side-mount profiles', 'All fixings included', 'Rubber gaskets included', 'Glass sold separately'], sizes: ['1000mm', '1500mm', '2000mm', '2500mm', '3000mm'], rating: 4.8 },
 ];
 
-// Helper functions
+export const bathScreens = [
+  { id: 'bath-8-hinged', name: '8mm Toughened Glass Bath Screen with Hinges', category: 'bathScreens', shortDesc: 'Premium frameless 8mm bath screen with quality hinged door panel.', description: 'Our 8mm toughened glass bath screen features a sleek frameless design with premium chrome or matt black hinges. Includes drip seal and wall channel.', priceFrom: 245.44, priceTo: 274.31, priceDisplay: '\u00a3245.44 \u2013 \u00a3274.31', image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&auto=format&fit=crop&q=80', features: ['8mm toughened glass', 'Frameless design', 'Chrome or Matt Black hinges', 'Drip seal included'], sizes: ['800x1400mm', '900x1400mm'], rating: 4.8, popular: true },
+  { id: 'bath-8-panel', name: '8mm Bath Screen Glass Panel', category: 'bathScreens', shortDesc: 'Replacement or self-install 8mm bath screen glass panel (glass only).', description: 'A standalone 8mm toughened glass panel, perfect for replacing an existing bath screen or self-install projects.', priceFrom: 64.99, priceTo: 144.99, priceDisplay: '\u00a364.99 \u2013 \u00a3144.99', image: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&auto=format&fit=crop&q=80', features: ['8mm toughened glass', 'Glass panel only', 'Polished edges', 'Safety certified'], sizes: ['700x1400mm', '800x1400mm', '900x1400mm', '1000x1400mm'], rating: 4.5 },
+];
+
+export const tableTopGlass = [
+  { id: 'table-6-rect', name: '6mm Rectangle Toughened Glass Table Top Protector', category: 'tableTopGlass', shortDesc: 'Crystal clear 6mm toughened glass table top protector \u2014 rectangle.', description: 'Protect your dining table, desk, or dresser with our 6mm clear toughened glass table top protector. Polished edges with rubber bumper feet included.', priceFrom: 42.99, priceTo: 262.99, priceDisplay: '\u00a342.99 \u2013 \u00a3262.99', image: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&auto=format&fit=crop&q=80', features: ['6mm toughened glass', 'Polished edges', 'Rubber feet included', 'Crystal clear'], sizes: ['400x600mm', '600x900mm', '800x1200mm', '1000x1500mm', '1200x2000mm'], rating: 5.0, popular: true },
+  { id: 'table-10-rect', name: '10mm Rectangle Table Top \u2014 Clear Toughened Glass', category: 'tableTopGlass', shortDesc: 'Thicker 10mm toughened glass table top \u2014 extra weight and durability.', description: 'Our 10mm toughened glass rectangle table tops offer extra weight and durability for larger tables and desks.', priceFrom: 52.99, priceTo: 272.99, priceDisplay: '\u00a352.99 \u2013 \u00a3272.99', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop&q=80', features: ['10mm toughened glass', 'Extra weight & substance', 'Polished edges', 'Rubber feet included'], sizes: ['400x600mm', '600x900mm', '800x1200mm', '1000x1500mm', '1200x2000mm'], rating: 5.0 },
+  { id: 'table-10-round', name: '10mm Round Table Top \u2014 Clear Toughened Glass', category: 'tableTopGlass', shortDesc: 'Clear 10mm round toughened glass table top protector.', description: 'A perfectly circular 10mm toughened glass top to protect your round dining or coffee table.', priceFrom: 66.99, priceTo: 115.99, priceDisplay: '\u00a366.99 \u2013 \u00a3115.99', image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&auto=format&fit=crop&q=80', features: ['10mm toughened glass', 'Perfectly round cut', 'Polished edges', 'Rubber feet included'], sizes: ['600mm dia', '700mm dia', '800mm dia', '900mm dia', '1000mm dia'], rating: 5.0 },
+  { id: 'table-10-square', name: '10mm Square Table Top \u2014 Clear Toughened Glass', category: 'tableTopGlass', shortDesc: 'Clear 10mm square toughened glass table top protector.', description: 'Protect your square coffee table, side table, or desk with our 10mm clear toughened glass top.', priceFrom: 44.99, priceTo: 99.99, priceDisplay: '\u00a344.99 \u2013 \u00a399.99', image: 'https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=800&auto=format&fit=crop&q=80', features: ['10mm toughened glass', 'Square cut', 'Polished edges', 'Rubber feet included'], sizes: ['400x400mm', '500x500mm', '600x600mm', '700x700mm', '800x800mm'], rating: 5.0 },
+];
+
+// ─── Helper Functions ────────────────────────────────────────
+
 export function getAllProducts() {
-  return [
-    ...balustrades,
-    ...splashbackColors,
-    ...splashbackPrints,
-    ...mirrors,
-    ...bathScreens,
-  ];
+  return [...balustrades, ...splashbacks, ...mirrors, ...julietBalconies, ...bathScreens, ...tableTopGlass];
 }
 
 export function getProductsByCategory(category) {
-  switch (category) {
-    case 'balustrades':
-      return balustrades;
-    case 'splashbacks':
-      return [...splashbackColors, ...splashbackPrints];
-    case 'mirrors':
-      return mirrors;
-    case 'bathScreens':
-      return bathScreens;
-    case 'julietBalconies':
-      return julietBalconies;
-    default:
-      return [];
-  }
+  const map = { balustrades, splashbacks, mirrors, julietBalconies, bathScreens, tableTopGlass };
+  return map[category] || [];
 }
 
 export function getProductById(id) {
-  const allProducts = [
-    ...balustrades,
-    ...splashbackColors,
-    ...splashbackPrints,
-    ...mirrors,
-    ...bathScreens,
-    ...julietBalconies,
-  ];
-  return allProducts.find(p => p.id === id);
+  return getAllProducts().find((p) => p.id === id);
 }
 
 export function getFeaturedProducts() {
-  return [
-    balustrades[0], // 10mm Clear
-    splashbackColors[0], // Duck Egg
-    splashbackPrints[0], // Copper Marble
-    mirrors[0], // Leaner Mirror
-  ];
+  return [balustrades[0], splashbacks[0], splashbacks[9], mirrors[0], julietBalconies[0], bathScreens[0]];
 }
 
 export function getPopularProducts() {
-  const allProducts = [
-    ...balustrades,
-    ...splashbackColors,
-    ...splashbackPrints,
-    ...mirrors,
-    ...bathScreens,
-  ];
-  return allProducts.filter(p => p.popular || p.bestSeller);
+  return getAllProducts().filter((p) => p.popular || p.trending);
 }
