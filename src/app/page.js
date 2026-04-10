@@ -48,7 +48,7 @@ function HeroSection() {
           alt="Modern architectural glass"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/90 via-[#0a0a0a]/50 to-[#0a0a0a]/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/50 to-brand-navy/30" />
       </div>
 
       {/* Hero Content */}
@@ -61,7 +61,7 @@ function HeroSection() {
           </div>
           <div className="overflow-hidden">
             <h1
-              className="text-display-xl text-brand-white max-w-5xl animate-fade-up"
+              className="text-display-xl text-white max-w-5xl animate-fade-up"
               style={{ animationDelay: '0.4s' }}
             >
               GLAZING SPECIALISTS
@@ -69,7 +69,7 @@ function HeroSection() {
           </div>
           <div className="overflow-hidden mt-8 max-w-2xl">
             <p
-              className="text-brand-light text-lg md:text-xl font-light leading-relaxed animate-fade-up"
+              className="text-white/80 text-lg md:text-xl font-light leading-relaxed animate-fade-up"
               style={{ animationDelay: '0.6s' }}
             >
               We design and install bespoke glass systems for ambitious architectural
@@ -93,7 +93,7 @@ function HeroSection() {
 /* ─── About Section ─── */
 function AboutSection() {
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-black">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-white">
       <div className="max-w-7xl mx-auto">
         <Reveal>
           <p className="section-label mb-6 text-brand-accent">About P&J Glass</p>
@@ -101,7 +101,7 @@ function AboutSection() {
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           <Reveal>
-            <h2 className="text-display-md text-brand-white leading-tight">
+            <h2 className="text-display-md text-brand-navy leading-tight">
               We specialise in bespoke glazing that shapes light, defines space,
               and elevates design.
             </h2>
@@ -165,7 +165,7 @@ function ProductCollection() {
   };
 
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-dark">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-offwhite">
       <div className="max-w-7xl mx-auto">
         <Reveal>
           <p className="section-label mb-6 text-brand-accent">Product Collection</p>
@@ -173,7 +173,7 @@ function ProductCollection() {
 
         <Reveal>
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 mb-12 md:mb-16">
-            <h2 className="text-display-md text-brand-white">
+            <h2 className="text-display-md text-brand-navy">
               Our glazing collection is defined by exceptional craftsmanship,
               refined design, and enduring quality.
             </h2>
@@ -190,15 +190,15 @@ function ProductCollection() {
 
         {/* Category Tabs */}
         <Reveal>
-          <div className="flex flex-wrap gap-2 mb-10 border-b border-white/10 pb-4">
+          <div className="flex flex-wrap gap-2 mb-10 border-b border-brand-silver pb-4">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
                 className={`px-5 py-2.5 text-[0.75rem] tracking-[0.1em] uppercase font-medium transition-all duration-300 ${
                   activeCategory === cat.id
-                    ? 'text-brand-white bg-brand-blue/30 border-b-2 border-brand-accent'
-                    : 'text-brand-grey hover:text-brand-white'
+                    ? 'text-brand-navy bg-brand-accent/20 border-b-2 border-brand-accent'
+                    : 'text-brand-grey hover:text-brand-navy'
                 }`}
               >
                 {cat.name}
@@ -226,7 +226,7 @@ function ProductCollection() {
                         Premium
                       </span>
                     )}
-                    <h3 className="text-brand-white text-sm md:text-base font-light mt-1 group-hover:text-brand-accent transition-colors">
+                    <h3 className="text-brand-navy text-sm md:text-base font-light mt-1 group-hover:text-brand-accent transition-colors">
                       {product.name}
                     </h3>
                   </div>
@@ -237,7 +237,7 @@ function ProductCollection() {
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="1.5"
-                    className="text-brand-grey group-hover:text-brand-white transition-colors mt-1 flex-shrink-0"
+                    className="text-brand-grey group-hover:text-brand-navy transition-colors mt-1 flex-shrink-0"
                   >
                     <path d="M7 17L17 7M17 7H7M17 7v10" />
                   </svg>
@@ -254,7 +254,7 @@ function ProductCollection() {
 /* ─── Showroom Section ─── */
 function ShowroomSection() {
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-charcoal">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-white">
       <div className="max-w-7xl mx-auto">
         <Reveal>
           <p className="section-label mb-6 text-brand-accent">Showroom</p>
@@ -274,14 +274,14 @@ function ShowroomSection() {
           <Reveal delay={2}>
             <div className="flex flex-col justify-between h-full">
               <div>
-                <h2 className="text-display-md text-brand-white mb-8">
+                <h2 className="text-display-md text-brand-navy mb-8">
                   Visit our showroom to experience our glass collection firsthand.
                 </h2>
 
                 <div className="space-y-6 mb-10">
                   <div>
                     <p className="section-label mb-2">Address</p>
-                    <p className="text-brand-light text-lg font-light">
+                    <p className="text-brand-grey text-lg font-light">
                       Unit 5, Romford Industrial Estate<br />
                       Romford, Essex RM1 2XX, UK
                     </p>
@@ -289,7 +289,7 @@ function ShowroomSection() {
 
                   <div>
                     <p className="section-label mb-2">Opening Hours</p>
-                    <p className="text-brand-light text-lg font-light">
+                    <p className="text-brand-grey text-lg font-light">
                       Mon - Fri: 8am - 6pm<br />
                       Saturday: 9am - 4pm
                     </p>
@@ -337,12 +337,12 @@ function FeaturedProjects() {
   ];
 
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-dark">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-offwhite">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
           <Reveal>
             <p className="section-label mb-4 text-brand-accent">Featured Projects</p>
-            <h2 className="text-display-md text-brand-white">
+            <h2 className="text-display-md text-brand-navy">
               Crafted with precision,<br />built to inspire.
             </h2>
           </Reveal>
@@ -368,14 +368,14 @@ function FeaturedProjects() {
                 />
                 <div className="overlay" />
                 <div className="content">
-                  <h3 className="text-brand-white text-xl md:text-2xl font-light mb-2">
+                  <h3 className="text-white text-xl md:text-2xl font-light mb-2">
                     {project.title}
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-[0.65rem] tracking-[0.1em] uppercase text-brand-light/80"
+                        className="text-[0.65rem] tracking-[0.1em] uppercase text-white/80"
                       >
                         {tag}
                       </span>
@@ -429,7 +429,7 @@ function ClientStories() {
   }, [testimonials.length]);
 
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-black">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-white">
       <div className="max-w-7xl mx-auto">
         <Reveal>
           <p className="section-label mb-6 text-brand-accent">Client Stories</p>
@@ -439,12 +439,12 @@ function ClientStories() {
           {/* Counter */}
           <Reveal>
             <div className="flex items-center gap-4 mb-8">
-              <span className="text-brand-white text-sm font-light">
+              <span className="text-brand-navy text-sm font-light">
                 {String(active + 1).padStart(2, '0')}
               </span>
-              <div className="flex-1 h-[1px] bg-white/10 relative">
+              <div className="flex-1 h-[1px] bg-brand-silver relative">
                 <div
-                  className="absolute top-0 left-0 h-full bg-brand-white transition-all duration-500"
+                  className="absolute top-0 left-0 h-full bg-brand-accent transition-all duration-500"
                   style={{ width: `${((active + 1) / testimonials.length) * 100}%` }}
                 />
               </div>
@@ -459,19 +459,19 @@ function ClientStories() {
                 onClick={() =>
                   setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length)
                 }
-                className="w-12 h-12 border border-white/20 flex items-center justify-center hover:bg-white/5 transition-colors"
+                className="w-12 h-12 border border-brand-silver flex items-center justify-center hover:bg-brand-offwhite transition-colors"
                 aria-label="Previous testimonial"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-brand-white">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-brand-navy">
                   <path d="M19 12H5M12 19l-7-7 7-7" />
                 </svg>
               </button>
               <button
                 onClick={() => setActive((prev) => (prev + 1) % testimonials.length)}
-                className="w-12 h-12 border border-white/20 flex items-center justify-center hover:bg-white/5 transition-colors"
+                className="w-12 h-12 border border-brand-silver flex items-center justify-center hover:bg-brand-offwhite transition-colors"
                 aria-label="Next testimonial"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-brand-white">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-brand-navy">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </button>
@@ -490,11 +490,11 @@ function ClientStories() {
                       : 'opacity-0 translate-y-4 pointer-events-none'
                   }`}
                 >
-                  <blockquote className="text-brand-white text-xl md:text-2xl lg:text-3xl font-light leading-relaxed mb-8">
+                  <blockquote className="text-brand-navy text-xl md:text-2xl lg:text-3xl font-light leading-relaxed mb-8">
                     &ldquo;{testimonial.quote}&rdquo;
                   </blockquote>
                   <div>
-                    <p className="text-brand-white text-sm font-medium">
+                    <p className="text-brand-navy text-sm font-medium">
                       {testimonial.name}
                     </p>
                     <p className="text-brand-grey text-sm font-light">
@@ -509,12 +509,12 @@ function ClientStories() {
 
         {/* Google Review Score */}
         <Reveal>
-          <div className="mt-16 pt-8 border-t border-white/10">
+          <div className="mt-16 pt-8 border-t border-brand-silver">
             <a
               href="https://www.google.com/search?q=P%26J+Glass+Reviews"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-4 text-brand-grey hover:text-brand-white transition-colors text-sm"
+              className="inline-flex items-center gap-4 text-brand-grey hover:text-brand-navy transition-colors text-sm"
             >
               <span className="section-label">Google Review Score: 4.9 of 5</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -549,7 +549,7 @@ function ValuesSection() {
   ];
 
   return (
-    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-charcoal">
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-offwhite">
       <div className="max-w-7xl mx-auto">
         <Reveal>
           <p className="section-label mb-6 text-brand-accent">Our Values</p>
@@ -558,8 +558,8 @@ function ValuesSection() {
         <div className="grid md:grid-cols-3 gap-8 md:gap-12">
           {values.map((value, idx) => (
             <Reveal key={value.title} delay={idx + 1}>
-              <div className="border-t border-white/10 pt-8">
-                <h3 className="text-brand-white text-2xl md:text-3xl font-light mb-4">
+              <div className="border-t border-brand-silver pt-8">
+                <h3 className="text-brand-navy text-2xl md:text-3xl font-light mb-4">
                   {value.title}
                 </h3>
                 <p className="text-brand-grey text-sm leading-relaxed">
@@ -583,7 +583,7 @@ function ImageBreak() {
         alt="Architectural glass installation"
         className="w-full h-full object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/60 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-brand-navy/60 to-transparent" />
     </section>
   );
 }

@@ -13,18 +13,18 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: #0a0a0a;
+  background-color: #ffffff;
 }
 
 body {
-  background-color: #0a0a0a;
-  color: #f5f5f5;
+  background-color: #ffffff;
+  color: #1a2055;
   overflow-x: hidden;
 }
 
 ::selection {
   background-color: rgba(94, 196, 212, 0.3);
-  color: #fff;
+  color: #1a2055;
 }
 
 /* ============================================
@@ -34,11 +34,11 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
   letter-spacing: -0.02em;
-  color: #f5f5f5;
+  color: #1a2055;
 }
 
 p {
-  color: #888888;
+  color: #6b7280;
   line-height: 1.7;
   font-weight: 300;
 }
@@ -67,7 +67,7 @@ img {
 .divider {
   width: 100%;
   height: 1px;
-  background-color: rgba(94, 196, 212, 0.15);
+  background-color: #dfe3e8;
 }
 
 /* Image reveal on hover */
@@ -107,7 +107,7 @@ img {
   gap: 0.75rem;
   padding: 1rem 2.5rem;
   background-color: #5ec4d4;
-  color: #0a0a0a;
+  color: #1a2055;
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -115,8 +115,8 @@ img {
   transition: all 0.4s ease;
 }
 .btn-filled:hover {
-  background-color: #fff;
-  color: #0a0a0a;
+  background-color: #1a2055;
+  color: #ffffff;
 }
 
 .btn-outline-fluid {
@@ -125,8 +125,8 @@ img {
   justify-content: center;
   gap: 0.75rem;
   padding: 1rem 2.5rem;
-  border: 1px solid rgba(94, 196, 212, 0.4);
-  color: #5ec4d4;
+  border: 1px solid #1a2055;
+  color: #1a2055;
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -135,8 +135,8 @@ img {
 }
 .btn-outline-fluid:hover {
   border-color: #5ec4d4;
-  background-color: rgba(94, 196, 212, 0.1);
-  color: #fff;
+  background-color: #5ec4d4;
+  color: #1a2055;
 }
 
 /* Project card hover */
@@ -150,7 +150,7 @@ img {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+  background: linear-gradient(to top, rgba(26,32,85,0.85) 0%, transparent 60%);
   opacity: 0;
   transition: opacity 0.5s ease;
 }
@@ -200,12 +200,12 @@ img {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #f5f7fa;
 }
 ::-webkit-scrollbar-thumb {
-  background: #333333;
+  background: #c4c9d0;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #555555;
+  background: #9ba3ad;
 }

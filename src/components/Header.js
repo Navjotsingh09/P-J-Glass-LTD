@@ -59,7 +59,7 @@ export default function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-brand-black/95 backdrop-blur-md shadow-lg'
+            ? 'bg-white/95 backdrop-blur-md shadow-lg'
             : 'bg-transparent'
         }`}
       >
@@ -72,7 +72,7 @@ export default function Header() {
               width={180}
               height={48}
               priority
-              className="h-10 md:h-12 w-auto brightness-0 invert"
+              className={`h-10 md:h-12 w-auto transition-all duration-500 ${scrolled ? '' : 'brightness-0 invert'}`}
             />
           </Link>
 
@@ -89,7 +89,7 @@ export default function Header() {
                 >
                   <Link
                     href={link.href}
-                    className="text-white/70 hover:text-white text-[0.75rem] tracking-[0.15em] uppercase font-medium transition-colors duration-300 flex items-center gap-1"
+                    className={`text-[0.75rem] tracking-[0.15em] uppercase font-medium transition-colors duration-300 flex items-center gap-1 ${scrolled ? 'text-brand-navy/70 hover:text-brand-navy' : 'text-white/70 hover:text-white'}`}
                   >
                     {link.name}
                     <svg className={`w-3 h-3 transition-transform duration-300 ${megaOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
@@ -101,12 +101,12 @@ export default function Header() {
                       megaOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'
                     }`}
                   >
-                    <div className="bg-[#111111] border border-white/10 rounded-lg shadow-2xl p-6 min-w-[640px]">
-                      <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
-                        <h3 className="text-white text-xs tracking-[0.2em] uppercase font-semibold">Shop by Category</h3>
+                    <div className="bg-white border border-brand-silver rounded-lg shadow-2xl p-6 min-w-[640px]">
+                      <div className="flex items-center justify-between mb-4 pb-3 border-b border-brand-silver">
+                        <h3 className="text-brand-navy text-xs tracking-[0.2em] uppercase font-semibold">Shop by Category</h3>
                         <Link
                           href="/products"
-                          className="text-brand-accent text-xs tracking-[0.1em] uppercase hover:text-white transition-colors"
+                          className="text-brand-accent text-xs tracking-[0.1em] uppercase hover:text-brand-navy transition-colors"
                         >
                           View All →
                         </Link>
@@ -119,10 +119,10 @@ export default function Header() {
                             onClick={() => setMegaOpen(false)}
                             className="group flex flex-col py-2"
                           >
-                            <span className="text-white/80 text-sm font-medium group-hover:text-brand-accent transition-colors duration-200">
+                            <span className="text-brand-navy/80 text-sm font-medium group-hover:text-brand-accent transition-colors duration-200">
                               {cat.name}
                             </span>
-                            <span className="text-white/40 text-xs mt-0.5 line-clamp-1">
+                            <span className="text-brand-grey text-xs mt-0.5 line-clamp-1">
                               {cat.description}
                             </span>
                           </Link>
@@ -135,7 +135,7 @@ export default function Header() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-white/70 hover:text-white text-[0.75rem] tracking-[0.15em] uppercase font-medium transition-colors duration-300"
+                  className={`text-[0.75rem] tracking-[0.15em] uppercase font-medium transition-colors duration-300 ${scrolled ? 'text-brand-navy/70 hover:text-brand-navy' : 'text-white/70 hover:text-white'}`}
                 >
                   {link.name}
                 </Link>
@@ -147,7 +147,7 @@ export default function Header() {
           <div className="hidden lg:flex items-center gap-6">
             <Link
               href="/contact"
-              className="bg-brand-accent text-brand-black px-6 py-3 text-[0.7rem] tracking-[0.15em] uppercase font-semibold hover:bg-white transition-colors duration-300"
+              className="bg-brand-accent text-brand-navy px-6 py-3 text-[0.7rem] tracking-[0.15em] uppercase font-semibold hover:bg-brand-navy hover:text-white transition-colors duration-300"
             >
               Get a Quote
             </Link>
@@ -160,12 +160,12 @@ export default function Header() {
             aria-label="Toggle menu"
           >
             <span
-              className={`block w-6 h-[1px] bg-brand-white transition-all duration-300 ${
+              className={`block w-6 h-[1px] transition-all duration-300 ${mobileMenuOpen || !scrolled ? 'bg-white' : 'bg-brand-navy'} ${
                 mobileMenuOpen ? 'rotate-45 translate-y-[3.5px]' : ''
               }`}
             />
             <span
-              className={`block w-6 h-[1px] bg-brand-white transition-all duration-300 ${
+              className={`block w-6 h-[1px] transition-all duration-300 ${mobileMenuOpen || !scrolled ? 'bg-white' : 'bg-brand-navy'} ${
                 mobileMenuOpen ? '-rotate-45 -translate-y-[3.5px]' : ''
               }`}
             />
@@ -175,7 +175,7 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-brand-black transition-opacity duration-500 lg:hidden ${
+        className={`fixed inset-0 z-40 bg-brand-navy transition-opacity duration-500 lg:hidden ${
           mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >

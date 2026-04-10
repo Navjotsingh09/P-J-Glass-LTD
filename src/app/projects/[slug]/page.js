@@ -8,9 +8,9 @@ export default function ProjectPage({ params }) {
 
   if (!project) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-brand-black">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="text-center">
-          <h1 className="text-display-md text-brand-white mb-6">Project Not Found</h1>
+          <h1 className="text-display-md text-brand-navy mb-6">Project Not Found</h1>
           <Link href="/portfolio" className="btn-fluid btn-filled">
             Back to Projects
           </Link>

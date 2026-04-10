@@ -70,23 +70,23 @@ export default function AboutPage() {
             alt="P&J Glass workshop"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 bg-brand-navy/50" />
         </div>
         <div className="relative z-10 px-6 md:px-10 lg:px-16 pb-16 md:pb-24 w-full">
           <div className="max-w-7xl mx-auto">
             <p className="section-label mb-4">About</p>
-            <h1 className="text-display-xl text-brand-white">ABOUT P&J GLASS</h1>
+            <h1 className="text-display-xl text-white">ABOUT P&J GLASS</h1>
           </div>
         </div>
       </section>
 
       {/* Manifesto */}
-      <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-black">
+      <section className="py-section px-6 md:px-10 lg:px-16 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
             <Reveal>
               <p className="section-label mb-6">Manifesto</p>
-              <h2 className="text-display-md text-brand-white leading-tight">
+              <h2 className="text-display-md text-brand-navy leading-tight">
                 Welcome to P&J Glass LTD, your trusted glass design and cutting
                 specialist in England. With years of expertise in the glass industry,
                 we deliver precision and quality in every project we undertake.
@@ -119,14 +119,14 @@ export default function AboutPage() {
       </section>
 
       {/* About Text */}
-      <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-dark">
+      <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-offwhite">
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <p className="section-label mb-6">About P&J Glass</p>
           </Reveal>
           <Reveal>
             <div className="max-w-4xl">
-              <p className="text-brand-light text-xl md:text-2xl font-light leading-relaxed">
+              <p className="text-brand-navy text-xl md:text-2xl font-light leading-relaxed">
                 Our services extend beyond just cutting glass. We specialise in crafting
                 bespoke shower screens tailored to your space and style, vibrant coloured
                 kitchen splashbacks, custom glass balustrades, and precision-cut mirrors.
@@ -146,17 +146,17 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-black">
+      <section className="py-section px-6 md:px-10 lg:px-16 bg-white">
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <p className="section-label mb-4">The Beliefs That Shape Us</p>
-            <h2 className="text-display-md text-brand-white mb-16">Our Values</h2>
+            <h2 className="text-display-md text-brand-navy mb-16">Our Values</h2>
           </Reveal>
           <div className="grid md:grid-cols-3 gap-8 md:gap-12">
             {values.map((value, idx) => (
               <Reveal key={value.title} delay={idx + 1}>
-                <div className="border-t border-white/10 pt-8">
-                  <h3 className="text-brand-white text-2xl md:text-3xl font-light mb-4">
+                <div className="border-t border-brand-silver pt-8">
+                  <h3 className="text-brand-navy text-2xl md:text-3xl font-light mb-4">
                     {value.title}
                   </h3>
                   <p className="text-brand-grey text-sm leading-relaxed">
@@ -170,19 +170,19 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-dark">
+      <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-offwhite">
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <p className="section-label mb-4">Our Team</p>
-            <h2 className="text-display-md text-brand-white mb-16">
+            <h2 className="text-display-md text-brand-navy mb-16">
               The People Behind the Glass
             </h2>
           </Reveal>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {team.map((member, idx) => (
               <Reveal key={member.name} delay={idx < 3 ? idx + 1 : 0}>
-                <div className="border-t border-white/10 pt-6">
-                  <h3 className="text-brand-white text-lg font-light">{member.name}</h3>
+                <div className="border-t border-brand-silver pt-6">
+                  <h3 className="text-brand-navy text-lg font-light">{member.name}</h3>
                   <p className="text-brand-grey text-xs tracking-[0.1em] uppercase mt-1">
                     {member.role}
                   </p>
@@ -194,7 +194,7 @@ export default function AboutPage() {
       </section>
 
       {/* Certifications */}
-      <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-black">
+      <section className="py-section px-6 md:px-10 lg:px-16 bg-white">
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <p className="section-label mb-4">Awards &amp; Certifications</p>
@@ -203,8 +203,8 @@ export default function AboutPage() {
             {['FENSA Registered', 'BS6180 Compliant', 'BS EN 12150', 'Public Liability Insured'].map(
               (cert, idx) => (
                 <Reveal key={cert} delay={idx + 1}>
-                  <div className="border-t border-white/10 pt-6">
-                    <p className="text-brand-white text-sm font-light">{cert}</p>
+                  <div className="border-t border-brand-silver pt-6">
+                    <p className="text-brand-navy text-sm font-light">{cert}</p>
                   </div>
                 </Reveal>
               )

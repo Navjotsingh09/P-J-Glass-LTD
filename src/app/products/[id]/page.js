@@ -9,9 +9,9 @@ export default function ProductDetailPage({ params }) {
 
   if (!product) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-brand-black">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="text-center">
-          <h1 className="text-display-md text-brand-white mb-6">Product Not Found</h1>
+          <h1 className="text-display-md text-brand-navy mb-6">Product Not Found</h1>
           <Link href="/products" className="btn-fluid btn-filled">
             Back to Collection
           </Link>

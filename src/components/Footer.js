@@ -7,13 +7,13 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-brand-black border-t border-white/10">
+    <footer className="bg-brand-navy border-t border-brand-silver">
       {/* CTA Section */}
       <section className="py-section px-6 md:px-10 lg:px-16">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-end">
             <div>
-              <h2 className="text-display-lg text-brand-white mb-6">
+              <h2 className="text-display-lg text-white mb-6">
                 Where Vision<br />Meets Execution
               </h2>
             </div>
@@ -57,27 +57,26 @@ export default function Footer() {
             <div>
               <ul className="space-y-3">
                 <li>
-                  <Link href="/about" className="text-brand-grey hover:text-brand-white text-sm transition-colors">
+                  <Link href="/about" className="text-white/60 hover:text-white text-sm transition-colors">
                     About
                   </Link>
                 </li>
                 <li>
-                  <Link href="/products" className="text-brand-grey hover:text-brand-white text-sm transition-colors">
-                    Shop
+                  <Link href="/products" className="text-white/60 hover:text-white text-sm transition-colors">
                   </Link>
                 </li>
                 <li>
-                  <Link href="/portfolio" className="text-brand-grey hover:text-brand-white text-sm transition-colors">
+                  <Link href="/portfolio" className="text-white/60 hover:text-white text-sm transition-colors">
                     Projects
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="text-brand-grey hover:text-brand-white text-sm transition-colors">
+                  <Link href="/contact" className="text-white/60 hover:text-white text-sm transition-colors">
                     Showroom
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="text-brand-grey hover:text-brand-white text-sm transition-colors">
+                  <Link href="/contact" className="text-white/60 hover:text-white text-sm transition-colors">
                     Contact
                   </Link>
                 </li>
@@ -86,19 +85,19 @@ export default function Footer() {
 
             {/* Contact */}
             <div>
-              <ul className="space-y-3 text-sm text-brand-grey">
+              <ul className="space-y-3 text-sm text-white/60">
                 <li>
-                  <a href="tel:02085991622" className="hover:text-brand-white transition-colors">
+                  <a href="tel:02085991622" className="hover:text-white transition-colors">
                     020 8599 1622
                   </a>
                 </li>
                 <li>
-                  <a href="tel:+447733309314" className="hover:text-brand-white transition-colors">
+                  <a href="tel:+447733309314" className="hover:text-white transition-colors">
                     +44 7733 309 314
                   </a>
                 </li>
                 <li>
-                  <a href="mailto:info@pj-glass.co.uk" className="hover:text-brand-white transition-colors">
+                  <a href="mailto:info@pj-glass.co.uk" className="hover:text-white transition-colors">
                     info@pj-glass.co.uk
                   </a>
                 </li>
@@ -121,7 +120,7 @@ export default function Footer() {
                     href="https://instagram.com/pjglass"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-brand-grey hover:text-brand-white text-sm transition-colors"
+                    className="text-white/60 hover:text-white text-sm transition-colors"
                   >
                     Instagram
                   </a>
@@ -131,7 +130,7 @@ export default function Footer() {
                     href="https://youtube.com/@pjglass"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-brand-grey hover:text-brand-white text-sm transition-colors"
+                    className="text-white/60 hover:text-white text-sm transition-colors"
                   >
                     YouTube
                   </a>
@@ -141,7 +140,7 @@ export default function Footer() {
                     href="https://linkedin.com/company/pjglass"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-brand-grey hover:text-brand-white text-sm transition-colors"
+                    className="text-white/60 hover:text-white text-sm transition-colors"
                   >
                     LinkedIn
                   </a>
@@ -151,7 +150,7 @@ export default function Footer() {
                     href="https://facebook.com/pjglass"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-brand-grey hover:text-brand-white text-sm transition-colors"
+                    className="text-white/60 hover:text-white text-sm transition-colors"
                   >
                     Facebook
                   </a>
@@ -162,14 +161,14 @@ export default function Footer() {
 
           {/* Bottom Bar */}
           <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-brand-grey text-xs">
+            <p className="text-white/40 text-xs">
               &copy;{currentYear}, P&J Glass
             </p>
             <div className="flex items-center gap-6">
-              <Link href="/privacy-policy" className="text-brand-grey hover:text-brand-white text-xs transition-colors">
+              <Link href="/privacy-policy" className="text-white/40 hover:text-white text-xs transition-colors">
                 Privacy policy
               </Link>
-              <Link href="/terms-conditions" className="text-brand-grey hover:text-brand-white text-xs transition-colors">
+              <Link href="/terms-conditions" className="text-white/40 hover:text-white text-xs transition-colors">
                 Terms &amp; conditions
               </Link>
             </div>

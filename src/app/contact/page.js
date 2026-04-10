@@ -86,25 +86,25 @@ export default function ContactPage() {
             alt="Contact P&J Glass"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 bg-brand-navy/60" />
         </div>
         <div className="relative z-10 px-6 md:px-10 lg:px-16 pb-16 md:pb-24 w-full">
           <div className="max-w-7xl mx-auto">
             <p className="section-label mb-4">Contact</p>
-            <h1 className="text-display-xl text-brand-white">GET IN TOUCH</h1>
+            <h1 className="text-display-xl text-white">GET IN TOUCH</h1>
           </div>
         </div>
       </section>
 
       {/* Contact Info */}
-      <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-black">
+      <section className="py-section px-6 md:px-10 lg:px-16 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-3 gap-12 lg:gap-20 mb-20">
             <Reveal>
               <p className="section-label mb-3">Talk to us</p>
               <a
                 href="tel:02085991622"
-                className="text-brand-white text-2xl md:text-3xl font-light hover:text-brand-accent transition-colors"
+                className="text-brand-navy text-2xl md:text-3xl font-light hover:text-brand-accent transition-colors"
               >
                 020 8599 1622
               </a>
@@ -120,7 +120,7 @@ export default function ContactPage() {
               <p className="section-label mb-3">Write us</p>
               <a
                 href="mailto:info@pj-glass.co.uk"
-                className="text-brand-white text-lg md:text-xl font-light hover:text-brand-accent transition-colors uppercase tracking-wide"
+                className="text-brand-navy text-lg md:text-xl font-light hover:text-brand-accent transition-colors uppercase tracking-wide"
               >
                 info@pj-glass.co.uk
               </a>
@@ -138,9 +138,9 @@ export default function ContactPage() {
 
           {/* Address */}
           <Reveal>
-            <div className="border-t border-white/10 pt-10">
+            <div className="border-t border-brand-silver pt-10">
               <p className="section-label mb-4">Address</p>
-              <p className="text-brand-light text-xl md:text-2xl font-light">
+              <p className="text-brand-navy text-xl md:text-2xl font-light">
                 1181 High Rd, Romford<br />
                 RM6 4AL, UK
               </p>
@@ -164,11 +164,11 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Form */}
-      <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-dark">
+      <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-offwhite">
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <p className="section-label mb-4">Have a Clear Vision in Mind?</p>
-            <h2 className="text-display-md text-brand-white mb-4 max-w-3xl">
+            <h2 className="text-display-md text-brand-navy mb-4 max-w-3xl">
               Request a tailored quote for your glazing project.
             </h2>
             <p className="text-brand-grey text-lg font-light max-w-2xl mb-12">
@@ -179,8 +179,8 @@ export default function ContactPage() {
 
           <Reveal>
             {submitted ? (
-              <div className="border border-white/10 p-12 text-center">
-                <h3 className="text-brand-white text-2xl font-light mb-4">
+              <div className="border border-brand-silver p-12 text-center">
+                <h3 className="text-brand-navy text-2xl font-light mb-4">
                   Thank you for your enquiry.
                 </h3>
                 <p className="text-brand-grey">
@@ -201,7 +201,7 @@ export default function ContactPage() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full bg-transparent border-b border-white/20 pb-3 text-brand-white focus:border-brand-accent focus:outline-none transition-colors text-lg font-light"
+                      className="w-full bg-transparent border-b border-brand-silver pb-3 text-brand-navy focus:border-brand-accent focus:outline-none transition-colors text-lg font-light"
                     />
                   </div>
                   <div>
@@ -215,7 +215,7 @@ export default function ContactPage() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full bg-transparent border-b border-white/20 pb-3 text-brand-white focus:border-brand-accent focus:outline-none transition-colors text-lg font-light"
+                      className="w-full bg-transparent border-b border-brand-silver pb-3 text-brand-navy focus:border-brand-accent focus:outline-none transition-colors text-lg font-light"
                     />
                   </div>
                 </div>
@@ -231,7 +231,7 @@ export default function ContactPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full bg-transparent border-b border-white/20 pb-3 text-brand-white focus:border-brand-accent focus:outline-none transition-colors text-lg font-light"
+                      className="w-full bg-transparent border-b border-brand-silver pb-3 text-brand-navy focus:border-brand-accent focus:outline-none transition-colors text-lg font-light"
                     />
                   </div>
                   <div>
@@ -243,14 +243,14 @@ export default function ContactPage() {
                       name="service"
                       value={formData.service}
                       onChange={handleChange}
-                      className="w-full bg-transparent border-b border-white/20 pb-3 text-brand-white focus:border-brand-accent focus:outline-none transition-colors text-lg font-light appearance-none cursor-pointer"
+                      className="w-full bg-transparent border-b border-brand-silver pb-3 text-brand-navy focus:border-brand-accent focus:outline-none transition-colors text-lg font-light appearance-none cursor-pointer"
                     >
-                      <option value="" className="bg-brand-dark">Select a service</option>
-                      <option value="balustrades" className="bg-brand-dark">Glass Balustrades</option>
-                      <option value="splashbacks" className="bg-brand-dark">Kitchen Splashbacks</option>
-                      <option value="showers" className="bg-brand-dark">Shower Screens</option>
-                      <option value="mirrors" className="bg-brand-dark">Mirrors</option>
-                      <option value="other" className="bg-brand-dark">Other</option>
+                      <option value="" className="bg-white">Select a service</option>
+                      <option value="balustrades" className="bg-white">Glass Balustrades</option>
+                      <option value="splashbacks" className="bg-white">Kitchen Splashbacks</option>
+                      <option value="showers" className="bg-white">Shower Screens</option>
+                      <option value="mirrors" className="bg-white">Mirrors</option>
+                      <option value="other" className="bg-white">Other</option>
                     </select>
                   </div>
                 </div>
@@ -266,7 +266,7 @@ export default function ContactPage() {
                     onChange={handleChange}
                     rows={4}
                     required
-                    className="w-full bg-transparent border-b border-white/20 pb-3 text-brand-white focus:border-brand-accent focus:outline-none transition-colors text-lg font-light resize-none"
+                    className="w-full bg-transparent border-b border-brand-silver pb-3 text-brand-navy focus:border-brand-accent focus:outline-none transition-colors text-lg font-light resize-none"
                   />
                 </div>
 
@@ -283,11 +283,11 @@ export default function ContactPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-section px-6 md:px-10 lg:px-16 bg-brand-black">
+      <section className="py-section px-6 md:px-10 lg:px-16 bg-white">
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <p className="section-label mb-4">FAQ</p>
-            <h2 className="text-display-md text-brand-white mb-12">
+            <h2 className="text-display-md text-brand-navy mb-12">
               The questions with honest answers
             </h2>
           </Reveal>
@@ -295,12 +295,12 @@ export default function ContactPage() {
           <div className="max-w-3xl">
             {faqs.map((faq, idx) => (
               <Reveal key={idx}>
-                <div className="border-t border-white/10">
+                <div className="border-t border-brand-silver">
                   <button
                     onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
                     className="w-full flex items-center justify-between py-6 text-left"
                   >
-                    <h3 className="text-brand-white text-lg font-light pr-8">
+                    <h3 className="text-brand-navy text-lg font-light pr-8">
                       {faq.q}
                     </h3>
                     <svg

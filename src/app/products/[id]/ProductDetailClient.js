@@ -41,26 +41,26 @@ export default function ProductDetailClient({ product, relatedProducts }) {
   return (
     <>
       {/* Breadcrumb */}
-      <div className="bg-brand-black border-b border-white/5 pt-28 pb-4 px-6 md:px-10 lg:px-16">
+      <div className="bg-white border-b border-brand-silver pt-28 pb-4 px-6 md:px-10 lg:px-16">
         <div className="max-w-7xl mx-auto flex items-center gap-2 text-[0.7rem] tracking-[0.08em] uppercase text-brand-grey">
-          <Link href="/" className="hover:text-brand-white transition-colors">Home</Link>
-          <span className="text-white/20">/</span>
-          <Link href="/products" className="hover:text-brand-white transition-colors">Collection</Link>
-          <span className="text-white/20">/</span>
-          <Link href={`/products?category=${product.category}`} className="hover:text-brand-white transition-colors">
+          <Link href="/" className="hover:text-brand-navy transition-colors">Home</Link>
+          <span className="text-brand-silver">/</span>
+          <Link href="/products" className="hover:text-brand-navy transition-colors">Collection</Link>
+          <span className="text-brand-silver">/</span>
+          <Link href={`/products?category=${product.category}`} className="hover:text-brand-navy transition-colors">
             {categoryInfo?.name || product.category}
           </Link>
-          <span className="text-white/20">/</span>
-          <span className="text-brand-white">{product.name}</span>
+          <span className="text-brand-silver">/</span>
+          <span className="text-brand-navy">{product.name}</span>
         </div>
       </div>
 
       {/* Product Hero */}
-      <section className="bg-brand-black py-12 md:py-20 px-6 md:px-10 lg:px-16">
+      <section className="bg-white py-12 md:py-20 px-6 md:px-10 lg:px-16">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Image */}
           <Reveal>
-            <div className="aspect-[4/5] overflow-hidden bg-brand-charcoal img-reveal">
+            <div className="aspect-[4/5] overflow-hidden bg-brand-offwhite img-reveal">
               <img
                 src={product.image}
                 alt={product.name}
@@ -78,7 +78,7 @@ export default function ProductDetailClient({ product, relatedProducts }) {
                     {product.trending ? 'Trending' : 'Popular'}
                   </span>
                 )}
-                <h1 className="text-display-md text-brand-white mb-6">{product.name}</h1>
+                <h1 className="text-display-md text-brand-navy mb-6">{product.name}</h1>
 
                 {/* Rating */}
                 {product.rating && (
@@ -116,7 +116,7 @@ export default function ProductDetailClient({ product, relatedProducts }) {
                           className={`px-4 py-2.5 text-[0.7rem] tracking-[0.08em] uppercase border transition-all duration-300 ${
                             selectedSize === size
                               ? 'border-brand-accent text-brand-accent bg-brand-accent/5'
-                              : 'border-white/10 text-brand-grey hover:border-white/30 hover:text-brand-white'
+                              : 'border-brand-silver text-brand-grey hover:border-brand-navy hover:text-brand-navy'
                           }`}
                         >
                           {size}
@@ -134,7 +134,7 @@ export default function ProductDetailClient({ product, relatedProducts }) {
                     </label>
                     <ul className="space-y-2">
                       {product.features.map((feature, i) => (
-                        <li key={i} className="flex items-start gap-3 text-brand-light text-sm font-light">
+                        <li key={i} className="flex items-start gap-3 text-brand-grey text-sm font-light">
                           <span className="text-brand-accent mt-0.5">&#8226;</span>
                           {feature}
                         </li>
@@ -161,10 +161,10 @@ export default function ProductDetailClient({ product, relatedProducts }) {
       <div className="divider max-w-7xl mx-auto" />
 
       {/* Specifications */}
-      <section className="bg-brand-black py-16 md:py-24 px-6 md:px-10 lg:px-16">
+      <section className="bg-brand-offwhite py-16 md:py-24 px-6 md:px-10 lg:px-16">
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <h2 className="text-display-sm text-brand-white mb-12">Technical Specifications</h2>
+            <h2 className="text-display-sm text-brand-navy mb-12">Technical Specifications</h2>
           </Reveal>
           <Reveal>
             <div className="grid md:grid-cols-2 gap-x-16 gap-y-0">
@@ -178,9 +178,9 @@ export default function ProductDetailClient({ product, relatedProducts }) {
                 { label: 'Compliance', value: 'BS EN 12150 / Building Regs' },
                 { label: 'Service Area', value: 'London & Essex' },
               ].map((spec, i) => (
-                <div key={i} className="flex justify-between py-4 border-b border-white/5">
+                <div key={i} className="flex justify-between py-4 border-b border-brand-silver">
                   <span className="text-brand-grey text-sm">{spec.label}</span>
-                  <span className="text-brand-white text-sm font-light">{spec.value}</span>
+                  <span className="text-brand-navy text-sm font-light">{spec.value}</span>
                 </div>
               ))}
             </div>
@@ -191,11 +191,11 @@ export default function ProductDetailClient({ product, relatedProducts }) {
       <div className="divider max-w-7xl mx-auto" />
 
       {/* Installation Process */}
-      <section className="bg-brand-black py-16 md:py-24 px-6 md:px-10 lg:px-16">
+      <section className="bg-white py-16 md:py-24 px-6 md:px-10 lg:px-16">
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <p className="section-label mb-4">Our Process</p>
-            <h2 className="text-display-sm text-brand-white mb-16">How It Works</h2>
+            <h2 className="text-display-sm text-brand-navy mb-16">How It Works</h2>
           </Reveal>
           <div className="grid md:grid-cols-4 gap-8">
             {[
@@ -205,9 +205,9 @@ export default function ProductDetailClient({ product, relatedProducts }) {
               { step: '04', title: 'Installation', desc: 'Professional fitting by certified installers' },
             ].map((item, i) => (
               <Reveal key={i}>
-                <div className="border-t border-white/10 pt-6">
+                <div className="border-t border-brand-silver pt-6">
                   <span className="text-brand-accent text-sm tracking-wide">{item.step}</span>
-                  <h3 className="text-brand-white text-lg mt-3 mb-2">{item.title}</h3>
+                  <h3 className="text-brand-navy text-lg mt-3 mb-2">{item.title}</h3>
                   <p className="text-brand-grey text-sm font-light">{item.desc}</p>
                 </div>
               </Reveal>
@@ -219,10 +219,10 @@ export default function ProductDetailClient({ product, relatedProducts }) {
       <div className="divider max-w-7xl mx-auto" />
 
       {/* FAQ */}
-      <section className="bg-brand-black py-16 md:py-24 px-6 md:px-10 lg:px-16">
+      <section className="bg-brand-offwhite py-16 md:py-24 px-6 md:px-10 lg:px-16">
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <h2 className="text-display-sm text-brand-white mb-12">Common Questions</h2>
+            <h2 className="text-display-sm text-brand-navy mb-12">Common Questions</h2>
           </Reveal>
           <div className="max-w-3xl space-y-0">
             {[
@@ -233,8 +233,8 @@ export default function ProductDetailClient({ product, relatedProducts }) {
               { q: 'Can I get a sample?', a: 'Yes \u2014 visit our showroom at 1181 High Rd, Romford RM6 4AL or contact us to request samples.' },
             ].map((item, i) => (
               <Reveal key={i}>
-                <details className="group border-b border-white/5">
-                  <summary className="flex items-center justify-between py-5 cursor-pointer text-brand-white text-sm font-light hover:text-brand-accent transition-colors">
+                <details className="group border-b border-brand-silver">
+                  <summary className="flex items-center justify-between py-5 cursor-pointer text-brand-navy text-sm font-light hover:text-brand-accent transition-colors">
                     {item.q}
                     <span className="text-brand-grey group-open:rotate-45 transition-transform text-lg ml-4 flex-shrink-0">+</span>
                   </summary>
@@ -250,12 +250,12 @@ export default function ProductDetailClient({ product, relatedProducts }) {
       {relatedProducts && relatedProducts.length > 0 && (
         <>
           <div className="divider max-w-7xl mx-auto" />
-          <section className="bg-brand-black py-16 md:py-24 px-6 md:px-10 lg:px-16">
+          <section className="bg-white py-16 md:py-24 px-6 md:px-10 lg:px-16">
             <div className="max-w-7xl mx-auto">
               <Reveal>
                 <div className="flex items-end justify-between mb-12">
-                  <h2 className="text-display-sm text-brand-white">Related Products</h2>
-                  <Link href="/products" className="text-brand-grey hover:text-brand-white text-sm tracking-wide transition-colors hidden md:block">
+                  <h2 className="text-display-sm text-brand-navy">Related Products</h2>
+                  <Link href="/products" className="text-brand-grey hover:text-brand-navy text-sm tracking-wide transition-colors hidden md:block">
                     View All &rarr;
                   </Link>
                 </div>
@@ -264,14 +264,14 @@ export default function ProductDetailClient({ product, relatedProducts }) {
                 {relatedProducts.map((item) => (
                   <Reveal key={item.id}>
                     <Link href={`/products/${item.id}`} className="group block">
-                      <div className="aspect-[3/4] overflow-hidden mb-4 img-reveal bg-brand-charcoal">
+                      <div className="aspect-[3/4] overflow-hidden mb-4 img-reveal bg-brand-offwhite">
                         <img
                           src={item.image}
                           alt={item.name}
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <h3 className="text-brand-white text-sm font-light group-hover:text-brand-accent transition-colors">
+                      <h3 className="text-brand-navy text-sm font-light group-hover:text-brand-accent transition-colors">
                         {item.name}
                       </h3>
                       <p className="text-brand-grey text-xs mt-1">{item.priceDisplay}</p>
@@ -285,11 +285,11 @@ export default function ProductDetailClient({ product, relatedProducts }) {
       )}
 
       {/* CTA */}
-      <section className="bg-brand-charcoal py-20 md:py-28 px-6 md:px-10 lg:px-16">
+      <section className="bg-brand-offwhite py-20 md:py-28 px-6 md:px-10 lg:px-16">
         <div className="max-w-7xl mx-auto text-center">
           <Reveal>
             <p className="section-label mb-4">Get Started</p>
-            <h2 className="text-display-md text-brand-white mb-6">
+            <h2 className="text-display-md text-brand-navy mb-6">
               Ready to transform your space?
             </h2>
             <p className="text-brand-grey text-lg font-light max-w-xl mx-auto mb-10">

@@ -36,7 +36,7 @@ function Reveal({ children, className = '', delay = 0 }) {
 
 export default function ProductsPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-brand-black" />}>
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
       <ProductsContent />
     </Suspense>
   );
@@ -72,22 +72,22 @@ function ProductsContent() {
             alt="P&J Glass Collection"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 bg-brand-navy/60" />
         </div>
         <div className="relative z-10 px-6 md:px-10 lg:px-16 pb-16 md:pb-24 w-full">
           <div className="max-w-7xl mx-auto">
             <p className="section-label mb-4">Collection</p>
-            <h1 className="text-display-xl text-brand-white">PRODUCT COLLECTION</h1>
+            <h1 className="text-display-xl text-white">PRODUCT COLLECTION</h1>
           </div>
         </div>
       </section>
 
       {/* Intro */}
-      <section className="py-16 md:py-24 px-6 md:px-10 lg:px-16 bg-brand-black">
+      <section className="py-16 md:py-24 px-6 md:px-10 lg:px-16 bg-white">
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <div className="max-w-3xl">
-              <h2 className="text-display-md text-brand-white mb-6">
+              <h2 className="text-display-md text-brand-navy mb-6">
                 Our glazing collection is defined by exceptional craftsmanship, refined
                 design, and enduring quality.
               </h2>
@@ -100,19 +100,19 @@ function ProductsContent() {
       </section>
 
       {/* Product Grid */}
-      <section className="pb-section px-6 md:px-10 lg:px-16 bg-brand-black">
+      <section className="pb-section px-6 md:px-10 lg:px-16 bg-white">
         <div className="max-w-7xl mx-auto">
           {/* Category Tabs */}
           <Reveal>
-            <div className="flex flex-wrap gap-2 mb-12 border-b border-white/10 pb-4">
+            <div className="flex flex-wrap gap-2 mb-12 border-b border-brand-silver pb-4">
               {categories.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
                   className={`px-4 py-2.5 text-[0.7rem] tracking-[0.1em] uppercase font-medium transition-all duration-300 ${
                     activeCategory === cat.id
-                      ? 'text-brand-white bg-white/10'
-                      : 'text-brand-grey hover:text-brand-white'
+                      ? 'text-brand-navy bg-brand-accent/15'
+                      : 'text-brand-grey hover:text-brand-navy'
                   }`}
                 >
                   {cat.name}
@@ -129,7 +129,7 @@ function ProductsContent() {
                   href={`/products/${product.id}`}
                   className="group block"
                 >
-                  <div className="aspect-[3/4] overflow-hidden mb-4 img-reveal bg-brand-charcoal">
+                  <div className="aspect-[3/4] overflow-hidden mb-4 img-reveal bg-brand-offwhite">
                     <img
                       src={product.image || 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&auto=format&fit=crop&q=80'}
                       alt={product.name}
@@ -148,7 +148,7 @@ function ProductsContent() {
                           Trending
                         </span>
                       )}
-                      <h3 className="text-brand-white text-sm font-light mt-1 group-hover:text-brand-accent transition-colors">
+                      <h3 className="text-brand-navy text-sm font-light mt-1 group-hover:text-brand-accent transition-colors">
                         {product.name}
                       </h3>
                       <p className="text-brand-grey text-xs mt-1">
@@ -162,7 +162,7 @@ function ProductsContent() {
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="1.5"
-                      className="text-brand-grey group-hover:text-brand-white transition-colors mt-1 flex-shrink-0"
+                      className="text-brand-grey group-hover:text-brand-navy transition-colors mt-1 flex-shrink-0"
                     >
                       <path d="M7 17L17 7M17 7H7M17 7v10" />
                     </svg>
