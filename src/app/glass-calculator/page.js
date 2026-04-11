@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import GlassCalculator from './GlassCalculator';
 
 export const metadata = {
   title: 'Glass Price Calculator',
@@ -24,19 +24,10 @@ export default function GlassCalculatorPage() {
         </div>
       </section>
 
-      {/* Calculator Embed */}
+      {/* Calculator */}
       <section className="bg-white py-12 md:py-20 px-6 md:px-10 lg:px-16">
-        <div className="max-w-5xl mx-auto">
-          <div className="border border-brand-silver rounded-lg overflow-hidden shadow-lg">
-            <iframe
-              src="https://glasswarehouse.co.uk/glass-calculator/index.php/index.php?iniframe="
-              title="Glass Price Calculator"
-              className="w-full border-0"
-              style={{ minHeight: '900px', height: '100vh', maxHeight: '1200px' }}
-              loading="lazy"
-              allow="payment"
-            />
-          </div>
+        <div className="max-w-7xl mx-auto">
+          <GlassCalculator />
         </div>
       </section>
 
@@ -46,10 +37,10 @@ export default function GlassCalculatorPage() {
           <h2 className="text-display-sm text-brand-navy mb-12 text-center">How to Use the Calculator</h2>
           <div className="grid md:grid-cols-4 gap-8">
             {[
-              { step: '01', title: 'Choose Glass Type', desc: 'Clear, low-iron, tinted, frosted, painted or printed glass' },
-              { step: '02', title: 'Set Dimensions', desc: 'Enter width, length/height and select shape (rectangle, circle, etc.)' },
-              { step: '03', title: 'Pick Finishes', desc: 'Polished edges, sandblasted, bevelled, radius corners, drill holes' },
-              { step: '04', title: 'Get Your Price', desc: 'Instant price shown — add to cart or request delivery to your door' },
+              { step: '01', title: 'Choose Glass Type', desc: 'Select from 8 glass types including clear, low-iron, frosted, tinted, painted, mirror and laminated' },
+              { step: '02', title: 'Set Dimensions', desc: 'Enter width and height in millimetres — choose rectangle, circle, triangle or custom shapes' },
+              { step: '03', title: 'Pick Finishes', desc: 'Flat polished, pencil, bevelled or raw edges — add drill holes, cutouts and radius corners' },
+              { step: '04', title: 'Get Your Price', desc: 'See your instant estimate — contact us on WhatsApp or call to confirm and place your order' },
             ].map((item, i) => (
               <div key={i} className="border-t border-brand-silver pt-6">
                 <span className="text-brand-accent text-sm tracking-wide">{item.step}</span>
@@ -69,14 +60,14 @@ export default function GlassCalculatorPage() {
             Our glass specialists are ready to assist. Call us or visit our showroom for a free consultation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:02085991622" className="btn-fluid btn-filled text-center">
+            <a href="tel:02085991622" className="btn-filled text-center">
               Call 020 8599 1622
             </a>
             <a
               href="https://wa.me/442085991622?text=Hi%2C%20I%20need%20help%20with%20a%20glass%20quote"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-fluid btn-outline-fluid text-center"
+              className="btn-outline-fluid text-center"
             >
               WhatsApp Us
             </a>
