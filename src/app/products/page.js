@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { productCategories, getAllProducts, getProductsByCategory } from '../../lib/products';
 
 function useReveal() {
@@ -67,10 +68,13 @@ function ProductsContent() {
       {/* Hero */}
       <section className="relative h-[50vh] min-h-[400px] flex items-end overflow-hidden">
         <div className="absolute inset-0">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1920&auto=format&fit=crop&q=80"
             alt="P&J Glass Collection"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-brand-navy/60" />
         </div>
@@ -129,31 +133,35 @@ function ProductsContent() {
                   href={`/products/${product.id}`}
                   className="group block"
                 >
-                  <div className="aspect-[3/4] overflow-hidden mb-4 img-reveal bg-brand-offwhite">
-                    <img
+                  <div className="aspect-[3/4] overflow-hidden mb-4 img-reveal bg-brand-offwhite relative">
+                    <Image
                       src={product.image || 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&auto=format&fit=crop&q=80'}
                       alt={product.name}
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
+                    {product.onSale && (
+                      <span className="absolute top-3 left-3 bg-red-600 text-white text-[0.6rem] tracking-[0.1em] uppercase font-bold px-2.5 py-1 z-10">
+                        15% OFF
+                      </span>
+                    )}
                   </div>
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      {product.popular && (
-                        <span className="text-[0.65rem] tracking-[0.15em] uppercase text-brand-accent font-medium">
-                          Popular
-                        </span>
-                      )}
-                      {product.trending && (
-                        <span className="text-[0.65rem] tracking-[0.15em] uppercase text-brand-accent font-medium">
-                          Trending
-                        </span>
-                      )}
                       <h3 className="text-brand-navy text-sm font-light mt-1 group-hover:text-brand-accent transition-colors">
                         {product.name}
                       </h3>
-                      <p className="text-brand-grey text-xs mt-1">
-                        {product.priceDisplay}
-                      </p>
+                      <div className="mt-1">
+                        {product.onSale && product.originalPriceDisplay && (
+                          <span className="text-brand-grey/60 text-xs line-through mr-2">
+                            {product.originalPriceDisplay}
+                          </span>
+                        )}
+                        <span className={`text-xs ${product.onSale ? 'text-red-600 font-medium' : 'text-brand-grey'}`}>
+                          {product.priceDisplay}
+                        </span>
+                      </div>
                     </div>
                     <svg
                       width="16"

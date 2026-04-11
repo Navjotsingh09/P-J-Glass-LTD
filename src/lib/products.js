@@ -283,24 +283,50 @@ export const glassAccessories = [
   { id: 'toughened-glass-desk-calendar-2023', name: 'Toughened Glass Desk Calendar 2023', category: 'glassAccessories', shortDesc: 'Protect your desk with a functional, wipeable desk calendar. Our toughened glass desk calendars are a sleek, strong, and convenient desk accessory tha', priceFrom: 75, priceTo: 85, priceDisplay: '£75.00 – £85.00', image: 'https://cdn.shopify.com/s/files/1/0320/7685/7477/products/DESK-2.jpg?v=1670407725' },
 ];
 
+// ─── Sale Config ─────────────────────────────────────────────
+
+export const SALE_DISCOUNT = 0.15; // 15% off
+
+export function getSalePrice(price) {
+  return Math.round(price * (1 - SALE_DISCOUNT) * 100) / 100;
+}
+
+function withSalePricing(product) {
+  const saleFrom = getSalePrice(product.priceFrom);
+  const saleTo = product.priceTo ? getSalePrice(product.priceTo) : null;
+  const salePriceDisplay = saleTo && saleTo !== saleFrom
+    ? `£${saleFrom.toFixed(2)} – £${saleTo.toFixed(2)}`
+    : `£${saleFrom.toFixed(2)}`;
+  return {
+    ...product,
+    onSale: true,
+    originalPriceFrom: product.priceFrom,
+    originalPriceTo: product.priceTo,
+    originalPriceDisplay: product.priceDisplay,
+    priceFrom: saleFrom,
+    priceTo: saleTo,
+    priceDisplay: salePriceDisplay,
+  };
+}
+
 // ─── Helper Functions ────────────────────────────────────────
 
 export function getAllProducts() {
-  return [...julietBalconies, ...balustrades, ...mirrors, ...paintedSplashbacks, ...printedSplashbacks, ...wallArt, ...bathScreens, ...tableTopGlass, ...glassAccessories];
+  return [...julietBalconies, ...balustrades, ...mirrors, ...paintedSplashbacks, ...printedSplashbacks, ...wallArt, ...bathScreens, ...tableTopGlass, ...glassAccessories].map(withSalePricing);
 }
 
 export function getProductsByCategory(category) {
   const map = { julietBalconies, balustrades, mirrors, paintedSplashbacks, printedSplashbacks, wallArt, bathScreens, tableTopGlass, glassAccessories };
-  return map[category] || [];
+  return (map[category] || []).map(withSalePricing);
 }
 
 export function getProductById(id) {
-  return getAllProducts().find((p) => p.id === id);
+  const raw = [...julietBalconies, ...balustrades, ...mirrors, ...paintedSplashbacks, ...printedSplashbacks, ...wallArt, ...bathScreens, ...tableTopGlass, ...glassAccessories].find((p) => p.id === id);
+  return raw ? withSalePricing(raw) : undefined;
 }
 
 export function getFeaturedProducts() {
   const all = getAllProducts();
-  // Pick first from each category
   const seen = new Set();
   const featured = [];
   for (const p of all) {
@@ -314,7 +340,6 @@ export function getFeaturedProducts() {
 }
 
 export function getPopularProducts() {
-  // Return first 12 products across categories
   const all = getAllProducts();
   return all.slice(0, 12);
 }

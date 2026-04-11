@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata = {
@@ -51,21 +50,21 @@ export default function BalustradesPage() {
       name: 'Frameless Glass',
       description: 'Minimalist design with no visible posts. Glass panels fixed directly to structure.',
       price: 'From £450/m',
-      image: '/images/services/frameless-balustrade.jpg',
+      image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&auto=format&fit=crop&q=80',
       features: ['10-17.5mm toughened glass', 'Structural glazing', 'Ultra-modern aesthetic', 'Maximum light flow'],
     },
     {
       name: 'Semi-Frameless',
       description: 'Elegant balance of glass panels with discrete stainless steel posts.',
       price: 'From £350/m',
-      image: '/images/services/semi-frameless-balustrade.jpg',
+      image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&auto=format&fit=crop&q=80',
       features: ['10-12mm toughened glass', 'Stainless steel posts', 'Versatile design', 'Cost-effective'],
     },
     {
       name: 'Juliet Balconies',
       description: 'Space-saving solution for French doors with full glass protection.',
       price: 'From £850/unit',
-      image: '/images/services/juliet-balcony.jpg',
+      image: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=600&auto=format&fit=crop&q=80',
       features: ['Made-to-measure', 'Easy installation', 'No floor space required', 'Building regs approved'],
     },
   ];
@@ -84,14 +83,12 @@ export default function BalustradesPage() {
       {/* Hero Section */}
       <section className="relative h-[60vh] min-h-[500px] flex items-center">
         <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/services/balustrades-hero.jpg"
+          <img
+            src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1920&auto=format&fit=crop&q=80"
             alt="Glass Balustrade Installation"
-            fill
-            className="object-cover"
-            priority
+            className="w-full h-full object-cover"
           />
-          <div className="hero-overlay" />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-navy/80 to-brand-navy/40" />
         </div>
 
         <div className="container-custom relative z-10">
@@ -146,12 +143,11 @@ export default function BalustradesPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {balustradeSystems.map((system, index) => (
               <div key={index} className="card group hover:shadow-card-hover transition-all">
-                <div className="relative h-64 mb-6 overflow-hidden rounded-card">
-                  <Image
+                <div className="relative h-64 mb-6 overflow-hidden rounded-lg">
+                  <img
                     src={system.image}
                     alt={system.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">{system.name}</h3>

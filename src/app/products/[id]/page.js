@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getAllProducts, getProductById, getProductsByCategory } from '@/lib/products';
+import { getAccessoriesForCategory } from '@/lib/accessories';
 import ProductDetailClient from './ProductDetailClient';
 
 // Server Component
@@ -24,7 +25,9 @@ export default function ProductDetailPage({ params }) {
     .filter((p) => p.id !== product.id)
     .slice(0, 3);
 
-  return <ProductDetailClient product={product} relatedProducts={relatedProducts} />;
+  const recommendedAccessories = getAccessoriesForCategory(product.category).slice(0, 4);
+
+  return <ProductDetailClient product={product} relatedProducts={relatedProducts} recommendedAccessories={recommendedAccessories} />;
 }
 
 // Generate static params for all products

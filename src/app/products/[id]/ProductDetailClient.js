@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { productCategories } from '@/lib/products';
+import { useCart } from '@/lib/cart-context';
 
 function useReveal() {
   const ref = useRef(null);
@@ -33,10 +35,18 @@ function Reveal({ children, className = '' }) {
   );
 }
 
-export default function ProductDetailClient({ product, relatedProducts }) {
+export default function ProductDetailClient({ product, relatedProducts, recommendedAccessories = [] }) {
   const [selectedSize, setSelectedSize] = useState(product?.sizes?.[0] || '');
+  const [addedToCart, setAddedToCart] = useState(false);
+  const { addItem } = useCart();
 
   const categoryInfo = productCategories[product.category];
+
+  const handleAddToCart = () => {
+    addItem(product, 1, selectedSize);
+    setAddedToCart(true);
+    setTimeout(() => setAddedToCart(false), 2000);
+  };
 
   return (
     <>
@@ -60,11 +70,14 @@ export default function ProductDetailClient({ product, relatedProducts }) {
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Image */}
           <Reveal>
-            <div className="aspect-[4/5] overflow-hidden bg-brand-offwhite img-reveal">
-              <img
+            <div className="aspect-[4/5] overflow-hidden bg-brand-offwhite img-reveal relative">
+              <Image
                 src={product.image}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
           </Reveal>
@@ -95,7 +108,21 @@ export default function ProductDetailClient({ product, relatedProducts }) {
                 )}
 
                 {/* Price */}
-                <p className="text-brand-accent text-2xl tracking-wide mb-8">{product.priceDisplay}</p>
+                <div className="mb-8">
+                  {product.onSale && product.originalPriceDisplay && (
+                    <p className="text-brand-grey/60 text-lg line-through mb-1">{product.originalPriceDisplay}</p>
+                  )}
+                  <div className="flex items-center gap-3">
+                    <p className={`text-2xl tracking-wide ${product.onSale ? 'text-red-600 font-semibold' : 'text-brand-accent'}`}>
+                      {product.priceDisplay}
+                    </p>
+                    {product.onSale && (
+                      <span className="bg-red-600 text-white text-[0.6rem] tracking-[0.1em] uppercase font-bold px-2.5 py-1">
+                        15% OFF
+                      </span>
+                    )}
+                  </div>
+                </div>
 
                 {/* Description */}
                 <p className="text-brand-grey text-base font-light leading-relaxed mb-8">
@@ -145,9 +172,16 @@ export default function ProductDetailClient({ product, relatedProducts }) {
 
                 {/* CTA */}
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Link href="/contact" className="btn-fluid btn-filled text-center">
-                    Request a Quote
-                  </Link>
+                  <button
+                    onClick={handleAddToCart}
+                    className={`btn-fluid text-center transition-all duration-300 ${
+                      addedToCart
+                        ? 'bg-green-600 text-white px-6 py-3 text-[0.7rem] tracking-[0.15em] uppercase font-semibold'
+                        : 'btn-filled'
+                    }`}
+                  >
+                    {addedToCart ? '✓ Added to Cart' : 'Add to Cart'}
+                  </button>
                   <a href="tel:02085991622" className="btn-fluid btn-outline-fluid text-center">
                     Call 020 8599 1622
                   </a>
@@ -246,6 +280,62 @@ export default function ProductDetailClient({ product, relatedProducts }) {
         </div>
       </section>
 
+      {/* Recommended Accessories */}
+      {recommendedAccessories && recommendedAccessories.length > 0 && (
+        <>
+          <div className="divider max-w-7xl mx-auto" />
+          <section className="bg-white py-16 md:py-24 px-6 md:px-10 lg:px-16">
+            <div className="max-w-7xl mx-auto">
+              <Reveal>
+                <div className="flex items-end justify-between mb-12">
+                  <div>
+                    <p className="section-label mb-4">Complete Your Project</p>
+                    <h2 className="text-display-sm text-brand-navy">Recommended Accessories</h2>
+                  </div>
+                  <Link href="/accessories" className="text-brand-grey hover:text-brand-navy text-sm tracking-wide transition-colors hidden md:block">
+                    View All Accessories &rarr;
+                  </Link>
+                </div>
+              </Reveal>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {recommendedAccessories.map((acc) => (
+                  <Reveal key={acc.id}>
+                    <Link href={`/accessories/${acc.id}`} className="group block">
+                      <div className="aspect-square overflow-hidden mb-4 img-reveal bg-brand-offwhite relative">
+                        {acc.onSale && (
+                          <span className="absolute top-3 left-3 z-10 bg-red-600 text-white text-[0.55rem] tracking-[0.1em] uppercase font-bold px-2 py-1">
+                            15% OFF
+                          </span>
+                        )}
+                        <Image
+                          src={acc.image}
+                          alt={acc.name}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        />
+                      </div>
+                      <p className="text-[0.6rem] tracking-[0.1em] uppercase text-brand-accent mb-1">{acc.brand}</p>
+                      <h3 className="text-brand-navy text-sm font-light group-hover:text-brand-accent transition-colors line-clamp-2">
+                        {acc.name}
+                      </h3>
+                      <div className="mt-1">
+                        {acc.onSale && acc.originalPriceDisplay && (
+                          <span className="text-brand-grey/60 text-xs line-through mr-2">{acc.originalPriceDisplay}</span>
+                        )}
+                        <span className={`text-xs ${acc.onSale ? 'text-red-600 font-medium' : 'text-brand-grey'}`}>
+                          {acc.priceDisplay}
+                        </span>
+                      </div>
+                    </Link>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+
       {/* Related Products */}
       {relatedProducts && relatedProducts.length > 0 && (
         <>
@@ -264,17 +354,26 @@ export default function ProductDetailClient({ product, relatedProducts }) {
                 {relatedProducts.map((item) => (
                   <Reveal key={item.id}>
                     <Link href={`/products/${item.id}`} className="group block">
-                      <div className="aspect-[3/4] overflow-hidden mb-4 img-reveal bg-brand-offwhite">
-                        <img
+                      <div className="aspect-[3/4] overflow-hidden mb-4 img-reveal bg-brand-offwhite relative">
+                        <Image
                           src={item.image}
                           alt={item.name}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 33vw"
                         />
                       </div>
                       <h3 className="text-brand-navy text-sm font-light group-hover:text-brand-accent transition-colors">
                         {item.name}
                       </h3>
-                      <p className="text-brand-grey text-xs mt-1">{item.priceDisplay}</p>
+                      <div className="mt-1">
+                        {item.onSale && item.originalPriceDisplay && (
+                          <span className="text-brand-grey/60 text-xs line-through mr-2">{item.originalPriceDisplay}</span>
+                        )}
+                        <span className={`text-xs ${item.onSale ? 'text-red-600 font-medium' : 'text-brand-grey'}`}>
+                          {item.priceDisplay}
+                        </span>
+                      </div>
                     </Link>
                   </Reveal>
                 ))}

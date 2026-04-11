@@ -1,227 +1,302 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { getPopularProducts, productCategories } from '../../lib/products';
+import Image from 'next/image';
+import { useEffect, useRef } from 'react';
+import { productCategories, getFeaturedProducts, SALE_DISCOUNT } from '@/lib/products';
+import { getAllAccessories } from '@/lib/accessories';
+
+function useReveal() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('visible');
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return ref;
+}
+
+function Reveal({ children, className = '' }) {
+  const ref = useReveal();
+  return (
+    <div ref={ref} className={`reveal ${className}`}>
+      {children}
+    </div>
+  );
+}
 
 export default function StorePage() {
-  const popularProducts = getPopularProducts();
+  const featuredProducts = getFeaturedProducts().slice(0, 8);
+  const accessories = getAllAccessories().slice(0, 4);
+  const salePercent = Math.round(SALE_DISCOUNT * 100);
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-[60vh] flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-primary opacity-90" />
-        
-        <div className="relative z-10 container-custom text-center text-white">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Online Glass Store
+      {/* Hero */}
+      <section className="relative bg-brand-navy pt-32 pb-20 md:pt-40 md:pb-28 px-6 md:px-10 lg:px-16 overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(94,196,212,0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(94,196,212,0.2) 0%, transparent 40%)' }} />
+        </div>
+        <div className="max-w-7xl mx-auto text-center relative z-10">
+          <Reveal>
+            <span className="inline-block bg-red-600 text-white text-[0.65rem] tracking-[0.15em] uppercase font-bold px-4 py-2 mb-6">
+              {salePercent}% Off Everything — Limited Time
+            </span>
+            <h1 className="text-display-lg text-white mb-6">
+              The P&J Glass Store
             </h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-              Browse our complete range of glass products with instant pricing
+            <p className="text-white/70 text-lg md:text-xl font-light max-w-2xl mx-auto mb-10">
+              Premium glass products and accessories — made to measure, delivered across London &amp; Essex.
             </p>
-            <Link href="/products" className="btn-secondary text-lg">
-              Shop All Products →
-            </Link>
-          </motion.div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/products" className="btn-fluid btn-filled">
+                Shop Glass Products
+              </Link>
+              <Link href="/accessories" className="btn-fluid border border-white/30 text-white hover:bg-white/10 px-6 py-3 text-[0.7rem] tracking-[0.15em] uppercase font-semibold transition-all duration-300">
+                Shop Accessories
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
 
       {/* Shop by Category */}
-      <section className="py-20">
-        <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Shop by Category</h2>
-            <p className="text-xl text-gray-600">Find exactly what you need</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {Object.entries(productCategories).map(([key, category], index) => (
-              <motion.div
-                key={key}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Link 
-                  href="/products"
-                  className="card group hover:shadow-2xl transition-all duration-300 h-full"
+      <section className="bg-white py-16 md:py-24 px-6 md:px-10 lg:px-16">
+        <div className="max-w-7xl mx-auto">
+          <Reveal>
+            <p className="section-label mb-4">Glass Products</p>
+            <h2 className="text-display-sm text-brand-navy mb-16">Shop by Category</h2>
+          </Reveal>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Object.entries(productCategories).map(([key, category]) => (
+              <Reveal key={key}>
+                <Link
+                  href={`/products?category=${key}`}
+                  className="group block border border-brand-silver hover:border-brand-accent transition-all duration-300 p-8"
                 >
-                  <div className="text-center">
-                    <div className="text-7xl mb-4">{category.icon}</div>
-                    <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
-                      {category.name}
-                    </h3>
-                    <p className="text-gray-600 mb-4">{category.description}</p>
-                    <span className="text-primary font-semibold group-hover:underline">
-                      Browse Products →
-                    </span>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Popular Products */}
-      <section className="py-20 bg-gray-50">
-        <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Popular Right Now</h2>
-            <p className="text-xl text-gray-600">Our bestselling products</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {popularProducts.slice(0, 8).map((product, index) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="card group hover:shadow-xl transition-all"
-              >
-                <div className="relative h-48 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg flex items-center justify-center mb-4">
-                  <span className="text-6xl">
-                    {product.category === 'balustrades' ? '🪜' :
-                     product.category === 'splashbacks' ? '🎨' :
-                     product.category === 'mirrors' ? '🪞' :
-                     product.category === 'bathScreens' ? '🛁' : '✨'}
+                  <h3 className="text-brand-navy text-lg mb-2 group-hover:text-brand-accent transition-colors">
+                    {category.name}
+                  </h3>
+                  <p className="text-brand-grey text-sm font-light leading-relaxed mb-4">
+                    {category.description}
+                  </p>
+                  <span className="text-brand-accent text-[0.7rem] tracking-[0.1em] uppercase font-semibold">
+                    Browse &rarr;
                   </span>
-                  {product.hex && (
-                    <div 
-                      className="absolute bottom-3 right-3 w-8 h-8 rounded-full border-2 border-white shadow-lg"
-                      style={{ backgroundColor: product.hex }}
-                    />
-                  )}
-                  {(product.popular || product.bestSeller) && (
-                    <span className="absolute top-3 left-3 bg-success text-white text-xs px-2 py-1 rounded-full">
-                      Popular
-                    </span>
-                  )}
-                </div>
-
-                <h3 className="font-bold mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                  {product.name}
-                </h3>
-
-                <div className="text-2xl font-bold text-primary mb-3">
-                  {product.priceDisplay}
-                </div>
-
-                <Link 
-                  href="/products"
-                  className="btn-primary w-full text-center text-sm"
-                >
-                  View Details
                 </Link>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Link href="/products" className="btn-outline text-lg">
-              View All Products
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Shop With Us */}
-      <section className="py-20">
-        <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Why Shop With Us?</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: '✅',
-                title: 'Instant Pricing',
-                description: 'See exact prices for your requirements instantly online',
-              },
-              {
-                icon: '🚚',
-                title: 'Fast Delivery',
-                description: '7-10 day lead time on most products',
-              },
-              {
-                icon: '💰',
-                title: 'Best Prices',
-                description: 'Competitive pricing with no hidden fees',
-              },
-              {
-                icon: '🛡️',
-                title: '10-Year Guarantee',
-                description: 'All products backed by comprehensive warranty',
-              },
-              {
-                icon: '📏',
-                title: 'Made to Measure',
-                description: 'Every product custom-made to your exact size',
-              },
-              {
-                icon: '🎨',
-                title: 'Any Color',
-                description: 'RAL color matching available on splashbacks',
-              },
-              {
-                icon: '👷',
-                title: 'Expert Installation',
-                description: 'Professional fitting service available',
-              },
-              {
-                icon: '💬',
-                title: 'Free Advice',
-                description: 'Expert guidance from our knowledgeable team',
-              },
-            ].map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="text-center"
-              >
-                <div className="text-5xl mb-3">{feature.icon}</div>
-                <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
-                <p className="text-sm text-gray-600">{feature.description}</p>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary to-secondary text-white">
-        <div className="container-custom text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl font-bold mb-4">Ready to Order?</h2>
-            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Browse our full product range and get instant pricing
-            </p>
-            <div className="flex gap-4 justify-center flex-wrap">
-              <Link href="/products" className="btn-secondary text-lg">
-                Browse Products
-              </Link>
-              <Link href="/contact" className="btn-outline border-white text-white hover:bg-white hover:text-primary text-lg">
-                Get Expert Advice
+      <div className="divider max-w-7xl mx-auto" />
+
+      {/* Featured Glass Products */}
+      <section className="bg-brand-offwhite py-16 md:py-24 px-6 md:px-10 lg:px-16">
+        <div className="max-w-7xl mx-auto">
+          <Reveal>
+            <div className="flex items-end justify-between mb-12">
+              <div>
+                <p className="section-label mb-4">On Sale Now</p>
+                <h2 className="text-display-sm text-brand-navy">Featured Products</h2>
+              </div>
+              <Link href="/products" className="text-brand-grey hover:text-brand-navy text-sm tracking-wide transition-colors hidden md:block">
+                View All &rarr;
               </Link>
             </div>
-          </motion.div>
+          </Reveal>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredProducts.map((product) => (
+              <Reveal key={product.id}>
+                <Link href={`/products/${product.id}`} className="group block bg-white">
+                  <div className="aspect-[3/4] overflow-hidden img-reveal bg-brand-offwhite relative">
+                    {product.onSale && (
+                      <span className="absolute top-3 left-3 z-10 bg-red-600 text-white text-[0.55rem] tracking-[0.1em] uppercase font-bold px-2 py-1">
+                        {salePercent}% OFF
+                      </span>
+                    )}
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="text-brand-navy text-sm font-light group-hover:text-brand-accent transition-colors line-clamp-2">
+                      {product.name}
+                    </h3>
+                    <div className="mt-1">
+                      {product.onSale && product.originalPriceDisplay && (
+                        <span className="text-brand-grey/60 text-xs line-through mr-2">{product.originalPriceDisplay}</span>
+                      )}
+                      <span className={`text-xs ${product.onSale ? 'text-red-600 font-medium' : 'text-brand-grey'}`}>
+                        {product.priceDisplay}
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="divider max-w-7xl mx-auto" />
+
+      {/* Accessories Section */}
+      <section className="bg-white py-16 md:py-24 px-6 md:px-10 lg:px-16">
+        <div className="max-w-7xl mx-auto">
+          <Reveal>
+            <div className="flex items-end justify-between mb-12">
+              <div>
+                <p className="section-label mb-4">Hardware &amp; Fittings</p>
+                <h2 className="text-display-sm text-brand-navy">Accessories</h2>
+              </div>
+              <Link href="/accessories" className="text-brand-grey hover:text-brand-navy text-sm tracking-wide transition-colors hidden md:block">
+                View All &rarr;
+              </Link>
+            </div>
+          </Reveal>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {accessories.map((acc) => (
+              <Reveal key={acc.id}>
+                <Link href={`/accessories/${acc.id}`} className="group block">
+                  <div className="aspect-square overflow-hidden img-reveal bg-brand-offwhite relative">
+                    {acc.onSale && (
+                      <span className="absolute top-3 left-3 z-10 bg-red-600 text-white text-[0.55rem] tracking-[0.1em] uppercase font-bold px-2 py-1">
+                        {salePercent}% OFF
+                      </span>
+                    )}
+                    <Image
+                      src={acc.image}
+                      alt={acc.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
+                  </div>
+                  <div className="pt-4">
+                    <p className="text-[0.6rem] tracking-[0.1em] uppercase text-brand-accent mb-1">{acc.brand}</p>
+                    <h3 className="text-brand-navy text-sm font-light group-hover:text-brand-accent transition-colors line-clamp-2">
+                      {acc.name}
+                    </h3>
+                    <div className="mt-1">
+                      {acc.onSale && acc.originalPriceDisplay && (
+                        <span className="text-brand-grey/60 text-xs line-through mr-2">{acc.originalPriceDisplay}</span>
+                      )}
+                      <span className={`text-xs ${acc.onSale ? 'text-red-600 font-medium' : 'text-brand-grey'}`}>
+                        {acc.priceDisplay}
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="divider max-w-7xl mx-auto" />
+
+      {/* Glass Calculator CTA */}
+      <section className="bg-brand-offwhite py-16 md:py-24 px-6 md:px-10 lg:px-16">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <Reveal>
+              <p className="section-label mb-4">Instant Pricing</p>
+              <h2 className="text-display-sm text-brand-navy mb-6">Glass Price Calculator</h2>
+              <p className="text-brand-grey text-base font-light leading-relaxed mb-8">
+                Get an instant estimate for your glass project. Enter your dimensions, select your glass type, and see pricing in seconds — no phone calls needed.
+              </p>
+              <Link href="/glass-calculator" className="btn-fluid btn-filled inline-block">
+                Open Calculator
+              </Link>
+            </Reveal>
+            <Reveal>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { num: '01', label: 'Enter Dimensions', desc: 'Width × height in mm' },
+                  { num: '02', label: 'Select Glass Type', desc: 'Toughened, laminated, etc.' },
+                  { num: '03', label: 'Choose Options', desc: 'Finish, edges, cutouts' },
+                  { num: '04', label: 'Get Your Price', desc: 'Instant online quote' },
+                ].map((step) => (
+                  <div key={step.num} className="border border-brand-silver bg-white p-5">
+                    <span className="text-brand-accent text-sm tracking-wide">{step.num}</span>
+                    <h3 className="text-brand-navy text-sm mt-2 mb-1">{step.label}</h3>
+                    <p className="text-brand-grey text-xs font-light">{step.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <div className="divider max-w-7xl mx-auto" />
+
+      {/* Why Shop With Us */}
+      <section className="bg-white py-16 md:py-24 px-6 md:px-10 lg:px-16">
+        <div className="max-w-7xl mx-auto">
+          <Reveal>
+            <p className="section-label mb-4">The P&amp;J Difference</p>
+            <h2 className="text-display-sm text-brand-navy mb-16">Why Shop With Us</h2>
+          </Reveal>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { title: 'Made to Measure', desc: 'Every product cut to your exact specifications' },
+              { title: 'Fast Lead Times', desc: '10–15 working days on most products' },
+              { title: '10-Year Guarantee', desc: 'Comprehensive warranty on all glass products' },
+              { title: 'Expert Installation', desc: 'Professional fitting by certified installers' },
+              { title: 'Free Site Survey', desc: 'Complimentary on-site measurement service' },
+              { title: 'Any RAL Colour', desc: 'Custom colour matching for splashbacks' },
+              { title: 'Competitive Pricing', desc: 'Trade and retail prices with no hidden fees' },
+              { title: 'Free Advice', desc: 'Expert guidance from our knowledgeable team' },
+            ].map((item, i) => (
+              <Reveal key={i}>
+                <div className="border-t border-brand-silver pt-6">
+                  <span className="text-brand-accent text-sm tracking-wide">{String(i + 1).padStart(2, '0')}</span>
+                  <h3 className="text-brand-navy text-sm mt-3 mb-2">{item.title}</h3>
+                  <p className="text-brand-grey text-xs font-light leading-relaxed">{item.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="bg-brand-offwhite py-20 md:py-28 px-6 md:px-10 lg:px-16">
+        <div className="max-w-7xl mx-auto text-center">
+          <Reveal>
+            <p className="section-label mb-4">Get Started</p>
+            <h2 className="text-display-md text-brand-navy mb-6">
+              Ready to transform your space?
+            </h2>
+            <p className="text-brand-grey text-lg font-light max-w-xl mx-auto mb-10">
+              Contact our team for a free consultation and bespoke quote tailored to your project.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/contact" className="btn-fluid btn-filled">
+                Get a Free Quote
+              </Link>
+              <Link href="/products" className="btn-fluid btn-outline-fluid">
+                Browse All Products
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
     </div>

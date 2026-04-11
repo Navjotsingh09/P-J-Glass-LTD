@@ -41,10 +41,36 @@ export default function ContactPage() {
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setError('');
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: 'dc36a5e6-c87c-47b4-b6dd-f94fa7d43ce9',
+          subject: `New Enquiry from ${formData.name} — ${formData.service || 'General'}`,
+          from_name: formData.name,
+          ...formData,
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        setError('Something went wrong. Please try again or call us directly.');
+      }
+    } catch {
+      setError('Unable to send. Please call us on 020 8599 1622.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -270,12 +296,17 @@ export default function ContactPage() {
                   />
                 </div>
 
-                <button type="submit" className="btn-filled">
-                  Send Enquiry
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
+                <button type="submit" disabled={submitting} className="btn-filled disabled:opacity-50">
+                  {submitting ? 'Sending...' : 'Send Enquiry'}
+                  {!submitting && (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  )}
                 </button>
+                {error && (
+                  <p className="text-red-600 text-sm mt-4">{error}</p>
+                )}
               </form>
             )}
           </Reveal>

@@ -1,4 +1,5 @@
 import { getAllProducts } from '@/lib/products';
+import { getAllAccessories } from '@/lib/accessories';
 
 export default function sitemap() {
   const baseUrl = 'https://pjglass.co.uk';
@@ -10,6 +11,15 @@ export default function sitemap() {
     lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: 0.8,
+  }));
+
+  // Get all accessories for dynamic URLs
+  const accessories = getAllAccessories();
+  const accessoryUrls = accessories.map((acc) => ({
+    url: `${baseUrl}/accessories/${acc.id}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.7,
   }));
 
   const routes = [
@@ -30,6 +40,18 @@ export default function sitemap() {
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/accessories`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/glass-calculator`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/portfolio`,
@@ -87,5 +109,5 @@ export default function sitemap() {
     },
   ];
 
-  return [...routes, ...productUrls];
+  return [...routes, ...productUrls, ...accessoryUrls];
 }

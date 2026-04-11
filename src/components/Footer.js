@@ -63,16 +63,22 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link href="/products" className="text-white/60 hover:text-white text-sm transition-colors">
+                    Shop
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/accessories" className="text-white/60 hover:text-white text-sm transition-colors">
+                    Accessories
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/glass-calculator" className="text-white/60 hover:text-white text-sm transition-colors">
+                    Price Calculator
                   </Link>
                 </li>
                 <li>
                   <Link href="/portfolio" className="text-white/60 hover:text-white text-sm transition-colors">
                     Projects
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact" className="text-white/60 hover:text-white text-sm transition-colors">
-                    Showroom
                   </Link>
                 </li>
                 <li>

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { productCategories } from '@/lib/products';
+import { useCart } from '@/lib/cart-context';
 
 const shopCategories = Object.entries(productCategories).map(([key, cat]) => ({
   key,
@@ -12,6 +13,32 @@ const shopCategories = Object.entries(productCategories).map(([key, cat]) => ({
   description: cat.description,
 }));
 
+function SaleBanner() {
+  const [dismissed, setDismissed] = useState(true);
+  useEffect(() => {
+    setDismissed(localStorage.getItem('saleBannerDismissed') === 'true');
+  }, []);
+  const handleDismiss = () => {
+    setDismissed(true);
+    localStorage.setItem('saleBannerDismissed', 'true');
+  };
+  if (dismissed) return null;
+  return (
+    <div className="bg-red-600 text-white text-center py-2 px-4 text-[0.7rem] tracking-[0.12em] uppercase font-semibold relative z-[60]">
+      <Link href="/products" className="hover:underline">
+        🔥 15% OFF ALL PRODUCTS — Limited Time Only — Shop Now →
+      </Link>
+      <button
+        onClick={handleDismiss}
+        className="absolute right-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-lg leading-none"
+        aria-label="Dismiss sale banner"
+      >
+        ×
+      </button>
+    </div>
+  );
+}
+
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -19,6 +46,7 @@ export default function Header() {
   const [mobileShopOpen, setMobileShopOpen] = useState(false);
   const megaRef = useRef(null);
   const megaTimeout = useRef(null);
+  const { totalItems, setIsOpen: setCartOpen } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,18 +77,18 @@ export default function Header() {
   const navLinks = [
     { name: 'About', href: '/about' },
     { name: 'Shop', href: '/products', hasMega: true },
+    { name: 'Accessories', href: '/accessories' },
+    { name: 'Calculator', href: '/glass-calculator' },
     { name: 'Projects', href: '/portfolio' },
-    { name: 'Showroom', href: '/contact' },
     { name: 'Contact', href: '/contact' },
   ];
 
   return (
     <>
+      <SaleBanner />
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-lg'
-            : 'bg-transparent'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white/95 backdrop-blur-md ${
+          scrolled ? 'shadow-lg' : ''
         }`}
       >
         <div className="flex items-center justify-between px-6 md:px-10 lg:px-16 py-4">
@@ -72,7 +100,7 @@ export default function Header() {
               width={180}
               height={48}
               priority
-              className={`h-10 md:h-12 w-auto transition-all duration-500 ${scrolled ? '' : 'brightness-0 invert'}`}
+              className="h-10 md:h-12 w-auto transition-all duration-500"
             />
           </Link>
 
@@ -89,7 +117,7 @@ export default function Header() {
                 >
                   <Link
                     href={link.href}
-                    className={`text-[0.75rem] tracking-[0.15em] uppercase font-medium transition-colors duration-300 flex items-center gap-1 ${scrolled ? 'text-brand-navy/70 hover:text-brand-navy' : 'text-white/70 hover:text-white'}`}
+                    className="text-[0.75rem] tracking-[0.15em] uppercase font-medium transition-colors duration-300 flex items-center gap-1 text-brand-navy/70 hover:text-brand-navy"
                   >
                     {link.name}
                     <svg className={`w-3 h-3 transition-transform duration-300 ${megaOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
@@ -135,7 +163,7 @@ export default function Header() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-[0.75rem] tracking-[0.15em] uppercase font-medium transition-colors duration-300 ${scrolled ? 'text-brand-navy/70 hover:text-brand-navy' : 'text-white/70 hover:text-white'}`}
+                  className="text-[0.75rem] tracking-[0.15em] uppercase font-medium transition-colors duration-300 text-brand-navy/70 hover:text-brand-navy"
                 >
                   {link.name}
                 </Link>
@@ -143,8 +171,24 @@ export default function Header() {
             )}
           </nav>
 
-          {/* Get a Quote Button */}
-          <div className="hidden lg:flex items-center gap-6">
+          {/* Get a Quote Button + Cart */}
+          <div className="hidden lg:flex items-center gap-4">
+            <button
+              onClick={() => setCartOpen(true)}
+              className="relative p-2 transition-colors duration-300 text-brand-navy/70 hover:text-brand-navy"
+              aria-label="Open cart"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <path d="M16 10a4 4 0 01-8 0" />
+              </svg>
+              {totalItems > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 bg-brand-accent text-brand-navy text-[0.55rem] font-bold rounded-full flex items-center justify-center min-w-[18px] h-[18px]">
+                  {totalItems}
+                </span>
+              )}
+            </button>
             <Link
               href="/contact"
               className="bg-brand-accent text-brand-navy px-6 py-3 text-[0.7rem] tracking-[0.15em] uppercase font-semibold hover:bg-brand-navy hover:text-white transition-colors duration-300"
@@ -153,23 +197,41 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden relative z-50 flex flex-col justify-center items-center w-10 h-10 gap-1.5"
-            aria-label="Toggle menu"
-          >
-            <span
-              className={`block w-6 h-[1px] transition-all duration-300 ${mobileMenuOpen || !scrolled ? 'bg-white' : 'bg-brand-navy'} ${
-                mobileMenuOpen ? 'rotate-45 translate-y-[3.5px]' : ''
-              }`}
-            />
-            <span
-              className={`block w-6 h-[1px] transition-all duration-300 ${mobileMenuOpen || !scrolled ? 'bg-white' : 'bg-brand-navy'} ${
-                mobileMenuOpen ? '-rotate-45 -translate-y-[3.5px]' : ''
-              }`}
-            />
-          </button>
+          {/* Mobile Cart + Menu Button */}
+          <div className="lg:hidden flex items-center gap-2">
+            <button
+              onClick={() => setCartOpen(true)}
+              className="relative p-2 transition-colors duration-300 text-brand-navy"
+              aria-label="Open cart"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <path d="M16 10a4 4 0 01-8 0" />
+              </svg>
+              {totalItems > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-brand-accent text-brand-navy text-[0.55rem] font-bold rounded-full flex items-center justify-center min-w-[16px] h-[16px]">
+                  {totalItems}
+                </span>
+              )}
+            </button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="relative z-50 flex flex-col justify-center items-center w-10 h-10 gap-1.5"
+              aria-label="Toggle menu"
+            >
+              <span
+                className={`block w-6 h-[1px] transition-all duration-300 ${mobileMenuOpen ? 'bg-white' : 'bg-brand-navy'} ${
+                  mobileMenuOpen ? 'rotate-45 translate-y-[3.5px]' : ''
+                }`}
+              />
+              <span
+                className={`block w-6 h-[1px] transition-all duration-300 ${mobileMenuOpen ? 'bg-white' : 'bg-brand-navy'} ${
+                  mobileMenuOpen ? '-rotate-45 -translate-y-[3.5px]' : ''
+                }`}
+              />
+            </button>
+          </div>
         </div>
       </header>
 

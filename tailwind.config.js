@@ -17,6 +17,16 @@ module.exports = {
           blue: '#2d6db5',
           accent: '#5ec4d4',
         },
+        primary: '#1a2055',
+        secondary: '#5ec4d4',
+        success: '#43A047',
+        warning: '#FB8C00',
+        error: '#E53935',
+        neutral: {
+          dark: '#1a2055',
+          grey: '#6b7280',
+          light: '#f5f7fa',
+        },
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],

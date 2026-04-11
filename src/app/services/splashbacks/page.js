@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata = {
@@ -30,14 +29,12 @@ export default function SplashbacksPage() {
       {/* Hero */}
       <section className="relative h-[60vh] min-h-[500px] flex items-center">
         <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/services/splashbacks-hero.jpg"
+          <img
+            src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1920&auto=format&fit=crop&q=80"
             alt="Glass Kitchen Splashbacks"
-            fill
-            className="object-cover"
-            priority
+            className="w-full h-full object-cover"
           />
-          <div className="hero-overlay" />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-navy/80 to-brand-navy/40" />
         </div>
 
         <div className="container-custom relative z-10">
