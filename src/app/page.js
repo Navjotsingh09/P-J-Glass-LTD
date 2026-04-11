@@ -121,7 +121,7 @@ function AboutSection() {
           <Reveal delay={2}>
             <div className="aspect-[4/5] overflow-hidden img-reveal">
               <img
-                src="https://images.unsplash.com/photo-1600607687939-ce8a6c30f8bf?w=800&auto=format&fit=crop&q=80"
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop&q=80"
                 alt="P&J Glass craftsmanship"
                 className="w-full h-full object-cover"
               />
@@ -146,7 +146,7 @@ function ProductCollection() {
 
   const products = {
     balustrades: [
-      { name: 'Frameless Glass Balustrade', type: 'PREMIUM', image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&auto=format&fit=crop&q=80' },
+      { name: 'Frameless Glass Balustrade', type: 'PREMIUM', image: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=600&auto=format&fit=crop&q=80' },
       { name: 'Semi-Frameless Balustrade', type: 'STANDARD', image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&auto=format&fit=crop&q=80' },
       { name: 'Juliet Balcony System', type: 'PREMIUM', image: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=600&auto=format&fit=crop&q=80' },
     ],
