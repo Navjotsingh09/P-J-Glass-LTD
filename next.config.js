@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['images.unsplash.com', 'placehold.co', 'cdn.shopify.com'],
+    domains: ['images.unsplash.com', 'placehold.co', 'cdn.shopify.com', 'www.crlaurence.co.uk'],
     formats: ['image/avif', 'image/webp'],
   },
   async headers() {
