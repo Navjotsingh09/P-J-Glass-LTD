@@ -91,21 +91,22 @@ export default function Header() {
           scrolled ? 'shadow-lg' : ''
         }`}
       >
-        <div className="flex items-center justify-between px-6 md:px-10 lg:px-16 py-4">
+        <div className="flex items-center justify-between px-6 md:px-10 lg:px-12 xl:px-16 py-3">
           {/* Logo */}
-          <Link href="/" className="relative z-50 flex items-center gap-3">
+          <Link href="/" className="relative z-50 flex-shrink-0">
             <Image
               src="/images/logo.png"
               alt="P&J Glass"
-              width={180}
-              height={48}
+              width={160}
+              height={42}
               priority
-              className="h-10 md:h-12 w-auto transition-all duration-500"
+              className="h-9 md:h-10 w-auto transition-all duration-500"
             />
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-10">
+          {/* Desktop Navigation — centered */}
+          <nav className="hidden lg:flex items-center justify-center flex-1 mx-8">
+            <div className="flex items-center gap-7 xl:gap-9">
             {navLinks.map((link) =>
               link.hasMega ? (
                 <div
@@ -117,7 +118,7 @@ export default function Header() {
                 >
                   <Link
                     href={link.href}
-                    className="text-[0.75rem] tracking-[0.15em] uppercase font-medium transition-colors duration-300 flex items-center gap-1 text-brand-navy/70 hover:text-brand-navy"
+                    className="text-[0.7rem] tracking-[0.14em] uppercase font-semibold transition-colors duration-300 flex items-center gap-1 text-brand-navy/70 hover:text-brand-navy"
                   >
                     {link.name}
                     <svg className={`w-3 h-3 transition-transform duration-300 ${megaOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
@@ -163,16 +164,17 @@ export default function Header() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-[0.75rem] tracking-[0.15em] uppercase font-medium transition-colors duration-300 text-brand-navy/70 hover:text-brand-navy"
+                  className="text-[0.7rem] tracking-[0.14em] uppercase font-semibold transition-colors duration-300 text-brand-navy/70 hover:text-brand-navy"
                 >
                   {link.name}
                 </Link>
               )
             )}
+            </div>
           </nav>
 
           {/* Get a Quote Button + Cart */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
             <button
               onClick={() => setCartOpen(true)}
               className="relative p-2 transition-colors duration-300 text-brand-navy/70 hover:text-brand-navy"
@@ -191,7 +193,7 @@ export default function Header() {
             </button>
             <Link
               href="/contact"
-              className="bg-brand-accent text-brand-navy px-6 py-3 text-[0.7rem] tracking-[0.15em] uppercase font-semibold hover:bg-brand-navy hover:text-white transition-colors duration-300"
+              className="bg-brand-accent text-brand-navy px-5 py-2.5 text-[0.65rem] tracking-[0.15em] uppercase font-bold hover:bg-brand-navy hover:text-white transition-colors duration-300 rounded-sm"
             >
               Get a Quote
             </Link>
