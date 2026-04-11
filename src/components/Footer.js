@@ -40,11 +40,11 @@ export default function Footer() {
             <div className="lg:col-span-1">
               <Link href="/" className="inline-block mb-6">
                 <Image
-                  src="/images/logo-white.svg"
+                  src="/images/logo.png"
                   alt="P&J Glass"
                   width={180}
                   height={50}
-                  className="h-12 w-auto"
+                  className="h-12 w-auto brightness-0 invert"
                 />
               </Link>
               <p className="text-white/60 text-sm leading-relaxed">
