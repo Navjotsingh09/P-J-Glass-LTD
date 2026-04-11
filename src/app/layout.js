@@ -58,7 +58,7 @@ export const metadata = {
     images: ['/images/hero-balustrade.jpg'],
   },
   alternates: {
-    canonical: 'https://pjglass.co.uk',
+    canonical: 'https://pj-glass.co.uk',
   },
 };
 

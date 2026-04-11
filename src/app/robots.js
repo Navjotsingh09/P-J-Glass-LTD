@@ -7,6 +7,6 @@ export default function robots() {
         disallow: ['/api/', '/admin/', '/_next/'],
       },
     ],
-    sitemap: 'https://pjglass.co.uk/sitemap.xml',
+    sitemap: 'https://pj-glass.co.uk/sitemap.xml',
   };
 }

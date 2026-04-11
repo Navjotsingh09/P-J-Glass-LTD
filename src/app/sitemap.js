@@ -2,7 +2,7 @@ import { getAllProducts } from '@/lib/products';
 import { getAllAccessories } from '@/lib/accessories';
 
 export default function sitemap() {
-  const baseUrl = 'https://pjglass.co.uk';
+  const baseUrl = 'https://pj-glass.co.uk';
   
   // Get all products for dynamic URLs
   const products = getAllProducts();

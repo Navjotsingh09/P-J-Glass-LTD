@@ -42,7 +42,7 @@ export const metadata = {
     google: 'YOUR_GOOGLE_VERIFICATION_CODE',
   },
   alternates: {
-    canonical: 'https://pjglass.co.uk',
+    canonical: 'https://pj-glass.co.uk',
   },
   category: 'home improvement',
 };
