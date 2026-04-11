@@ -44,7 +44,7 @@ export default function Footer() {
                   alt="P&J Glass"
                   width={180}
                   height={50}
-                  className="h-12 w-auto brightness-0 invert"
+                  className="h-12 w-auto"
                 />
               </Link>
               <p className="text-white/60 text-sm leading-relaxed">
