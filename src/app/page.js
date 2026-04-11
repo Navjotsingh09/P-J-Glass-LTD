@@ -459,10 +459,12 @@ function GlassTechnologySection() {
       id: 'solar',
       name: 'Solar Control',
       color: '#E8A317',
+      image: 'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=500&auto=format&fit=crop&q=80',
+      imageAlt: 'Sunlit conservatory with solar control glass',
       description: 'Reduces solar heat gain while allowing high levels of natural light, keeping interiors comfortable year-round.',
       detail: 'Ideal for conservatories, south-facing windows, and large glass extensions. Tinted and coated options control glare without darkening rooms.',
       icon: (
-        <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
+        <svg viewBox="0 0 40 40" fill="none" className="w-7 h-7">
           <circle cx="20" cy="20" r="7" stroke="currentColor" strokeWidth="1.5" />
           <path d="M20 5v5M20 30v5M5 20h5M30 20h5M9.4 9.4l3.5 3.5M27.1 27.1l3.5 3.5M9.4 30.6l3.5-3.5M27.1 12.9l3.5-3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
@@ -472,10 +474,12 @@ function GlassTechnologySection() {
       id: 'thermal',
       name: 'Thermal Insulation',
       color: '#8B5E3C',
+      image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=500&auto=format&fit=crop&q=80',
+      imageAlt: 'Modern home with energy-efficient windows',
       description: 'Low-emissivity coatings improve energy efficiency, retaining warmth in winter and managing heat in summer.',
       detail: 'Over 25% of home heat escapes through windows. Low-e glass reflects heat back indoors, cutting energy bills by up to 20% annually.',
       icon: (
-        <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
+        <svg viewBox="0 0 40 40" fill="none" className="w-7 h-7">
           <rect x="17" y="8" width="6" height="24" rx="3" stroke="currentColor" strokeWidth="1.5" />
           <path d="M17 22h6" stroke="currentColor" strokeWidth="1" opacity="0.5" />
           <path d="M17 18h6" stroke="currentColor" strokeWidth="1" opacity="0.5" />
@@ -488,10 +492,12 @@ function GlassTechnologySection() {
       id: 'fire',
       name: 'Fire Protection',
       color: '#C41E3A',
+      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=500&auto=format&fit=crop&q=80',
+      imageAlt: 'Fire-rated glass partitions in commercial building',
       description: 'Provides passive fire protection for up to 180 minutes, maintaining safety while maximising natural light.',
       detail: 'Essential for internal partitions, doors, and commercial spaces. Fire-rated glass contains flames, smoke, and radiant heat.',
       icon: (
-        <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
+        <svg viewBox="0 0 40 40" fill="none" className="w-7 h-7">
           <path d="M20 6c0 6-8 10-8 18a8 8 0 0016 0c0-8-8-12-8-18z" stroke="currentColor" strokeWidth="1.5" />
           <path d="M20 18c0 3-3 5-3 8a3 3 0 006 0c0-3-3-5-3-8z" fill="currentColor" opacity="0.3" />
         </svg>
@@ -501,10 +507,12 @@ function GlassTechnologySection() {
       id: 'noise',
       name: 'Noise Control',
       color: '#2E5090',
+      image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=500&auto=format&fit=crop&q=80',
+      imageAlt: 'Peaceful home interior with acoustic glazing',
       description: 'Acoustic glass reduces external noise to comfortable levels without sacrificing daylight or views.',
       detail: 'Laminated acoustic interlayers dampen sound vibrations. Perfect for homes near busy roads, airports, or urban environments.',
       icon: (
-        <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
+        <svg viewBox="0 0 40 40" fill="none" className="w-7 h-7">
           <path d="M10 16v8l6 4V12l-6 4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
           <path d="M20 14c2 2 2 10 0 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           <path d="M24 11c3 3.5 3 14 0 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -516,10 +524,12 @@ function GlassTechnologySection() {
       id: 'safety',
       name: 'Safety & Security',
       color: '#6B3FA0',
+      image: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=500&auto=format&fit=crop&q=80',
+      imageAlt: 'Toughened glass balustrade on modern staircase',
       description: 'Toughened and laminated glass provides impact resistance, protecting people from injury and property from intrusion.',
       detail: 'Toughened glass is 4–5× stronger than standard glass. When broken, it shatters into small, harmless granules rather than sharp shards.',
       icon: (
-        <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
+        <svg viewBox="0 0 40 40" fill="none" className="w-7 h-7">
           <path d="M20 4L6 10v10c0 8.4 6 16 14 18 8-2 14-9.6 14-18V10L20 4z" stroke="currentColor" strokeWidth="1.5" />
           <path d="M16 20l3 3 5-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
@@ -529,10 +539,12 @@ function GlassTechnologySection() {
       id: 'selfclean',
       name: 'Self-Cleaning',
       color: '#3AA655',
+      image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500&auto=format&fit=crop&q=80',
+      imageAlt: 'Spotless glass facade after rain',
       description: 'A dual-action coating uses daylight to break down dirt and rain to wash it away—reducing the need for manual cleaning.',
       detail: 'UV light activates a photocatalytic coating that decomposes organic deposits. Hydrophilic properties then allow water to sheet off evenly.',
       icon: (
-        <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
+        <svg viewBox="0 0 40 40" fill="none" className="w-7 h-7">
           <circle cx="20" cy="18" r="10" stroke="currentColor" strokeWidth="1.5" />
           <path d="M16 18l3 3 5-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           <path d="M20 28v4M16 30l-2 3M24 30l2 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -543,10 +555,12 @@ function GlassTechnologySection() {
       id: 'decoration',
       name: 'Decoration',
       color: '#8B2252',
+      image: 'https://images.unsplash.com/photo-1618220179428-22790b461013?w=500&auto=format&fit=crop&q=80',
+      imageAlt: 'Decorative glass mirror feature in stylish interior',
       description: 'Extensive decorative options—from Georgian bars and stained glass to etched designs—offering style and privacy with maximum light.',
       detail: 'Includes 19 patterned textures, the Oriel etched glass collection, coloured glass, leaded lights, bevels, and brilliant cut designs.',
       icon: (
-        <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
+        <svg viewBox="0 0 40 40" fill="none" className="w-7 h-7">
           <rect x="8" y="8" width="24" height="24" rx="2" stroke="currentColor" strokeWidth="1.5" />
           <path d="M8 20h24M20 8v24" stroke="currentColor" strokeWidth="1" opacity="0.4" />
           <circle cx="14" cy="14" r="2" stroke="currentColor" strokeWidth="1" opacity="0.6" />
@@ -559,10 +573,12 @@ function GlassTechnologySection() {
       id: 'visibility',
       name: 'Enhanced Visibility',
       color: '#1976D2',
+      image: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?w=500&auto=format&fit=crop&q=80',
+      imageAlt: 'Crystal clear frameless glass shower screen',
       description: 'Ultra-clear low-iron glass and anti-reflective coatings optimise transparency for the truest colour and light transmission.',
       detail: 'Optiwhite™ extra-clear glass eliminates the green tint found in standard glass—ideal for shower screens, mirrors, and display applications.',
       icon: (
-        <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
+        <svg viewBox="0 0 40 40" fill="none" className="w-7 h-7">
           <circle cx="20" cy="20" r="8" stroke="currentColor" strokeWidth="1.5" />
           <circle cx="20" cy="20" r="3" fill="currentColor" opacity="0.3" />
           <path d="M4 20c5-10 12-14 16-14s11 4 16 14c-5 10-12 14-16 14S9 30 4 20z" stroke="currentColor" strokeWidth="1.5" />
@@ -573,10 +589,12 @@ function GlassTechnologySection() {
       id: 'health',
       name: 'Health Applications',
       color: '#0097A7',
+      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&auto=format&fit=crop&q=80',
+      imageAlt: 'Clean hygienic glass surfaces in modern kitchen',
       description: 'Anti-bacterial and anti-viral glass coatings create healthier, cleaner environments in homes and commercial spaces.',
       detail: 'Specialised coatings reduce surface bacteria and viruses on contact—ideal for hospitals, care homes, kitchens, and public-facing spaces.',
       icon: (
-        <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
+        <svg viewBox="0 0 40 40" fill="none" className="w-7 h-7">
           <rect x="16" y="8" width="8" height="24" rx="1" stroke="currentColor" strokeWidth="1.5" />
           <rect x="8" y="16" width="24" height="8" rx="1" stroke="currentColor" strokeWidth="1.5" />
         </svg>
@@ -586,10 +604,12 @@ function GlassTechnologySection() {
       id: 'special',
       name: 'Special Applications',
       color: '#7B1FA2',
+      image: 'https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=500&auto=format&fit=crop&q=80',
+      imageAlt: 'Smart mirror concealing display in modern home',
       description: 'Bespoke glass solutions for unique requirements—mirror-concealing displays, heated glass panels, and smart switchable glass.',
       detail: 'From MirroView™ that hides TV screens behind mirrors to heated glass radiators and electrochromic privacy glass that switches from clear to opaque.',
       icon: (
-        <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
+        <svg viewBox="0 0 40 40" fill="none" className="w-7 h-7">
           <circle cx="20" cy="20" r="12" stroke="currentColor" strokeWidth="1.5" />
           <path d="M20 12v6l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           <circle cx="20" cy="20" r="2" fill="currentColor" opacity="0.4" />
@@ -600,10 +620,12 @@ function GlassTechnologySection() {
       id: 'solar-energy',
       name: 'Solar Energy',
       color: '#F9A825',
+      image: 'https://images.unsplash.com/photo-1509391111056-854e26497f32?w=500&auto=format&fit=crop&q=80',
+      imageAlt: 'Solar panel glass on modern building roof',
       description: 'Building-integrated photovoltaic glass converts sunlight into electricity while serving as windows, facades, or roofing.',
       detail: 'Transparent solar cells embedded in glass generate energy without compromising views or natural light—the future of sustainable architecture.',
       icon: (
-        <svg viewBox="0 0 40 40" fill="none" className="w-8 h-8">
+        <svg viewBox="0 0 40 40" fill="none" className="w-7 h-7">
           <path d="M8 28l8-20h8l8 20" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
           <path d="M11 22h18" stroke="currentColor" strokeWidth="1" opacity="0.4" />
           <path d="M14 16h12" stroke="currentColor" strokeWidth="1" opacity="0.4" />
@@ -637,59 +659,86 @@ function GlassTechnologySection() {
           </Reveal>
         </div>
 
-        {/* Category Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+        {/* Category Grid — image cards */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
           {categories.map((cat, idx) => (
             <Reveal key={cat.id} delay={Math.min(idx + 1, 4)}>
               <button
                 onClick={() => setActiveId(activeId === cat.id ? null : cat.id)}
-                className={`group relative w-full text-left p-5 md:p-6 rounded-lg border transition-all duration-400 ${
+                className={`group relative w-full text-left rounded-lg border overflow-hidden transition-all duration-400 ${
                   activeId === cat.id
-                    ? 'bg-brand-navy border-brand-navy shadow-lg'
-                    : 'bg-brand-offwhite border-brand-silver/60 hover:border-brand-accent/40 hover:shadow-md'
+                    ? 'bg-brand-navy border-brand-navy shadow-xl ring-1 ring-brand-accent/20'
+                    : 'bg-white border-brand-silver/60 hover:border-brand-accent/40 hover:shadow-lg'
                 }`}
               >
-                {/* Icon */}
-                <div
-                  className={`mb-4 transition-colors duration-300 ${
-                    activeId === cat.id ? 'text-brand-accent' : ''
-                  }`}
-                  style={{ color: activeId === cat.id ? undefined : cat.color }}
-                >
-                  {cat.icon}
+                {/* Use-case image */}
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img
+                    src={cat.image}
+                    alt={cat.imageAlt}
+                    className={`w-full h-full object-cover transition-all duration-700 ${
+                      activeId === cat.id ? 'scale-105 brightness-50' : 'group-hover:scale-105'
+                    }`}
+                  />
+                  {/* Colour band at bottom of image */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-1 transition-all duration-300"
+                    style={{ backgroundColor: cat.color, opacity: activeId === cat.id ? 0 : 1 }}
+                  />
+                  {/* Icon overlay when expanded */}
+                  <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
+                    activeId === cat.id ? 'opacity-100' : 'opacity-0'
+                  }`}>
+                    <div className="text-brand-accent">{cat.icon}</div>
+                  </div>
                 </div>
 
-                {/* Name */}
-                <h3 className={`text-sm font-medium tracking-wide transition-colors duration-300 ${
-                  activeId === cat.id ? 'text-white' : 'text-brand-navy'
-                }`}>
-                  {cat.name}
-                </h3>
+                {/* Content area */}
+                <div className="p-4 md:p-5">
+                  {/* Icon + Name row */}
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <div
+                      className={`flex-shrink-0 transition-colors duration-300 ${
+                        activeId === cat.id ? 'text-brand-accent' : ''
+                      }`}
+                      style={{ color: activeId === cat.id ? undefined : cat.color }}
+                    >
+                      {cat.icon}
+                    </div>
+                    <h3 className={`text-sm font-medium tracking-wide transition-colors duration-300 ${
+                      activeId === cat.id ? 'text-white' : 'text-brand-navy'
+                    }`}>
+                      {cat.name}
+                    </h3>
+                  </div>
 
-                {/* Short description — always visible */}
-                <p className={`text-[0.75rem] leading-relaxed mt-2 transition-colors duration-300 ${
-                  activeId === cat.id ? 'text-white/60' : 'text-brand-grey/70'
-                }`}>
-                  {cat.description}
-                </p>
+                  {/* Description */}
+                  <p className={`text-[0.75rem] leading-relaxed transition-colors duration-300 ${
+                    activeId === cat.id ? 'text-white/60' : 'text-brand-grey/70'
+                  }`}>
+                    {cat.description}
+                  </p>
 
-                {/* Expanded detail */}
-                <div className={`overflow-hidden transition-all duration-500 ${
-                  activeId === cat.id ? 'max-h-40 opacity-100 mt-3' : 'max-h-0 opacity-0'
-                }`}>
-                  <div className="pt-3 border-t border-white/10">
-                    <p className="text-white/80 text-[0.75rem] leading-relaxed font-light">
-                      {cat.detail}
-                    </p>
+                  {/* Expanded detail */}
+                  <div className={`overflow-hidden transition-all duration-500 ${
+                    activeId === cat.id ? 'max-h-40 opacity-100 mt-3' : 'max-h-0 opacity-0'
+                  }`}>
+                    <div className="pt-3 border-t border-white/10">
+                      <p className="text-white/80 text-[0.75rem] leading-relaxed font-light">
+                        {cat.detail}
+                      </p>
+                    </div>
                   </div>
                 </div>
 
                 {/* Expand indicator */}
-                <div className={`absolute top-5 right-5 transition-transform duration-300 ${
-                  activeId === cat.id ? 'rotate-45' : ''
+                <div className={`absolute top-3 right-3 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  activeId === cat.id
+                    ? 'bg-brand-accent/20 rotate-45'
+                    : 'bg-black/20 backdrop-blur-sm'
                 }`}>
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className={`transition-colors duration-300 ${
-                    activeId === cat.id ? 'text-brand-accent' : 'text-brand-grey/40'
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none" className={`transition-colors duration-300 ${
+                    activeId === cat.id ? 'text-brand-accent' : 'text-white'
                   }`}>
                     <path d="M6 2v8M2 6h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                   </svg>
