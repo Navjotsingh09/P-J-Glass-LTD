@@ -767,6 +767,229 @@ function GlassTechnologySection() {
   );
 }
 
+/* ─── Decorative Glazing Section ─── */
+function DecorativeGlazingSection() {
+  const [activePattern, setActivePattern] = useState(null);
+
+  const texturePatterns = [
+    { name: 'Contora™', privacy: 4, image: 'https://www.pilkington.com/-/media/pilkington/site-content/_base/texture-glass-images/contora_glass.png?mh=500', desc: 'Clean vertical lines for a modern, semi-private look. Ideal for bathroom windows, front doors, and office partitions.' },
+    { name: 'Reeded™', privacy: 2, image: 'https://www.pilkington.com/-/media/pilkington/site-content/_base/texture-glass-images/reeded-min.png?mh=500', desc: 'Fine parallel ridges create a sophisticated ribbed effect. Perfect for shower screens, cabinet doors, and room dividers.' },
+    { name: 'Autumn™', privacy: 3, image: 'https://www.pilkington.com/-/media/pilkington/site-content/_base/texture-glass-images/autumn-min.png?mh=500', desc: 'Organic leaf-like texture that catches light beautifully. Popular in traditional homes and period property renovations.' },
+    { name: 'Everglade™', privacy: 5, image: 'https://www.pilkington.com/-/media/pilkington/site-content/_base/texture-glass-images/everglade-min.png?mh=500', desc: 'Maximum privacy with a soft, natural appearance. Commonly used in bathroom glazing and ground-floor windows.' },
+    { name: 'Florielle™', privacy: 3, image: 'https://www.pilkington.com/-/media/pilkington/site-content/_base/texture-glass-images/florielle-min.png?mh=500', desc: 'Delicate floral motif offering moderate privacy with elegance. Suits front doors, fanlights, and bay windows.' },
+    { name: 'Cotswold™', privacy: 3, image: 'https://www.pilkington.com/-/media/pilkington/site-content/_base/texture-glass-images/cotswold-min2.png?mh=500', desc: 'Gently hammered appearance with timeless cottage charm. Ideal for heritage properties and country-style homes.' },
+    { name: 'Digital™', privacy: 2, image: 'https://www.pilkington.com/-/media/pilkington/site-content/_base/texture-glass-images/digital-min.png?mh=500', desc: 'Geometric block pattern for a bold contemporary statement. Works well in modern extensions and feature panels.' },
+    { name: 'Minster™', privacy: 2, image: 'https://www.pilkington.com/-/media/pilkington/site-content/_base/texture-glass-images/minster-min.png?mh=500', desc: 'Classic cathedral-style diamond pattern. A timeless choice for front doors and traditional stained glass alternatives.' },
+  ];
+
+  const etchedDesigns = [
+    { name: 'Cirque™', privacy: 1, image: 'https://www.pilkington.com/-/media/pilkington/site-content/uk/decorative-microsite/pattern-presenter-images/acid-etched-privacy-levels/pl1-cirque36571.jpg?&mw=500', desc: 'Subtle circular motif with minimal privacy—lets light flood through while adding a designer touch.' },
+    { name: 'Linear™', privacy: 2, image: 'https://www.pilkington.com/-/media/pilkington/site-content/uk/decorative-microsite/pattern-presenter-images/acid-etched-privacy-levels/pl2-linear36574.jpg?&mw=500', desc: 'Clean horizontal bands in acid-etched glass. A modern, minimalist choice for partitions and shower screens.' },
+    { name: 'Burdock™', privacy: 3, image: 'https://www.pilkington.com/-/media/pilkington/site-content/uk/decorative-microsite/pattern-presenter-images/acid-etched-privacy-levels/pl3burdock36577.jpg?&mw=500', desc: 'Organic botanical pattern with moderate obscuration. Elegant for front doors and internal feature glazing.' },
+    { name: 'Bay™ Opal', privacy: 5, image: 'https://www.pilkington.com/-/media/pilkington/site-content/uk/decorative-microsite/pattern-presenter-images/acid-etched-privacy-levels/pl5bay-opal36576.jpg?&mw=500', desc: 'Fully opaque etched finish with a soft diffused glow. Maximum privacy for bathrooms and ground-floor rooms.' },
+  ];
+
+  const privacyLabels = { 1: 'Minimal', 2: 'Light', 3: 'Moderate', 4: 'High', 5: 'Maximum' };
+
+  return (
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-[#f5f7fa] overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 mb-14 md:mb-20">
+          <Reveal>
+            <p className="section-label mb-6 text-brand-accent">Decorative Glazing</p>
+            <h2 className="text-display-md text-brand-navy leading-tight">
+              Glass that makes a statement.
+            </h2>
+          </Reveal>
+          <Reveal delay={2}>
+            <div className="flex flex-col justify-end h-full">
+              <p className="text-brand-grey text-lg font-light leading-relaxed">
+                From textured privacy glass to acid-etched designer patterns, we offer over 21 decorative glass
+                designs across 5 privacy levels—plus Georgian bars, leaded lights, bevels,
+                and brilliant cut options to create a distinctive look for any room.
+              </p>
+            </div>
+          </Reveal>
+        </div>
+
+        {/* Privacy Level Guide */}
+        <Reveal>
+          <div className="flex flex-wrap items-center gap-3 mb-10">
+            <span className="text-sm font-medium text-brand-navy mr-2">Privacy levels:</span>
+            {[1,2,3,4,5].map(level => (
+              <div key={level} className="flex items-center gap-1.5">
+                <div className="flex gap-0.5">
+                  {[1,2,3,4,5].map(dot => (
+                    <div
+                      key={dot}
+                      className={`w-2 h-2 rounded-full ${dot <= level ? 'bg-brand-accent' : 'bg-brand-silver'}`}
+                    />
+                  ))}
+                </div>
+                <span className="text-xs text-brand-grey">{privacyLabels[level]}</span>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+
+        {/* Texture Glass Grid */}
+        <Reveal>
+          <h3 className="text-xl font-semibold text-brand-navy mb-6">Pilkington Texture Glass</h3>
+        </Reveal>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
+          {texturePatterns.map((pattern, i) => (
+            <Reveal key={pattern.name} delay={i % 4}>
+              <button
+                onClick={() => setActivePattern(activePattern === pattern.name ? null : pattern.name)}
+                className={`group relative w-full text-left rounded-xl overflow-hidden transition-all duration-500 ${
+                  activePattern === pattern.name
+                    ? 'ring-2 ring-brand-accent shadow-lg'
+                    : 'hover:shadow-md'
+                }`}
+              >
+                {/* Pattern Image */}
+                <div className="aspect-square bg-white overflow-hidden">
+                  <img
+                    src={pattern.image}
+                    alt={`Pilkington ${pattern.name} texture glass pattern`}
+                    className={`w-full h-full object-cover transition-transform duration-700 ${
+                      activePattern === pattern.name ? 'scale-110' : 'group-hover:scale-105'
+                    }`}
+                  />
+                </div>
+
+                {/* Info Bar */}
+                <div className={`px-4 py-3 transition-colors duration-300 ${
+                  activePattern === pattern.name ? 'bg-brand-navy' : 'bg-white'
+                }`}>
+                  <div className="flex items-center justify-between">
+                    <span className={`text-sm font-medium transition-colors duration-300 ${
+                      activePattern === pattern.name ? 'text-white' : 'text-brand-navy'
+                    }`}>
+                      {pattern.name}
+                    </span>
+                    <div className="flex gap-0.5">
+                      {[1,2,3,4,5].map(dot => (
+                        <div
+                          key={dot}
+                          className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
+                            dot <= pattern.privacy
+                              ? activePattern === pattern.name ? 'bg-brand-accent' : 'bg-brand-accent'
+                              : activePattern === pattern.name ? 'bg-white/20' : 'bg-brand-silver'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Expanded Description */}
+                <div className={`overflow-hidden transition-all duration-500 ${
+                  activePattern === pattern.name ? 'max-h-40' : 'max-h-0'
+                }`}>
+                  <div className="px-4 pb-4 bg-brand-navy">
+                    <p className="text-white/80 text-xs leading-relaxed">
+                      {pattern.desc}
+                    </p>
+                  </div>
+                </div>
+              </button>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Oriel Etched Collection */}
+        <Reveal>
+          <h3 className="text-xl font-semibold text-brand-navy mb-2">Oriel Collection — Etched Glass</h3>
+          <p className="text-brand-grey text-sm mb-6">Stunning acid-etched designs for a premium, contemporary finish.</p>
+        </Reveal>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
+          {etchedDesigns.map((pattern, i) => (
+            <Reveal key={pattern.name} delay={i}>
+              <button
+                onClick={() => setActivePattern(activePattern === `etched-${pattern.name}` ? null : `etched-${pattern.name}`)}
+                className={`group relative w-full text-left rounded-xl overflow-hidden transition-all duration-500 ${
+                  activePattern === `etched-${pattern.name}`
+                    ? 'ring-2 ring-brand-accent shadow-lg'
+                    : 'hover:shadow-md'
+                }`}
+              >
+                <div className="aspect-square bg-white overflow-hidden">
+                  <img
+                    src={pattern.image}
+                    alt={`Pilkington Oriel ${pattern.name} etched glass design`}
+                    className={`w-full h-full object-cover transition-transform duration-700 ${
+                      activePattern === `etched-${pattern.name}` ? 'scale-110' : 'group-hover:scale-105'
+                    }`}
+                  />
+                </div>
+                <div className={`px-4 py-3 transition-colors duration-300 ${
+                  activePattern === `etched-${pattern.name}` ? 'bg-brand-navy' : 'bg-white'
+                }`}>
+                  <div className="flex items-center justify-between">
+                    <span className={`text-sm font-medium transition-colors duration-300 ${
+                      activePattern === `etched-${pattern.name}` ? 'text-white' : 'text-brand-navy'
+                    }`}>
+                      {pattern.name}
+                    </span>
+                    <div className="flex gap-0.5">
+                      {[1,2,3,4,5].map(dot => (
+                        <div
+                          key={dot}
+                          className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
+                            dot <= pattern.privacy
+                              ? 'bg-brand-accent'
+                              : activePattern === `etched-${pattern.name}` ? 'bg-white/20' : 'bg-brand-silver'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className={`overflow-hidden transition-all duration-500 ${
+                  activePattern === `etched-${pattern.name}` ? 'max-h-40' : 'max-h-0'
+                }`}>
+                  <div className="px-4 pb-4 bg-brand-navy">
+                    <p className="text-white/80 text-xs leading-relaxed">
+                      {pattern.desc}
+                    </p>
+                  </div>
+                </div>
+              </button>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Additional Options + CTA */}
+        <Reveal>
+          <div className="bg-white rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center gap-8">
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold text-brand-navy mb-3">Additional Decorative Options</h3>
+              <div className="flex flex-wrap gap-3">
+                {['Georgian Bars', 'Cottage Bars', 'Leaded Lights', 'Stained Glass', 'Bevels', 'Brilliant Cut'].map(option => (
+                  <span key={option} className="px-3 py-1.5 bg-[#f5f7fa] rounded-full text-sm text-brand-navy font-medium">
+                    {option}
+                  </span>
+                ))}
+              </div>
+              <p className="text-brand-grey text-sm mt-4 leading-relaxed">
+                We work with Pilkington's full decorative range to create bespoke glazing that matches your home's character—from period restorations to modern feature walls.
+              </p>
+            </div>
+            <Link href="/contact" className="btn-fluid flex-shrink-0">
+              Discuss Your Design
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 /* ─── Showroom Section ─── */
 function ShowroomSection() {
   return (
@@ -1113,6 +1336,7 @@ export default function HomePage() {
       <ProductCollection />
       <WhyGlassSection />
       <GlassTechnologySection />
+      <DecorativeGlazingSection />
       <ShowroomSection />
       <ImageBreak />
       <FeaturedProjects />
