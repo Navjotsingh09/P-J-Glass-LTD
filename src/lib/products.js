@@ -47,6 +47,11 @@ export const productCategories = {
     slug: 'glass-accessories',
     description: 'Glass whiteboards, calendars and desk accessories',
   },
+  ledMirrors: {
+    name: 'LED Mirrors',
+    slug: 'led-mirrors',
+    description: 'Illuminated LED bathroom mirrors with demister, touch controls & Bluetooth',
+  },
 };
 
 export const julietBalconies = [
@@ -283,6 +288,21 @@ export const glassAccessories = [
   { id: 'toughened-glass-desk-calendar-2023', name: 'Toughened Glass Desk Calendar 2023', category: 'glassAccessories', shortDesc: 'Protect your desk with a functional, wipeable desk calendar. Our toughened glass desk calendars are a sleek, strong, and convenient desk accessory tha', priceFrom: 75, priceTo: 85, priceDisplay: '£75.00 – £85.00', image: 'https://cdn.shopify.com/s/files/1/0320/7685/7477/products/DESK-2.jpg?v=1670407725' },
 ];
 
+// ─── LED Mirrors ─────────────────────────────────────────────
+
+export const ledMirrors = [
+  { id: 'led-mirror-round-600-warm', name: 'Round LED Mirror 600mm — Warm White', category: 'ledMirrors', shortDesc: '600mm round illuminated bathroom mirror with warm white LED edge lighting. Built-in demister pad, touch on/off sensor. IP44 rated.', priceFrom: 149, priceTo: null, priceDisplay: '£149.00', image: 'https://placehold.co/600x600/1a2055/5ec4d4.png?text=LED+Mirror+Round+600' },
+  { id: 'led-mirror-round-800-warm', name: 'Round LED Mirror 800mm — Warm White', category: 'ledMirrors', shortDesc: '800mm round illuminated bathroom mirror with warm white LED halo. Demister pad, touch sensor & dimmer function. IP44 rated.', priceFrom: 199, priceTo: null, priceDisplay: '£199.00', image: 'https://placehold.co/600x600/1a2055/5ec4d4.png?text=LED+Mirror+Round+800' },
+  { id: 'led-mirror-rect-500x700-dual', name: 'Rectangular LED Mirror 500×700mm — Dual Colour', category: 'ledMirrors', shortDesc: '500×700mm rectangular LED mirror with switchable warm/cool white lighting. Demister, touch controls & memory function.', priceFrom: 169, priceTo: null, priceDisplay: '£169.00', image: 'https://placehold.co/600x600/1a2055/5ec4d4.png?text=LED+Mirror+500x700' },
+  { id: 'led-mirror-rect-600x800-dual', name: 'Rectangular LED Mirror 600×800mm — Dual Colour', category: 'ledMirrors', shortDesc: '600×800mm rectangular LED mirror with dual colour temperature. Front-lit and backlit LED strips. Demister & touch sensor.', priceFrom: 219, priceTo: null, priceDisplay: '£219.00', image: 'https://placehold.co/600x600/1a2055/5ec4d4.png?text=LED+Mirror+600x800' },
+  { id: 'led-mirror-rect-800x600-bluetooth', name: 'LED Mirror 800×600mm — Bluetooth & Clock', category: 'ledMirrors', shortDesc: '800×600mm LED illuminated mirror with Bluetooth speaker, digital clock display, demister pad & touch dimmer. IP44.', priceFrom: 279, priceTo: null, priceDisplay: '£279.00', image: 'https://placehold.co/600x600/1a2055/5ec4d4.png?text=LED+Mirror+Bluetooth' },
+  { id: 'led-mirror-arch-500x900', name: 'Arch LED Mirror 500×900mm — Warm White', category: 'ledMirrors', shortDesc: 'Stunning arch-shaped LED mirror with warm white backlit glow. 500×900mm. Demister pad & touch sensor. Modern bathroom statement piece.', priceFrom: 239, priceTo: null, priceDisplay: '£239.00', image: 'https://placehold.co/600x600/1a2055/5ec4d4.png?text=LED+Mirror+Arch' },
+  { id: 'led-mirror-round-600-rgb', name: 'Round LED Mirror 600mm — RGB Colour Changing', category: 'ledMirrors', shortDesc: '600mm round LED mirror with RGB colour-changing ambient backlight. White front-lit LEDs for task lighting. Remote control included.', priceFrom: 189, priceTo: null, priceDisplay: '£189.00', image: 'https://placehold.co/600x600/1a2055/5ec4d4.png?text=LED+Mirror+RGB' },
+  { id: 'led-mirror-full-length-500x1500', name: 'Full-Length LED Mirror 500×1500mm', category: 'ledMirrors', shortDesc: 'Full-length illuminated dressing mirror with LED strip lighting. 500×1500mm. Wall-mounted with demister option. Touch dimmer.', priceFrom: 329, priceTo: null, priceDisplay: '£329.00', image: 'https://placehold.co/600x600/1a2055/5ec4d4.png?text=LED+Mirror+Full+Length' },
+  { id: 'led-mirror-cabinet-600x700', name: 'LED Mirror Cabinet 600×700mm — Double Door', category: 'ledMirrors', shortDesc: 'Recessed or surface-mounted LED mirror cabinet with double mirrored doors. 600×700×140mm. Internal shelves, shaver socket & demister.', priceFrom: 349, priceTo: null, priceDisplay: '£349.00', image: 'https://placehold.co/600x600/1a2055/5ec4d4.png?text=LED+Mirror+Cabinet' },
+  { id: 'led-mirror-magnifying-wall-8x', name: 'Wall-Mounted LED Magnifying Mirror — 8× Zoom', category: 'ledMirrors', shortDesc: '200mm diameter wall-mounted magnifying mirror with 8× magnification. Integrated LED ring light. Extendable arm. Chrome finish.', priceFrom: 89, priceTo: null, priceDisplay: '£89.00', image: 'https://placehold.co/600x600/1a2055/5ec4d4.png?text=LED+Magnifying+Mirror' },
+];
+
 // ─── Sale Config ─────────────────────────────────────────────
 
 export const SALE_DISCOUNT = 0.15; // 15% off
@@ -312,16 +332,16 @@ function withSalePricing(product) {
 // ─── Helper Functions ────────────────────────────────────────
 
 export function getAllProducts() {
-  return [...julietBalconies, ...balustrades, ...mirrors, ...paintedSplashbacks, ...printedSplashbacks, ...wallArt, ...bathScreens, ...tableTopGlass, ...glassAccessories].map(withSalePricing);
+  return [...julietBalconies, ...balustrades, ...mirrors, ...paintedSplashbacks, ...printedSplashbacks, ...wallArt, ...bathScreens, ...tableTopGlass, ...glassAccessories, ...ledMirrors].map(withSalePricing);
 }
 
 export function getProductsByCategory(category) {
-  const map = { julietBalconies, balustrades, mirrors, paintedSplashbacks, printedSplashbacks, wallArt, bathScreens, tableTopGlass, glassAccessories };
+  const map = { julietBalconies, balustrades, mirrors, paintedSplashbacks, printedSplashbacks, wallArt, bathScreens, tableTopGlass, glassAccessories, ledMirrors };
   return (map[category] || []).map(withSalePricing);
 }
 
 export function getProductById(id) {
-  const raw = [...julietBalconies, ...balustrades, ...mirrors, ...paintedSplashbacks, ...printedSplashbacks, ...wallArt, ...bathScreens, ...tableTopGlass, ...glassAccessories].find((p) => p.id === id);
+  const raw = [...julietBalconies, ...balustrades, ...mirrors, ...paintedSplashbacks, ...printedSplashbacks, ...wallArt, ...bathScreens, ...tableTopGlass, ...glassAccessories, ...ledMirrors].find((p) => p.id === id);
   return raw ? withSalePricing(raw) : undefined;
 }
 

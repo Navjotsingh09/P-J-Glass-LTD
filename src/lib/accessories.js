@@ -24,6 +24,31 @@ export const accessoryCategories = {
     slug: 'sealants-cleaning',
     description: 'Glass sealants, cleaners, glazing tapes & easy-clean coatings',
   },
+  doorHardware: {
+    name: 'Door Hardware',
+    slug: 'door-hardware',
+    description: 'Glass door pull handles, patch fittings, pivot sets & push plates',
+  },
+  partitionHardware: {
+    name: 'Partition Hardware',
+    slug: 'partition-hardware',
+    description: 'Office partition clamps, header channels, connectors & track systems',
+  },
+  barnDoorHardware: {
+    name: 'Barn Door & Sliding Hardware',
+    slug: 'barn-door-hardware',
+    description: 'Sliding glass door track kits, rollers, soft-close mechanisms & floor guides',
+  },
+  glazingTools: {
+    name: 'Glazing Tools & Supplies',
+    slug: 'glazing-tools',
+    description: 'Suction lifters, glass cutters, pliers, corner protectors & installation tools',
+  },
+  showerEnclosures: {
+    name: 'Shower Screen Systems',
+    slug: 'shower-screen-systems',
+    description: 'Walk-in wetroom panels, Crittall-style grid screens & sliding shower kits',
+  },
 };
 
 // ─── Shower Accessories ──────────────────────────────────────
@@ -44,6 +69,20 @@ const showerAccessories = [
   { id: 'acc-shower-seal-magnetic-2000', name: 'Magnetic Shower Door Seal Pair 2000mm', category: 'showerAccessories', shortDesc: 'Pair of magnetic seals for double shower doors. Creates a watertight closure. For 6–8mm glass.', priceFrom: 15, priceTo: null, priceDisplay: '£15.00', image: 'https://www.egw.co.uk/cdn/shop/files/Magnetic-Seals-Main-Image_1200x1200.webp?v=1727688902', fitsWith: ['bathScreens'], finishes: [], brand: 'CRL' },
   { id: 'acc-shower-threshold-1000', name: 'Shower Door Threshold Strip 1000mm', category: 'showerAccessories', shortDesc: 'Low-profile aluminium threshold strip to contain water at the shower entrance. Sloped for wheelchair access.', priceFrom: 18, priceTo: null, priceDisplay: '£18.00', image: 'https://www.egw.co.uk/cdn/shop/files/Bubble-Seal-Main-Image_1200x1200.jpg?v=1727688066', fitsWith: ['bathScreens'], finishes: ['Chrome', 'Matt Black'], brand: 'CRL' },
   { id: 'acc-shower-glass-clamp-square', name: 'Square Glass Clamp — Shower Panel', category: 'showerAccessories', shortDesc: 'Square glass-to-wall clamp for fixed shower panels. Zinc alloy with stainless steel finish. For 8–10mm glass.', priceFrom: 12, priceTo: null, priceDisplay: '£12.00', image: 'https://www.egw.co.uk/cdn/shop/products/ATB-B-S-Fbrushedbalustradeclamp_1200x655.jpg?v=1601373163', fitsWith: ['bathScreens'], finishes: ['Chrome', 'Matt Black', 'Brushed Nickel'], brand: 'CRL' },
+  { id: 'acc-shower-hinge-135-corner', name: '135° Glass-to-Glass Corner Hinge — Chrome', category: 'showerAccessories', shortDesc: '135° corner hinge for angled frameless shower enclosures. Heavy-duty zinc alloy. For 8–10mm toughened glass.', priceFrom: 52, priceTo: null, priceDisplay: '£52.00', image: 'https://www.egw.co.uk/cdn/shop/products/APH-H09_1200x655.jpg?v=1614176179', fitsWith: ['bathScreens'], finishes: ['Chrome', 'Matt Black', 'Brushed Nickel'], brand: 'CRL' },
+  { id: 'acc-shower-hinge-bifold-wall', name: 'Bi-Fold Shower Door Hinge Set — Wall-to-Glass', category: 'showerAccessories', shortDesc: 'Bi-fold hinge set for inward-folding shower doors. Saves space in small bathrooms. For 6–8mm glass.', priceFrom: 65, priceTo: null, priceDisplay: '£65.00', image: 'https://www.egw.co.uk/cdn/shop/products/chrome-shower-door-hinge-wall-mounted-90_1200x1200.jpg?v=1669802012', fitsWith: ['bathScreens'], finishes: ['Chrome', 'Matt Black'], brand: 'CRL' },
+  { id: 'acc-shower-hinge-lift-off-90', name: '90° Lift-Off Shower Hinge — Wall Mount', category: 'showerAccessories', shortDesc: 'Lift-off 90° shower hinge for easy door removal and cleaning. Rise-and-fall mechanism. For 8–10mm glass.', priceFrom: 58, priceTo: null, priceDisplay: '£58.00', image: 'https://www.egw.co.uk/cdn/shop/products/chrome-shower-door-hinge-wall-mounted-90_1200x1200.jpg?v=1669802012', fitsWith: ['bathScreens'], finishes: ['Chrome', 'Matt Black', 'Brushed Brass'], brand: 'CRL' },
+  { id: 'acc-shower-hinge-murano-180-gg', name: 'Murano 180° Glass-to-Glass Hinge — Matt Black', category: 'showerAccessories', shortDesc: 'Square-profile 180° glass-to-glass hinge in matt black. Modern minimal design. For 8–10mm glass.', priceFrom: 62, priceTo: null, priceDisplay: '£62.00', image: 'https://www.egw.co.uk/cdn/shop/products/SH-NKE-H01_Bblackglasstowallhingeconcealedfixings_7478d766-325a-42b5-87fe-67b6d4411744_1200x1200.jpg?v=1672995526', fitsWith: ['bathScreens'], finishes: ['Matt Black', 'Chrome', 'Brushed Brass'], brand: 'CRL' },
+  { id: 'acc-shower-hinge-bellagio-90-gg', name: 'Bellagio 90° Glass-to-Glass Hinge — Chrome', category: 'showerAccessories', shortDesc: '90° glass-to-glass hinge for shower side panels. Bellagio rounded profile. For 8–10mm toughened glass.', priceFrom: 50, priceTo: null, priceDisplay: '£50.00', image: 'https://www.egw.co.uk/cdn/shop/products/APH-H09_1200x655.jpg?v=1614176179', fitsWith: ['bathScreens'], finishes: ['Chrome', 'Matt Black', 'Brushed Nickel'], brand: 'CRL' },
+  { id: 'acc-shower-hinge-soft-close', name: 'Soft-Close 90° Shower Hinge — Wall-to-Glass', category: 'showerAccessories', shortDesc: 'Premium 90° shower hinge with built-in soft-close damper. Prevents slamming. For 8–10mm glass.', priceFrom: 78, priceTo: null, priceDisplay: '£78.00', image: 'https://www.egw.co.uk/cdn/shop/products/chrome-shower-door-hinge-wall-mounted-90_1200x1200.jpg?v=1669802012', fitsWith: ['bathScreens'], finishes: ['Chrome', 'Matt Black'], brand: 'CRL' },
+  { id: 'acc-shower-hinge-brushed-brass-90', name: '90° Wall-to-Glass Hinge — Brushed Brass', category: 'showerAccessories', shortDesc: 'Luxurious brushed brass 90° shower hinge. On-trend warm metallic finish. For 8–10mm toughened glass.', priceFrom: 56, priceTo: null, priceDisplay: '£56.00', image: 'https://www.egw.co.uk/cdn/shop/products/chrome-shower-door-hinge-wall-mounted-90_1200x1200.jpg?v=1669802012', fitsWith: ['bathScreens'], finishes: ['Brushed Brass'], brand: 'CRL' },
+  { id: 'acc-shower-hinge-brushed-nickel-90', name: '90° Wall-to-Glass Hinge — Brushed Nickel', category: 'showerAccessories', shortDesc: 'Contemporary brushed nickel 90° shower hinge. Satin-finish metal for modern bathrooms. For 8–10mm glass.', priceFrom: 50, priceTo: null, priceDisplay: '£50.00', image: 'https://www.egw.co.uk/cdn/shop/products/chrome-shower-door-hinge-wall-mounted-90_1200x1200.jpg?v=1669802012', fitsWith: ['bathScreens'], finishes: ['Brushed Nickel'], brand: 'CRL' },
+  { id: 'acc-shower-pivot-hinge-floor-ceil', name: 'Floor-to-Ceiling Pivot Hinge Set', category: 'showerAccessories', shortDesc: 'Floor-to-ceiling pivot hinge set for full-height frameless shower doors. Adjustable spring tension. For 8–10mm glass.', priceFrom: 85, priceTo: null, priceDisplay: '£85.00', image: 'https://placehold.co/600x600/1a2055/5ec4d4.png?text=Pivot+Hinge+Set', fitsWith: ['bathScreens'], finishes: ['Chrome', 'Matt Black'], brand: 'CRL' },
+  { id: 'acc-shower-header-bar-2000', name: 'Shower Header Bar 2000mm — Glass-to-Wall', category: 'showerAccessories', shortDesc: '2000mm overhead header bar connecting glass panel to wall. Provides structural support for walk-in showers. For 8–10mm glass.', priceFrom: 48, priceTo: null, priceDisplay: '£48.00', image: 'https://www.egw.co.uk/cdn/shop/products/SHAPHT03-AD_1200x655.jpg?v=1614770844', fitsWith: ['bathScreens'], finishes: ['Chrome', 'Matt Black', 'Brushed Nickel'], brand: 'CRL' },
+  { id: 'acc-shower-slider-kit-1500', name: 'Sliding Shower Door Kit 1500mm — Complete', category: 'showerAccessories', shortDesc: 'Complete sliding shower door hardware kit. 1500mm track with rollers, guides and stoppers. For 8mm glass.', priceFrom: 125, priceTo: null, priceDisplay: '£125.00', image: 'https://placehold.co/600x600/1a2055/5ec4d4.png?text=Slider+Kit+1500', fitsWith: ['bathScreens'], finishes: ['Chrome', 'Matt Black'], brand: 'CRL' },
+  { id: 'acc-shower-slider-kit-1800', name: 'Sliding Shower Door Kit 1800mm — Complete', category: 'showerAccessories', shortDesc: 'Complete sliding shower door hardware kit. 1800mm track with rollers, guides and stoppers. For 8mm glass.', priceFrom: 145, priceTo: null, priceDisplay: '£145.00', image: 'https://placehold.co/600x600/1a2055/5ec4d4.png?text=Slider+Kit+1800', fitsWith: ['bathScreens'], finishes: ['Chrome', 'Matt Black'], brand: 'CRL' },
+  { id: 'acc-shower-roller-top-pair', name: 'Top-Hung Shower Door Roller Pair', category: 'showerAccessories', shortDesc: 'Pair of replacement top-hung rollers for sliding shower doors. Stainless steel bearings. Silent operation.', priceFrom: 22, priceTo: null, priceDisplay: '£22.00', image: 'https://placehold.co/600x600/1a2055/5ec4d4.png?text=Shower+Rollers', fitsWith: ['bathScreens'], finishes: ['Chrome'], brand: 'CRL' },
+  { id: 'acc-shower-roller-bottom-guide', name: 'Bottom Guide for Sliding Shower Door', category: 'showerAccessories', shortDesc: 'Adjustable bottom guide block for sliding shower doors. Prevents swinging. Clear polycarbonate construction.', priceFrom: 8, priceTo: null, priceDisplay: '£8.00', image: 'https://placehold.co/600x600/1a2055/5ec4d4.png?text=Bottom+Guide', fitsWith: ['bathScreens'], finishes: [], brand: 'CRL' },
 ];
 
 // ─── Mirror Accessories ──────────────────────────────────────

@@ -21,7 +21,7 @@ export default function Footer() {
               <Link href="/contact" className="btn-filled">
                 Get in Touch
               </Link>
-              <Link href="/contact" className="btn-outline-fluid">
+              <Link href="/contact" className="inline-flex items-center justify-center gap-3 px-10 py-4 border border-white/40 text-white text-[0.75rem] tracking-[0.15em] uppercase font-medium transition-all duration-400 hover:border-brand-accent hover:bg-brand-accent hover:text-brand-navy">
                 Visit Showroom
               </Link>
             </div>
@@ -40,11 +40,11 @@ export default function Footer() {
             <div className="lg:col-span-1">
               <Link href="/" className="inline-block mb-6">
                 <Image
-                  src="/images/logo.png"
+                  src="/images/logo-white.svg"
                   alt="P&J Glass"
-                  width={160}
-                  height={42}
-                  className="h-10 w-auto brightness-0 invert"
+                  width={180}
+                  height={50}
+                  className="h-12 w-auto"
                 />
               </Link>
               <p className="text-white/60 text-sm leading-relaxed">
