@@ -1,13 +1,27 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
+let supabaseClient;
+
+function getSupabase() {
+  if (supabaseClient) {
+    return supabaseClient;
+  }
+
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !serviceRoleKey) {
+    throw new Error('Supabase environment variables are not configured.');
+  }
+
+  supabaseClient = createClient(supabaseUrl, serviceRoleKey);
+  return supabaseClient;
+}
 
 // ─── Orders ──────────────────────────────────────────────────
 
 export async function createOrder(data) {
+  const supabase = getSupabase();
   // Generate order number
   const { data: numResult } = await supabase.rpc('next_order_number');
   const orderNumber = numResult || `PJG-${Date.now()}`;
@@ -50,6 +64,7 @@ export async function createOrder(data) {
 }
 
 export async function getOrderById(id) {
+  const supabase = getSupabase();
   const { data, error } = await supabase
     .from('orders')
     .select('*')
@@ -61,6 +76,7 @@ export async function getOrderById(id) {
 }
 
 export async function getOrderByNumber(orderNumber) {
+  const supabase = getSupabase();
   const { data, error } = await supabase
     .from('orders')
     .select('*')
@@ -72,6 +88,7 @@ export async function getOrderByNumber(orderNumber) {
 }
 
 export async function getAllOrders({ status, limit = 50, offset = 0 } = {}) {
+  const supabase = getSupabase();
   let query = supabase
     .from('orders')
     .select('*')
@@ -89,6 +106,7 @@ export async function getAllOrders({ status, limit = 50, offset = 0 } = {}) {
 }
 
 export async function updateOrderStatus(id, status, paymentIntent = null) {
+  const supabase = getSupabase();
   const update = { status };
   if (paymentIntent) update.stripe_payment_intent = paymentIntent;
 
@@ -111,6 +129,7 @@ export async function updateOrderStatus(id, status, paymentIntent = null) {
 }
 
 export async function updateOrderTracking(id, trackingNumber, trackingUrl) {
+  const supabase = getSupabase();
   const { data, error } = await supabase
     .from('orders')
     .update({ tracking_number: trackingNumber, tracking_url: trackingUrl })
@@ -123,6 +142,7 @@ export async function updateOrderTracking(id, trackingNumber, trackingUrl) {
 }
 
 export async function getOrderByStripeSession(sessionId) {
+  const supabase = getSupabase();
   const { data, error } = await supabase
     .from('orders')
     .select('*')
@@ -134,6 +154,7 @@ export async function getOrderByStripeSession(sessionId) {
 }
 
 export async function getOrdersByEmail(email) {
+  const supabase = getSupabase();
   const { data, error } = await supabase
     .from('orders')
     .select('id, order_number, status, grand_total, items, created_at, tracking_number, tracking_url')
@@ -145,6 +166,7 @@ export async function getOrdersByEmail(email) {
 }
 
 export async function getOrderStats() {
+  const supabase = getSupabase();
   const { data: orders, error } = await supabase.from('orders').select('status, grand_total');
   if (error) return { total: { count: 0, revenue: 0 }, paid: { count: 0, revenue: 0 }, pending: { count: 0 } };
 
@@ -161,12 +183,14 @@ export async function getOrderStats() {
 // ─── Status History ──────────────────────────────────────────
 
 export async function addStatusHistory(orderId, status, note = '') {
+  const supabase = getSupabase();
   await supabase
     .from('order_status_history')
     .insert({ order_id: orderId, status, note });
 }
 
 export async function getStatusHistory(orderId) {
+  const supabase = getSupabase();
   const { data, error } = await supabase
     .from('order_status_history')
     .select('*')
@@ -180,6 +204,7 @@ export async function getStatusHistory(orderId) {
 // ─── Invoices ────────────────────────────────────────────────
 
 export async function createInvoice(orderId, { dueDate, notes, tax = 0 } = {}) {
+  const supabase = getSupabase();
   // Get order
   const order = await getOrderById(orderId);
   if (!order) throw new Error('Order not found');
@@ -214,6 +239,7 @@ export async function createInvoice(orderId, { dueDate, notes, tax = 0 } = {}) {
 }
 
 export async function getInvoiceById(id) {
+  const supabase = getSupabase();
   const { data, error } = await supabase
     .from('invoices')
     .select('*')
@@ -225,6 +251,7 @@ export async function getInvoiceById(id) {
 }
 
 export async function getInvoiceByOrderId(orderId) {
+  const supabase = getSupabase();
   const { data, error } = await supabase
     .from('invoices')
     .select('*')
@@ -236,6 +263,7 @@ export async function getInvoiceByOrderId(orderId) {
 }
 
 export async function getAllInvoices({ status, limit = 50, offset = 0 } = {}) {
+  const supabase = getSupabase();
   let query = supabase
     .from('invoices')
     .select(`
@@ -263,6 +291,7 @@ export async function getAllInvoices({ status, limit = 50, offset = 0 } = {}) {
 }
 
 export async function updateInvoiceStatus(id, status) {
+  const supabase = getSupabase();
   const update = { status };
   if (status === 'paid') update.paid_at = new Date().toISOString();
 

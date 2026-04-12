@@ -1,6 +1,20 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let resendClient;
+
+function getResend() {
+  if (resendClient) {
+    return resendClient;
+  }
+
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error('Resend API key is not configured.');
+  }
+
+  resendClient = new Resend(apiKey);
+  return resendClient;
+}
 
 const FROM_EMAIL = 'P&J Glass <orders@pj-glass.co.uk>';
 const SHOP_EMAIL = process.env.SHOP_NOTIFICATION_EMAIL || 'info@pj-glass.co.uk';
@@ -62,6 +76,7 @@ function baseTemplate(content) {
 // ─── Order Confirmation (to customer) ────────────────────────
 
 export async function sendOrderConfirmation(order) {
+  const resend = getResend();
   const html = baseTemplate(`
     <h2 style="color:#0f172a;margin:0 0 8px;">Order Confirmed!</h2>
     <p style="color:#6b7280;margin:0 0 24px;">Thank you for your order, ${order.customer_name}.</p>
@@ -115,6 +130,7 @@ export async function sendOrderConfirmation(order) {
 // ─── New Order Alert (to shop staff) ─────────────────────────
 
 export async function sendNewOrderAlert(order) {
+  const resend = getResend();
   const html = baseTemplate(`
     <h2 style="color:#0f172a;margin:0 0 8px;">🛒 New Order Received</h2>
     <p style="color:#6b7280;margin:0 0 24px;">A new order has been placed and paid for.</p>
@@ -175,6 +191,7 @@ const STATUS_MESSAGES = {
 };
 
 export async function sendStatusUpdate(order, newStatus) {
+  const resend = getResend();
   const msg = STATUS_MESSAGES[newStatus];
   if (!msg) return; // Don't email for pending/paid transitions
 
