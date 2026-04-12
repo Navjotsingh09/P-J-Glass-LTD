@@ -80,6 +80,7 @@ export default function Header() {
     { name: 'Accessories', href: '/accessories' },
     { name: 'Calculator', href: '/glass-calculator' },
     { name: 'Projects', href: '/portfolio' },
+    { name: 'Track Order', href: '/track' },
     { name: 'Contact', href: '/contact' },
   ];
 

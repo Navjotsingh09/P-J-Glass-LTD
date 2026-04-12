@@ -11,7 +11,7 @@ export async function GET(request, { params }) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const invoice = getInvoiceById(params.id);
+  const invoice = await getInvoiceById(params.id);
   if (!invoice) {
     return NextResponse.json({ error: 'Invoice not found' }, { status: 404 });
   }
@@ -32,7 +32,7 @@ export async function PATCH(request, { params }) {
     return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
   }
 
-  const invoice = updateInvoiceStatus(params.id, status);
+  const invoice = await updateInvoiceStatus(params.id, status);
   if (!invoice) {
     return NextResponse.json({ error: 'Invoice not found' }, { status: 404 });
   }

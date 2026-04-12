@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getOrderById, updateOrderStatus } from '@/lib/db';
+import { sendStatusUpdate } from '@/lib/email';
 
 function isAuthorized(request) {
   const key = request.headers.get('x-admin-key');
@@ -11,7 +12,7 @@ export async function GET(request, { params }) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const order = getOrderById(params.id);
+  const order = await getOrderById(params.id);
   if (!order) {
     return NextResponse.json({ error: 'Order not found' }, { status: 404 });
   }
@@ -32,10 +33,13 @@ export async function PATCH(request, { params }) {
     return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
   }
 
-  const order = updateOrderStatus(params.id, status);
+  const order = await updateOrderStatus(params.id, status);
   if (!order) {
     return NextResponse.json({ error: 'Order not found' }, { status: 404 });
   }
+
+  // Send status update email to customer (non-blocking)
+  sendStatusUpdate(order, status).catch(console.error);
 
   return NextResponse.json(order);
 }

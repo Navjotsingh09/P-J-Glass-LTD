@@ -1,6 +1,7 @@
 import Stripe from 'stripe';
 import { NextResponse } from 'next/server';
 import { getOrderByStripeSession, updateOrderStatus, createInvoice } from '@/lib/db';
+import { sendOrderConfirmation, sendNewOrderAlert } from '@/lib/email';
 
 export async function POST(request) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -19,14 +20,22 @@ export async function POST(request) {
   switch (event.type) {
     case 'checkout.session.completed': {
       const session = event.data.object;
-      const order = getOrderByStripeSession(session.id);
+      const order = await getOrderByStripeSession(session.id);
       if (order) {
-        updateOrderStatus(order.id, 'paid', session.payment_intent);
+        await updateOrderStatus(order.id, 'paid', session.payment_intent);
+
+        // Send emails (non-blocking — don't let failures break the webhook)
+        const updatedOrder = await getOrderByStripeSession(session.id);
+        if (updatedOrder) {
+          sendOrderConfirmation(updatedOrder).catch(console.error);
+          sendNewOrderAlert(updatedOrder).catch(console.error);
+        }
+
         // Auto-generate invoice for paid orders
         try {
           const dueDate = new Date();
           dueDate.setDate(dueDate.getDate() + 30);
-          createInvoice(order.id, {
+          await createInvoice(order.id, {
             dueDate: dueDate.toISOString().split('T')[0],
             notes: 'Auto-generated on payment',
           });

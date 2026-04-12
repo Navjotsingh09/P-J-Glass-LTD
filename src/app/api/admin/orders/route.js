@@ -19,9 +19,9 @@ export async function GET(request) {
   const statsOnly = searchParams.get('stats') === 'true';
 
   if (statsOnly) {
-    return NextResponse.json(getOrderStats());
+    return NextResponse.json(await getOrderStats());
   }
 
-  const orders = getAllOrders({ status, limit, offset });
+  const orders = await getAllOrders({ status, limit, offset });
   return NextResponse.json({ orders, count: orders.length });
 }

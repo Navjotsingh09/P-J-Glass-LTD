@@ -1,44 +1,20 @@
-import fs from 'fs';
-import path from 'path';
-import { v4 as uuidv4 } from 'uuid';
+import { createClient } from '@supabase/supabase-js';
 
-// Use /tmp on Vercel (writable), or local data/ in dev
-const DATA_DIR = process.env.VERCEL ? '/tmp' : path.join(process.cwd(), 'data');
-const DB_FILE = path.join(DATA_DIR, 'pjglass-db.json');
-
-function ensureDir() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-}
-
-function readDb() {
-  ensureDir();
-  if (!fs.existsSync(DB_FILE)) {
-    return { orders: [], invoices: [] };
-  }
-  try {
-    return JSON.parse(fs.readFileSync(DB_FILE, 'utf-8'));
-  } catch {
-    return { orders: [], invoices: [] };
-  }
-}
-
-function writeDb(data) {
-  ensureDir();
-  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
-}
-
-function now() {
-  return new Date().toISOString();
-}
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
 // ─── Orders ──────────────────────────────────────────────────
 
-export function createOrder(data) {
-  const db = readDb();
+export async function createOrder(data) {
+  // Generate order number
+  const { data: numResult } = await supabase.rpc('next_order_number');
+  const orderNumber = numResult || `PJG-${Date.now()}`;
+
   const order = {
     id: data.id,
+    order_number: orderNumber,
     stripe_session_id: data.stripeSessionId || null,
     stripe_payment_intent: null,
     status: data.status || 'pending',
@@ -54,122 +30,252 @@ export function createOrder(data) {
     delivery_zone: data.deliveryZone || '',
     grand_total: data.grandTotal,
     items: data.items,
-    created_at: now(),
-    updated_at: now(),
   };
-  db.orders.push(order);
-  writeDb(db);
-  return order;
+
+  const { data: created, error } = await supabase
+    .from('orders')
+    .insert(order)
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Error creating order:', error);
+    throw error;
+  }
+
+  // Log initial status
+  await addStatusHistory(created.id, 'pending', 'Order created');
+
+  return created;
 }
 
-export function getOrderById(id) {
-  const db = readDb();
-  return db.orders.find((o) => o.id === id) || null;
+export async function getOrderById(id) {
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) return null;
+  return data;
 }
 
-export function getAllOrders({ status, limit = 50, offset = 0 } = {}) {
-  const db = readDb();
-  let orders = [...db.orders].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-  if (status) orders = orders.filter((o) => o.status === status);
-  return orders.slice(offset, offset + limit);
+export async function getOrderByNumber(orderNumber) {
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*')
+    .eq('order_number', orderNumber)
+    .single();
+
+  if (error) return null;
+  return data;
 }
 
-export function updateOrderStatus(id, status, paymentIntent = null) {
-  const db = readDb();
-  const order = db.orders.find((o) => o.id === id);
-  if (!order) return null;
-  order.status = status;
-  order.updated_at = now();
-  if (paymentIntent) order.stripe_payment_intent = paymentIntent;
-  writeDb(db);
-  return order;
+export async function getAllOrders({ status, limit = 50, offset = 0 } = {}) {
+  let query = supabase
+    .from('orders')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .range(offset, offset + limit - 1);
+
+  if (status) query = query.eq('status', status);
+
+  const { data, error } = await query;
+  if (error) {
+    console.error('Error fetching orders:', error);
+    return [];
+  }
+  return data;
 }
 
-export function getOrderByStripeSession(sessionId) {
-  const db = readDb();
-  return db.orders.find((o) => o.stripe_session_id === sessionId) || null;
+export async function updateOrderStatus(id, status, paymentIntent = null) {
+  const update = { status };
+  if (paymentIntent) update.stripe_payment_intent = paymentIntent;
+
+  const { data, error } = await supabase
+    .from('orders')
+    .update(update)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Error updating order status:', error);
+    return null;
+  }
+
+  // Log status change
+  await addStatusHistory(id, status, `Status changed to ${status}`);
+
+  return data;
 }
 
-export function getOrderStats() {
-  const db = readDb();
-  const orders = db.orders;
-  const total = { count: orders.length, revenue: orders.reduce((s, o) => s + o.grand_total, 0) };
-  const paid = orders.filter((o) => o.status === 'paid');
+export async function updateOrderTracking(id, trackingNumber, trackingUrl) {
+  const { data, error } = await supabase
+    .from('orders')
+    .update({ tracking_number: trackingNumber, tracking_url: trackingUrl })
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) return null;
+  return data;
+}
+
+export async function getOrderByStripeSession(sessionId) {
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*')
+    .eq('stripe_session_id', sessionId)
+    .single();
+
+  if (error) return null;
+  return data;
+}
+
+export async function getOrdersByEmail(email) {
+  const { data, error } = await supabase
+    .from('orders')
+    .select('id, order_number, status, grand_total, items, created_at, tracking_number, tracking_url')
+    .eq('customer_email', email.toLowerCase())
+    .order('created_at', { ascending: false });
+
+  if (error) return [];
+  return data;
+}
+
+export async function getOrderStats() {
+  const { data: orders, error } = await supabase.from('orders').select('status, grand_total');
+  if (error) return { total: { count: 0, revenue: 0 }, paid: { count: 0, revenue: 0 }, pending: { count: 0 } };
+
+  const total = { count: orders.length, revenue: orders.reduce((s, o) => s + Number(o.grand_total), 0) };
+  const paid = orders.filter((o) => o.status === 'paid' || o.status === 'processing' || o.status === 'shipped' || o.status === 'delivered');
   const pending = orders.filter((o) => o.status === 'pending');
   return {
     total,
-    paid: { count: paid.length, revenue: paid.reduce((s, o) => s + o.grand_total, 0) },
+    paid: { count: paid.length, revenue: paid.reduce((s, o) => s + Number(o.grand_total), 0) },
     pending: { count: pending.length },
   };
 }
 
-// ─── Invoices ────────────────────────────────────────────────
+// ─── Status History ──────────────────────────────────────────
 
-function generateInvoiceNumber(invoices) {
-  if (!invoices.length) return 'PJG-INV-0001';
-  const sorted = [...invoices].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-  const num = parseInt(sorted[0].invoice_number.split('-').pop(), 10) + 1;
-  return `PJG-INV-${String(num).padStart(4, '0')}`;
+export async function addStatusHistory(orderId, status, note = '') {
+  await supabase
+    .from('order_status_history')
+    .insert({ order_id: orderId, status, note });
 }
 
-export function createInvoice(orderId, { dueDate, notes, tax = 0 } = {}) {
-  const db = readDb();
-  const order = db.orders.find((o) => o.id === orderId);
+export async function getStatusHistory(orderId) {
+  const { data, error } = await supabase
+    .from('order_status_history')
+    .select('*')
+    .eq('order_id', orderId)
+    .order('created_at', { ascending: true });
+
+  if (error) return [];
+  return data;
+}
+
+// ─── Invoices ────────────────────────────────────────────────
+
+export async function createInvoice(orderId, { dueDate, notes, tax = 0 } = {}) {
+  // Get order
+  const order = await getOrderById(orderId);
   if (!order) throw new Error('Order not found');
 
+  // Generate invoice number
+  const { data: numResult } = await supabase.rpc('next_invoice_number');
+  const invoiceNumber = numResult || `PJG-INV-${Date.now()}`;
+
   const invoice = {
-    id: uuidv4(),
     order_id: orderId,
-    invoice_number: generateInvoiceNumber(db.invoices),
+    invoice_number: invoiceNumber,
     status: 'draft',
     subtotal: order.subtotal,
     delivery_cost: order.delivery_cost,
     tax,
-    total: order.subtotal + order.delivery_cost + tax,
+    total: Number(order.subtotal) + Number(order.delivery_cost) + tax,
     due_date: dueDate || null,
-    paid_at: null,
     notes: notes || '',
-    created_at: now(),
-    updated_at: now(),
   };
-  db.invoices.push(invoice);
-  writeDb(db);
-  return invoice;
+
+  const { data, error } = await supabase
+    .from('invoices')
+    .insert(invoice)
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Error creating invoice:', error);
+    throw error;
+  }
+  return data;
 }
 
-export function getInvoiceById(id) {
-  const db = readDb();
-  return db.invoices.find((i) => i.id === id) || null;
+export async function getInvoiceById(id) {
+  const { data, error } = await supabase
+    .from('invoices')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) return null;
+  return data;
 }
 
-export function getInvoiceByOrderId(orderId) {
-  const db = readDb();
-  return db.invoices.find((i) => i.order_id === orderId) || null;
+export async function getInvoiceByOrderId(orderId) {
+  const { data, error } = await supabase
+    .from('invoices')
+    .select('*')
+    .eq('order_id', orderId)
+    .single();
+
+  if (error) return null;
+  return data;
 }
 
-export function getAllInvoices({ status, limit = 50, offset = 0 } = {}) {
-  const db = readDb();
-  let invoices = [...db.invoices].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-  if (status) invoices = invoices.filter((i) => i.status === status);
+export async function getAllInvoices({ status, limit = 50, offset = 0 } = {}) {
+  let query = supabase
+    .from('invoices')
+    .select(`
+      *,
+      orders!inner(customer_name, customer_email)
+    `)
+    .order('created_at', { ascending: false })
+    .range(offset, offset + limit - 1);
 
-  // Join customer data from orders
-  return invoices.slice(offset, offset + limit).map((inv) => {
-    const order = db.orders.find((o) => o.id === inv.order_id);
-    return {
-      ...inv,
-      customer_name: order?.customer_name || '',
-      customer_email: order?.customer_email || '',
-    };
-  });
+  if (status) query = query.eq('status', status);
+
+  const { data, error } = await query;
+  if (error) {
+    console.error('Error fetching invoices:', error);
+    return [];
+  }
+
+  // Flatten the joined data
+  return data.map((inv) => ({
+    ...inv,
+    customer_name: inv.orders?.customer_name || '',
+    customer_email: inv.orders?.customer_email || '',
+    orders: undefined,
+  }));
 }
 
-export function updateInvoiceStatus(id, status) {
-  const db = readDb();
-  const invoice = db.invoices.find((i) => i.id === id);
-  if (!invoice) return null;
-  invoice.status = status;
-  invoice.updated_at = now();
-  if (status === 'paid') invoice.paid_at = now();
-  writeDb(db);
-  return invoice;
+export async function updateInvoiceStatus(id, status) {
+  const update = { status };
+  if (status === 'paid') update.paid_at = new Date().toISOString();
+
+  const { data, error } = await supabase
+    .from('invoices')
+    .update(update)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Error updating invoice:', error);
+    return null;
+  }
+  return data;
 }

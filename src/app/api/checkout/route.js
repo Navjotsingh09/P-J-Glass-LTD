@@ -66,7 +66,7 @@ export async function POST(request) {
     });
 
     // Create order in database as pending
-    createOrder({
+    await createOrder({
       id: orderId,
       stripeSessionId: session.id,
       status: 'pending',
