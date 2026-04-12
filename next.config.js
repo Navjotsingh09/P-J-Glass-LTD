@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['images.unsplash.com', 'placehold.co', 'placeholder.io', 'cdn.shopify.com', 'www.crlaurence.co.uk', 'www.egw.co.uk', 'www.pilkington.com'],
+    domains: ['images.unsplash.com', 'placehold.co', 'placeholder.io', 'cdn.shopify.com', 'www.crlaurence.co.uk', 'www.egw.co.uk', 'www.pilkington.com', 'scontent.cdninstagram.com', 'scontent-lhr8-1.cdninstagram.com', 'scontent-lhr8-2.cdninstagram.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.cdninstagram.com',
+      },
+    ],
     formats: ['image/avif', 'image/webp'],
   },
   async redirects() {

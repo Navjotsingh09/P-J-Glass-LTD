@@ -1118,66 +1118,38 @@ function ValuesSection() {
 }
 
 /* ─── Instagram Feed Section ─── */
-function InstagramFeed() {
-  const [posts, setPosts] = useState([]);
-  const [loaded, setLoaded] = useState(false);
+const FALLBACK_POSTS = [
+  { id: 'f1', image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&auto=format&fit=crop&q=80', caption: 'Frameless glass balustrade installation — clean lines, premium finish.', permalink: 'https://www.instagram.com/pj_glasslimited/' },
+  { id: 'f2', image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&auto=format&fit=crop&q=80', caption: 'Bespoke shower enclosure with matt black hardware.', permalink: 'https://www.instagram.com/pj_glasslimited/' },
+  { id: 'f3', image: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600&auto=format&fit=crop&q=80', caption: 'Kitchen glass splashback — toughened, stylish, easy to clean.', permalink: 'https://www.instagram.com/pj_glasslimited/' },
+  { id: 'f4', image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&auto=format&fit=crop&q=80', caption: 'Walk-in wetroom screen with chrome fittings.', permalink: 'https://www.instagram.com/pj_glasslimited/' },
+  { id: 'f5', image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&auto=format&fit=crop&q=80', caption: 'Architectural glass partition for modern office.', permalink: 'https://www.instagram.com/pj_glasslimited/' },
+  { id: 'f6', image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&auto=format&fit=crop&q=80', caption: 'Custom mirror installation with LED backlight.', permalink: 'https://www.instagram.com/pj_glasslimited/' },
+  { id: 'f7', image: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?w=600&auto=format&fit=crop&q=80', caption: 'Crittall-style glass door — industrial elegance.', permalink: 'https://www.instagram.com/pj_glasslimited/' },
+  { id: 'f8', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&auto=format&fit=crop&q=80', caption: 'Glass staircase balustrade — stunning results.', permalink: 'https://www.instagram.com/pj_glasslimited/' },
+];
 
-  // Instagram post data — curated from @pj_glasslimited
-  // Using direct image URLs from the business's actual Instagram posts
-  const instagramPosts = [
-    {
-      id: 1,
-      image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&auto=format&fit=crop&q=80',
-      caption: 'Frameless glass balustrade installation — clean lines, premium finish.',
-      likes: 47,
-    },
-    {
-      id: 2,
-      image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&auto=format&fit=crop&q=80',
-      caption: 'Bespoke shower enclosure with matt black hardware.',
-      likes: 63,
-    },
-    {
-      id: 3,
-      image: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600&auto=format&fit=crop&q=80',
-      caption: 'Kitchen glass splashback — toughened, stylish, easy to clean.',
-      likes: 38,
-    },
-    {
-      id: 4,
-      image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&auto=format&fit=crop&q=80',
-      caption: 'Walk-in wetroom screen with chrome fittings.',
-      likes: 55,
-    },
-    {
-      id: 5,
-      image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&auto=format&fit=crop&q=80',
-      caption: 'Architectural glass partition for modern office.',
-      likes: 42,
-    },
-    {
-      id: 6,
-      image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&auto=format&fit=crop&q=80',
-      caption: 'Custom mirror installation with LED backlight.',
-      likes: 71,
-    },
-    {
-      id: 7,
-      image: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?w=600&auto=format&fit=crop&q=80',
-      caption: 'Crittall-style glass door — industrial elegance.',
-      likes: 59,
-    },
-    {
-      id: 8,
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&auto=format&fit=crop&q=80',
-      caption: 'Glass staircase balustrade — stunning results.',
-      likes: 84,
-    },
-  ];
+function InstagramFeed() {
+  const [posts, setPosts] = useState(FALLBACK_POSTS);
+  const [isLive, setIsLive] = useState(false);
 
   useEffect(() => {
-    setPosts(instagramPosts);
-    setLoaded(true);
+    let cancelled = false;
+    async function fetchInstagram() {
+      try {
+        const res = await fetch('/api/instagram');
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!cancelled && data.posts && data.posts.length > 0) {
+          setPosts(data.posts);
+          setIsLive(true);
+        }
+      } catch {
+        // Keep fallback images
+      }
+    }
+    fetchInstagram();
+    return () => { cancelled = true; };
   }, []);
 
   return (
@@ -1186,7 +1158,15 @@ function InstagramFeed() {
         <Reveal>
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 gap-4">
             <div>
-              <p className="section-label mb-3 text-brand-accent">Follow Us</p>
+              <div className="flex items-center gap-3 mb-3">
+                <p className="section-label text-brand-accent">Follow Us</p>
+                {isLive && (
+                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-green-50 border border-green-200 rounded-full">
+                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+                    <span className="text-green-700 text-[0.6rem] tracking-wider uppercase font-medium">Live</span>
+                  </span>
+                )}
+              </div>
               <h2 className="text-display-md text-brand-navy">
                 @pj_glasslimited
               </h2>
@@ -1217,14 +1197,14 @@ function InstagramFeed() {
           {posts.map((post, idx) => (
             <Reveal key={post.id} delay={idx % 4 + 1}>
               <a
-                href="https://www.instagram.com/pj_glasslimited/"
+                href={post.permalink || 'https://www.instagram.com/pj_glasslimited/'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative aspect-square overflow-hidden bg-brand-offwhite block"
               >
                 <Image
                   src={post.image}
-                  alt={post.caption}
+                  alt={post.caption || 'P&J Glass Instagram post'}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   sizes="(max-width: 768px) 50vw, 25vw"
@@ -1232,15 +1212,11 @@ function InstagramFeed() {
                 {/* Hover overlay */}
                 <div className="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/70 transition-all duration-300 flex items-center justify-center">
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center px-4">
-                    <div className="flex items-center justify-center gap-2 mb-2">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                      </svg>
-                      <span className="text-white text-sm font-medium">{post.likes}</span>
-                    </div>
-                    <p className="text-white/80 text-xs leading-relaxed line-clamp-2">
-                      {post.caption}
-                    </p>
+                    {post.caption && (
+                      <p className="text-white/90 text-xs leading-relaxed line-clamp-3">
+                        {post.caption}
+                      </p>
+                    )}
                   </div>
                 </div>
                 {/* Instagram icon corner */}
