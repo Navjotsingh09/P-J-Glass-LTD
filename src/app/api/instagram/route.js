@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server';
 
-// In-memory cache to avoid hitting Instagram API on every request
+// In-memory cache — scraping is expensive, cache for 2 hours
 let cache = { data: null, timestamp: 0 };
-const CACHE_DURATION = 1000 * 60 * 30; // 30 minutes
+const CACHE_DURATION = 1000 * 60 * 120; // 2 hours
+
+const INSTAGRAM_USERNAME = 'pj_glasslimited';
+const EMBED_URL = `https://www.instagram.com/${INSTAGRAM_USERNAME}/embed/`;
 
 export async function GET() {
   // Return cached data if fresh
@@ -10,79 +13,93 @@ export async function GET() {
     return NextResponse.json(cache.data);
   }
 
-  const token = process.env.INSTAGRAM_ACCESS_TOKEN;
-  if (!token) {
-    return NextResponse.json({ error: 'Instagram token not configured', posts: [] }, { status: 200 });
-  }
-
   try {
-    const res = await fetch(
-      `https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp&limit=12&access_token=${token}`,
-      { next: { revalidate: 1800 } }
-    );
+    const res = await fetch(EMBED_URL, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        Accept: 'text/html,application/xhtml+xml',
+        'Accept-Language': 'en-GB,en;q=0.9',
+      },
+      next: { revalidate: 7200 },
+    });
 
     if (!res.ok) {
-      // If token expired, try to refresh it
-      if (res.status === 400) {
-        const refreshed = await refreshToken(token);
-        if (refreshed) {
-          // Retry with refreshed token
-          const retryRes = await fetch(
-            `https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp&limit=12&access_token=${refreshed}`
-          );
-          if (retryRes.ok) {
-            const retryData = await retryRes.json();
-            const posts = formatPosts(retryData.data);
-            cache = { data: { posts }, timestamp: Date.now() };
-            return NextResponse.json({ posts });
-          }
-        }
-      }
-      console.error('Instagram API error:', res.status, await res.text());
-      return NextResponse.json({ error: 'Failed to fetch Instagram posts', posts: [] }, { status: 200 });
+      console.error('Instagram embed fetch failed:', res.status);
+      return NextResponse.json({ posts: [] });
     }
 
-    const data = await res.json();
-    const posts = formatPosts(data.data);
+    const html = await res.text();
+    const posts = parseEmbedHTML(html);
 
-    // Cache the result
-    cache = { data: { posts }, timestamp: Date.now() };
+    if (posts.length > 0) {
+      cache = { data: { posts }, timestamp: Date.now() };
+      return NextResponse.json({ posts });
+    }
 
-    return NextResponse.json({ posts });
+    return NextResponse.json({ posts: [] });
   } catch (err) {
-    console.error('Instagram fetch error:', err);
-    return NextResponse.json({ error: 'Instagram fetch failed', posts: [] }, { status: 200 });
+    console.error('Instagram scrape error:', err.message);
+    return NextResponse.json({ posts: [] });
   }
 }
 
-function formatPosts(rawPosts) {
-  if (!rawPosts) return [];
-  return rawPosts
-    .filter((p) => p.media_type === 'IMAGE' || p.media_type === 'CAROUSEL_ALBUM')
-    .slice(0, 8)
-    .map((p) => ({
-      id: p.id,
-      image: p.media_url,
-      thumbnail: p.thumbnail_url || p.media_url,
-      caption: p.caption || '',
-      permalink: p.permalink,
-      timestamp: p.timestamp,
-    }));
-}
+/**
+ * Parse Instagram's embed page HTML to extract post data.
+ * The embed page contains escaped JSON with graphql_media data.
+ */
+function parseEmbedHTML(html) {
+  const posts = [];
+  const seen = new Set();
 
-async function refreshToken(token) {
-  try {
-    const res = await fetch(
-      `https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${token}`
+  // The embed HTML contains double-escaped JSON. Unescape it.
+  let cleaned = html
+    .replace(/\\\\"/g, '"')
+    .replace(/\\"/g, '"')
+    .replace(/\\\\\//g, '/')
+    .replace(/\\\//g, '/')
+    .replace(/\\\\u0026/g, '&')
+    .replace(/\\u0026/g, '&');
+
+  // Find all shortcode_media blocks
+  const pattern =
+    /"shortcode_media":\{"__typename":"(\w+)","id":"(\d+)","shortcode":"([^"]+)"/g;
+  let match;
+
+  while ((match = pattern.exec(cleaned)) !== null) {
+    const [, typename, id, shortcode] = match;
+    if (seen.has(shortcode)) continue;
+    seen.add(shortcode);
+
+    // Extract fields from the text after this match
+    const rest = cleaned.slice(match.index, match.index + 8000);
+
+    const displayUrl = extractField(rest, /"display_url":"(https:\/\/[^"]+)"/);
+    const timestamp = extractField(rest, /"taken_at_timestamp":(\d+)/);
+    const caption = extractField(
+      rest,
+      /"edge_media_to_caption".*?"text":"([^"]*)"/
     );
-    if (res.ok) {
-      const data = await res.json();
-      // Note: In production, you'd store the new token in a database or env management
-      console.log('Instagram token refreshed. New token expires in', data.expires_in, 'seconds');
-      return data.access_token;
-    }
-  } catch (err) {
-    console.error('Token refresh failed:', err);
+
+    if (!displayUrl) continue; // Skip posts without an image URL
+
+    posts.push({
+      id,
+      shortcode,
+      type: typename,
+      image: displayUrl,
+      caption: caption || '',
+      permalink: `https://www.instagram.com/p/${shortcode}/`,
+      timestamp: timestamp ? Number(timestamp) : null,
+    });
+
+    if (posts.length >= 8) break;
   }
-  return null;
+
+  return posts;
+}
+
+function extractField(text, regex) {
+  const m = text.match(regex);
+  return m ? m[1] : null;
 }
