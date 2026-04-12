@@ -1,205 +1,175 @@
-import Database from 'better-sqlite3';
+import fs from 'fs';
 import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
 
-const DB_PATH = path.join(process.cwd(), 'data', 'pjglass.db');
+// Use /tmp on Vercel (writable), or local data/ in dev
+const DATA_DIR = process.env.VERCEL ? '/tmp' : path.join(process.cwd(), 'data');
+const DB_FILE = path.join(DATA_DIR, 'pjglass-db.json');
 
-let db;
-
-function getDb() {
-  if (!db) {
-    // Ensure data directory exists
-    const fs = require('fs');
-    const dir = path.dirname(DB_PATH);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-
-    db = new Database(DB_PATH);
-    db.pragma('journal_mode = WAL');
-    db.pragma('foreign_keys = ON');
-    initTables(db);
+function ensureDir() {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
   }
-  return db;
 }
 
-function initTables(db) {
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS orders (
-      id TEXT PRIMARY KEY,
-      stripe_session_id TEXT UNIQUE,
-      stripe_payment_intent TEXT,
-      status TEXT NOT NULL DEFAULT 'pending',
-      customer_name TEXT NOT NULL,
-      customer_email TEXT NOT NULL,
-      customer_phone TEXT,
-      address TEXT,
-      city TEXT,
-      postcode TEXT,
-      notes TEXT,
-      subtotal REAL NOT NULL,
-      delivery_cost REAL NOT NULL DEFAULT 0,
-      delivery_zone TEXT,
-      grand_total REAL NOT NULL,
-      items_json TEXT NOT NULL,
-      created_at TEXT NOT NULL DEFAULT (datetime('now')),
-      updated_at TEXT NOT NULL DEFAULT (datetime('now'))
-    );
+function readDb() {
+  ensureDir();
+  if (!fs.existsSync(DB_FILE)) {
+    return { orders: [], invoices: [] };
+  }
+  try {
+    return JSON.parse(fs.readFileSync(DB_FILE, 'utf-8'));
+  } catch {
+    return { orders: [], invoices: [] };
+  }
+}
 
-    CREATE TABLE IF NOT EXISTS invoices (
-      id TEXT PRIMARY KEY,
-      order_id TEXT NOT NULL,
-      invoice_number TEXT UNIQUE NOT NULL,
-      status TEXT NOT NULL DEFAULT 'draft',
-      subtotal REAL NOT NULL,
-      delivery_cost REAL NOT NULL DEFAULT 0,
-      tax REAL NOT NULL DEFAULT 0,
-      total REAL NOT NULL,
-      due_date TEXT,
-      paid_at TEXT,
-      notes TEXT,
-      created_at TEXT NOT NULL DEFAULT (datetime('now')),
-      updated_at TEXT NOT NULL DEFAULT (datetime('now')),
-      FOREIGN KEY (order_id) REFERENCES orders(id)
-    );
-  `);
+function writeDb(data) {
+  ensureDir();
+  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+}
+
+function now() {
+  return new Date().toISOString();
 }
 
 // ─── Orders ──────────────────────────────────────────────────
 
 export function createOrder(data) {
-  const db = getDb();
-  const stmt = db.prepare(`
-    INSERT INTO orders (id, stripe_session_id, status, customer_name, customer_email, customer_phone, address, city, postcode, notes, subtotal, delivery_cost, delivery_zone, grand_total, items_json)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `);
-  stmt.run(
-    data.id,
-    data.stripeSessionId || null,
-    data.status || 'pending',
-    data.customerName,
-    data.customerEmail,
-    data.customerPhone || '',
-    data.address || '',
-    data.city || '',
-    data.postcode || '',
-    data.notes || '',
-    data.subtotal,
-    data.deliveryCost || 0,
-    data.deliveryZone || '',
-    data.grandTotal,
-    JSON.stringify(data.items)
-  );
-  return getOrderById(data.id);
+  const db = readDb();
+  const order = {
+    id: data.id,
+    stripe_session_id: data.stripeSessionId || null,
+    stripe_payment_intent: null,
+    status: data.status || 'pending',
+    customer_name: data.customerName,
+    customer_email: data.customerEmail,
+    customer_phone: data.customerPhone || '',
+    address: data.address || '',
+    city: data.city || '',
+    postcode: data.postcode || '',
+    notes: data.notes || '',
+    subtotal: data.subtotal,
+    delivery_cost: data.deliveryCost || 0,
+    delivery_zone: data.deliveryZone || '',
+    grand_total: data.grandTotal,
+    items: data.items,
+    created_at: now(),
+    updated_at: now(),
+  };
+  db.orders.push(order);
+  writeDb(db);
+  return order;
 }
 
 export function getOrderById(id) {
-  const db = getDb();
-  const row = db.prepare('SELECT * FROM orders WHERE id = ?').get(id);
-  if (!row) return null;
-  return { ...row, items: JSON.parse(row.items_json) };
+  const db = readDb();
+  return db.orders.find((o) => o.id === id) || null;
 }
 
 export function getAllOrders({ status, limit = 50, offset = 0 } = {}) {
-  const db = getDb();
-  let query = 'SELECT * FROM orders';
-  const params = [];
-
-  if (status) {
-    query += ' WHERE status = ?';
-    params.push(status);
-  }
-
-  query += ' ORDER BY created_at DESC LIMIT ? OFFSET ?';
-  params.push(limit, offset);
-
-  return db.prepare(query).all(...params).map((row) => ({
-    ...row,
-    items: JSON.parse(row.items_json),
-  }));
+  const db = readDb();
+  let orders = [...db.orders].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  if (status) orders = orders.filter((o) => o.status === status);
+  return orders.slice(offset, offset + limit);
 }
 
 export function updateOrderStatus(id, status, paymentIntent = null) {
-  const db = getDb();
-  if (paymentIntent) {
-    db.prepare(`UPDATE orders SET status = ?, stripe_payment_intent = ?, updated_at = datetime('now') WHERE id = ?`).run(status, paymentIntent, id);
-  } else {
-    db.prepare(`UPDATE orders SET status = ?, updated_at = datetime('now') WHERE id = ?`).run(status, id);
-  }
-  return getOrderById(id);
+  const db = readDb();
+  const order = db.orders.find((o) => o.id === id);
+  if (!order) return null;
+  order.status = status;
+  order.updated_at = now();
+  if (paymentIntent) order.stripe_payment_intent = paymentIntent;
+  writeDb(db);
+  return order;
 }
 
 export function getOrderByStripeSession(sessionId) {
-  const db = getDb();
-  const row = db.prepare('SELECT * FROM orders WHERE stripe_session_id = ?').get(sessionId);
-  if (!row) return null;
-  return { ...row, items: JSON.parse(row.items_json) };
+  const db = readDb();
+  return db.orders.find((o) => o.stripe_session_id === sessionId) || null;
 }
 
 export function getOrderStats() {
-  const db = getDb();
-  const total = db.prepare('SELECT COUNT(*) as count, COALESCE(SUM(grand_total), 0) as revenue FROM orders').get();
-  const paid = db.prepare("SELECT COUNT(*) as count, COALESCE(SUM(grand_total), 0) as revenue FROM orders WHERE status = 'paid'").get();
-  const pending = db.prepare("SELECT COUNT(*) as count FROM orders WHERE status = 'pending'").get();
-  return { total, paid, pending };
+  const db = readDb();
+  const orders = db.orders;
+  const total = { count: orders.length, revenue: orders.reduce((s, o) => s + o.grand_total, 0) };
+  const paid = orders.filter((o) => o.status === 'paid');
+  const pending = orders.filter((o) => o.status === 'pending');
+  return {
+    total,
+    paid: { count: paid.length, revenue: paid.reduce((s, o) => s + o.grand_total, 0) },
+    pending: { count: pending.length },
+  };
 }
 
 // ─── Invoices ────────────────────────────────────────────────
 
-function generateInvoiceNumber() {
-  const db = getDb();
-  const last = db.prepare("SELECT invoice_number FROM invoices ORDER BY created_at DESC LIMIT 1").get();
-  if (!last) return 'PJG-INV-0001';
-  const num = parseInt(last.invoice_number.split('-').pop(), 10) + 1;
+function generateInvoiceNumber(invoices) {
+  if (!invoices.length) return 'PJG-INV-0001';
+  const sorted = [...invoices].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  const num = parseInt(sorted[0].invoice_number.split('-').pop(), 10) + 1;
   return `PJG-INV-${String(num).padStart(4, '0')}`;
 }
 
 export function createInvoice(orderId, { dueDate, notes, tax = 0 } = {}) {
-  const db = getDb();
-  const order = getOrderById(orderId);
+  const db = readDb();
+  const order = db.orders.find((o) => o.id === orderId);
   if (!order) throw new Error('Order not found');
 
-  const { v4: uuidv4 } = require('uuid');
-  const id = uuidv4();
-  const invoiceNumber = generateInvoiceNumber();
-  const total = order.subtotal + order.delivery_cost + tax;
-
-  db.prepare(`
-    INSERT INTO invoices (id, order_id, invoice_number, subtotal, delivery_cost, tax, total, due_date, notes)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(id, orderId, invoiceNumber, order.subtotal, order.delivery_cost, tax, total, dueDate || null, notes || '');
-
-  return getInvoiceById(id);
+  const invoice = {
+    id: uuidv4(),
+    order_id: orderId,
+    invoice_number: generateInvoiceNumber(db.invoices),
+    status: 'draft',
+    subtotal: order.subtotal,
+    delivery_cost: order.delivery_cost,
+    tax,
+    total: order.subtotal + order.delivery_cost + tax,
+    due_date: dueDate || null,
+    paid_at: null,
+    notes: notes || '',
+    created_at: now(),
+    updated_at: now(),
+  };
+  db.invoices.push(invoice);
+  writeDb(db);
+  return invoice;
 }
 
 export function getInvoiceById(id) {
-  const db = getDb();
-  return db.prepare('SELECT * FROM invoices WHERE id = ?').get(id);
+  const db = readDb();
+  return db.invoices.find((i) => i.id === id) || null;
 }
 
 export function getInvoiceByOrderId(orderId) {
-  const db = getDb();
-  return db.prepare('SELECT * FROM invoices WHERE order_id = ?').get(orderId);
+  const db = readDb();
+  return db.invoices.find((i) => i.order_id === orderId) || null;
 }
 
 export function getAllInvoices({ status, limit = 50, offset = 0 } = {}) {
-  const db = getDb();
-  let query = 'SELECT invoices.*, orders.customer_name, orders.customer_email FROM invoices JOIN orders ON invoices.order_id = orders.id';
-  const params = [];
+  const db = readDb();
+  let invoices = [...db.invoices].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  if (status) invoices = invoices.filter((i) => i.status === status);
 
-  if (status) {
-    query += ' WHERE invoices.status = ?';
-    params.push(status);
-  }
-
-  query += ' ORDER BY invoices.created_at DESC LIMIT ? OFFSET ?';
-  params.push(limit, offset);
-
-  return db.prepare(query).all(...params);
+  // Join customer data from orders
+  return invoices.slice(offset, offset + limit).map((inv) => {
+    const order = db.orders.find((o) => o.id === inv.order_id);
+    return {
+      ...inv,
+      customer_name: order?.customer_name || '',
+      customer_email: order?.customer_email || '',
+    };
+  });
 }
 
 export function updateInvoiceStatus(id, status) {
-  const db = getDb();
-  const paidAt = status === 'paid' ? "datetime('now')" : 'NULL';
-  db.prepare(`UPDATE invoices SET status = ?, paid_at = ${paidAt}, updated_at = datetime('now') WHERE id = ?`).run(status, id);
-  return getInvoiceById(id);
+  const db = readDb();
+  const invoice = db.invoices.find((i) => i.id === id);
+  if (!invoice) return null;
+  invoice.status = status;
+  invoice.updated_at = now();
+  if (status === 'paid') invoice.paid_at = now();
+  writeDb(db);
+  return invoice;
 }
