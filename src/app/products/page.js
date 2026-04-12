@@ -258,51 +258,37 @@ function ProductsContent() {
 
   return (
     <>
-      {/* Hero with Shower Screen Collage */}
-      <section className="relative min-h-[520px] md:min-h-[600px] flex items-end overflow-hidden">
+      {/* Compact Hero with Collage */}
+      <section className="relative h-[240px] md:h-[280px] flex items-end overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 grid grid-cols-5 grid-rows-2 gap-[2px]">
+          <div className="absolute inset-0 grid grid-cols-5 gap-[2px]">
             {[
-              { src: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&auto=format&fit=crop&q=80', alt: 'Glass shower screen', span: 'col-span-1 row-span-2', priority: true },
-              { src: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?w=600&auto=format&fit=crop&q=80', alt: 'Modern frameless shower', span: 'col-span-1 row-span-1', priority: true },
-              { src: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&auto=format&fit=crop&q=80', alt: 'Luxury glass bathroom', span: 'col-span-1 row-span-2', priority: true },
-              { src: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=600&auto=format&fit=crop&q=80', alt: 'Glass shower enclosure', span: 'col-span-1 row-span-1' },
-              { src: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600&auto=format&fit=crop&q=80', alt: 'Frameless glass shower', span: 'col-span-1 row-span-2' },
-              { src: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&auto=format&fit=crop&q=80', alt: 'Walk-in glass shower', span: 'col-span-1 row-span-1' },
-              { src: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&auto=format&fit=crop&q=80', alt: 'Designer shower screen', span: 'col-span-1 row-span-1' },
-              { src: '/images/products/shower-1.jpg', alt: 'P&J Glass shower screen', span: 'col-span-1 row-span-1' },
-              { src: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&auto=format&fit=crop&q=80', alt: 'Contemporary glass shower', span: 'col-span-1 row-span-1' },
-              { src: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&auto=format&fit=crop&q=80', alt: 'Elegant shower glass panel', span: 'col-span-1 row-span-1' },
-            ].map((img, i) => (
-              <div key={i} className={`relative ${img.span} overflow-hidden`}>
-                <Image src={img.src} alt={img.alt} fill className="object-cover" priority={img.priority} sizes="20vw" />
+              'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&auto=format&fit=crop&q=75',
+              'https://images.unsplash.com/photo-1620626011761-996317b8d101?w=400&auto=format&fit=crop&q=75',
+              'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&auto=format&fit=crop&q=75',
+              'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=400&auto=format&fit=crop&q=75',
+              'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&auto=format&fit=crop&q=75',
+            ].map((src, i) => (
+              <div key={i} className="relative overflow-hidden">
+                <Image src={src} alt="Glass products" fill className="object-cover" priority={i < 3} sizes="20vw" />
               </div>
             ))}
           </div>
-          <div className="absolute inset-0 bg-brand-navy/65" />
+          <div className="absolute inset-0 bg-brand-navy/70" />
         </div>
-        <div className="relative z-10 px-6 md:px-10 lg:px-16 pb-16 md:pb-24 w-full">
+        <div className="relative z-10 px-6 md:px-10 lg:px-16 pb-8 md:pb-10 w-full">
           <div className="max-w-7xl mx-auto">
-            <p className="section-label mb-4">Collection</p>
-            <h1 className="text-display-xl text-white">PRODUCT COLLECTION</h1>
-          </div>
-        </div>
-      </section>
-
-      {/* Intro + Description */}
-      <section className="py-12 md:py-16 px-6 md:px-10 lg:px-16 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <Reveal>
-            <h2 className="text-2xl md:text-3xl font-semibold text-brand-navy mb-3">All Glass Products</h2>
-            <p className="text-brand-grey text-base font-light max-w-3xl">
-              A stunning selection of premium glass solutions to elevate your space. Exceptional craftsmanship, refined design, and enduring quality.
+            <p className="section-label mb-2 text-xs">Collection</p>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight">All Glass Products</h1>
+            <p className="text-white/70 text-sm font-light mt-2 max-w-xl">
+              Premium glass solutions — exceptional craftsmanship, refined design, enduring quality.
             </p>
-          </Reveal>
+          </div>
         </div>
       </section>
 
       {/* Main Content: Sidebar + Grid */}
-      <section className="pb-20 px-6 md:px-10 lg:px-16 bg-white">
+      <section className="py-8 md:py-10 px-6 md:px-10 lg:px-16 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="flex gap-8">
             {/* ─── Desktop Sidebar ─── */}
