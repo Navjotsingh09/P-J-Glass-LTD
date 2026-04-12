@@ -65,18 +65,106 @@ function ProductsContent() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative h-[50vh] min-h-[400px] flex items-end overflow-hidden">
+      {/* Hero with Shower Screen Collage */}
+      <section className="relative min-h-[520px] md:min-h-[600px] flex items-end overflow-hidden">
         <div className="absolute inset-0">
-          <Image
-            src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1920&auto=format&fit=crop&q=80"
-            alt="P&J Glass Collection"
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-brand-navy/60" />
+          {/* 10-image vertical collage grid */}
+          <div className="absolute inset-0 grid grid-cols-5 grid-rows-2 gap-[2px]">
+            <div className="relative col-span-1 row-span-2 overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&auto=format&fit=crop&q=80"
+                alt="Glass shower screen"
+                fill
+                className="object-cover"
+                priority
+                sizes="20vw"
+              />
+            </div>
+            <div className="relative col-span-1 row-span-1 overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1620626011761-996317b8d101?w=600&auto=format&fit=crop&q=80"
+                alt="Modern frameless shower"
+                fill
+                className="object-cover"
+                priority
+                sizes="20vw"
+              />
+            </div>
+            <div className="relative col-span-1 row-span-2 overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&auto=format&fit=crop&q=80"
+                alt="Luxury glass bathroom"
+                fill
+                className="object-cover"
+                priority
+                sizes="20vw"
+              />
+            </div>
+            <div className="relative col-span-1 row-span-1 overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=600&auto=format&fit=crop&q=80"
+                alt="Glass shower enclosure"
+                fill
+                className="object-cover"
+                sizes="20vw"
+              />
+            </div>
+            <div className="relative col-span-1 row-span-2 overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600&auto=format&fit=crop&q=80"
+                alt="Frameless glass shower"
+                fill
+                className="object-cover"
+                sizes="20vw"
+              />
+            </div>
+            <div className="relative col-span-1 row-span-1 overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1564540586988-aa4e53ab3394?w=600&auto=format&fit=crop&q=80"
+                alt="Walk-in glass shower"
+                fill
+                className="object-cover"
+                sizes="20vw"
+              />
+            </div>
+            <div className="relative col-span-1 row-span-1 overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1631048500395-ed4085565188?w=600&auto=format&fit=crop&q=80"
+                alt="Designer shower screen"
+                fill
+                className="object-cover"
+                sizes="20vw"
+              />
+            </div>
+            <div className="relative col-span-1 row-span-1 overflow-hidden">
+              <Image
+                src="/images/products/shower-1.jpg"
+                alt="P&J Glass shower screen"
+                fill
+                className="object-cover"
+                sizes="20vw"
+              />
+            </div>
+            <div className="relative col-span-1 row-span-1 overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&auto=format&fit=crop&q=80"
+                alt="Contemporary glass shower"
+                fill
+                className="object-cover"
+                sizes="20vw"
+              />
+            </div>
+            <div className="relative col-span-1 row-span-1 overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&auto=format&fit=crop&q=80"
+                alt="Elegant shower glass panel"
+                fill
+                className="object-cover"
+                sizes="20vw"
+              />
+            </div>
+          </div>
+          <div className="absolute inset-0 bg-brand-navy/65" />
         </div>
         <div className="relative z-10 px-6 md:px-10 lg:px-16 pb-16 md:pb-24 w-full">
           <div className="max-w-7xl mx-auto">
