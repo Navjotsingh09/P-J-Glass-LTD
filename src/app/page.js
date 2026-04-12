@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import instagramPosts from '@/lib/instagram-posts';
 
 /* ─── Scroll reveal hook ─── */
 function useReveal() {
@@ -1118,39 +1119,8 @@ function ValuesSection() {
 }
 
 /* ─── Instagram Feed Section ─── */
-const FALLBACK_POSTS = [
-  { id: 'f1', image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&auto=format&fit=crop&q=80', caption: 'Frameless glass balustrade installation — clean lines, premium finish.', permalink: 'https://www.instagram.com/pj_glasslimited/' },
-  { id: 'f2', image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&auto=format&fit=crop&q=80', caption: 'Bespoke shower enclosure with matt black hardware.', permalink: 'https://www.instagram.com/pj_glasslimited/' },
-  { id: 'f3', image: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600&auto=format&fit=crop&q=80', caption: 'Kitchen glass splashback — toughened, stylish, easy to clean.', permalink: 'https://www.instagram.com/pj_glasslimited/' },
-  { id: 'f4', image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&auto=format&fit=crop&q=80', caption: 'Walk-in wetroom screen with chrome fittings.', permalink: 'https://www.instagram.com/pj_glasslimited/' },
-  { id: 'f5', image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&auto=format&fit=crop&q=80', caption: 'Architectural glass partition for modern office.', permalink: 'https://www.instagram.com/pj_glasslimited/' },
-  { id: 'f6', image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&auto=format&fit=crop&q=80', caption: 'Custom mirror installation with LED backlight.', permalink: 'https://www.instagram.com/pj_glasslimited/' },
-  { id: 'f7', image: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?w=600&auto=format&fit=crop&q=80', caption: 'Crittall-style glass door — industrial elegance.', permalink: 'https://www.instagram.com/pj_glasslimited/' },
-  { id: 'f8', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&auto=format&fit=crop&q=80', caption: 'Glass staircase balustrade — stunning results.', permalink: 'https://www.instagram.com/pj_glasslimited/' },
-];
-
 function InstagramFeed() {
-  const [posts, setPosts] = useState(FALLBACK_POSTS);
-  const [isLive, setIsLive] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-    async function fetchInstagram() {
-      try {
-        const res = await fetch('/api/instagram');
-        if (!res.ok) return;
-        const data = await res.json();
-        if (!cancelled && data.posts && data.posts.length > 0) {
-          setPosts(data.posts);
-          setIsLive(true);
-        }
-      } catch {
-        // Keep fallback images
-      }
-    }
-    fetchInstagram();
-    return () => { cancelled = true; };
-  }, []);
+  const posts = instagramPosts;
 
   return (
     <section className="py-section px-6 md:px-10 lg:px-16 bg-white">
@@ -1160,12 +1130,6 @@ function InstagramFeed() {
             <div>
               <div className="flex items-center gap-3 mb-3">
                 <p className="section-label text-brand-accent">Follow Us</p>
-                {isLive && (
-                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-green-50 border border-green-200 rounded-full">
-                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                    <span className="text-green-700 text-[0.6rem] tracking-wider uppercase font-medium">Live</span>
-                  </span>
-                )}
               </div>
               <h2 className="text-display-md text-brand-navy">
                 @pj_glasslimited
@@ -1193,9 +1157,9 @@ function InstagramFeed() {
         </Reveal>
 
         {/* Instagram Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
           {posts.map((post, idx) => (
-            <Reveal key={post.id} delay={idx % 4 + 1}>
+            <Reveal key={post.id} delay={idx % 3 + 1}>
               <a
                 href={post.permalink || 'https://www.instagram.com/pj_glasslimited/'}
                 target="_blank"
@@ -1207,7 +1171,7 @@ function InstagramFeed() {
                   alt={post.caption || 'P&J Glass Instagram post'}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  sizes="(max-width: 768px) 50vw, 25vw"
+                  sizes="(max-width: 768px) 50vw, 33vw"
                 />
                 {/* Hover overlay */}
                 <div className="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/70 transition-all duration-300 flex items-center justify-center">
