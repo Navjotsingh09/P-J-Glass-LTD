@@ -2,6 +2,7 @@ import Stripe from 'stripe';
 import { NextResponse } from 'next/server';
 import { getOrderByStripeSession, updateOrderStatus, createInvoice } from '@/lib/db';
 import { sendOrderConfirmation, sendNewOrderAlert } from '@/lib/email';
+import { sendOrderWhatsAppCopy } from '@/lib/whatsapp';
 
 export async function POST(request) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -29,6 +30,7 @@ export async function POST(request) {
         if (updatedOrder) {
           sendOrderConfirmation(updatedOrder).catch(console.error);
           sendNewOrderAlert(updatedOrder).catch(console.error);
+          sendOrderWhatsAppCopy(updatedOrder).catch(console.error);
         }
 
         // Auto-generate invoice for paid orders
