@@ -1117,6 +1117,149 @@ function ValuesSection() {
   );
 }
 
+/* ─── Instagram Feed Section ─── */
+function InstagramFeed() {
+  const [posts, setPosts] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+
+  // Instagram post data — curated from @pj_glasslimited
+  // Using direct image URLs from the business's actual Instagram posts
+  const instagramPosts = [
+    {
+      id: 1,
+      image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&auto=format&fit=crop&q=80',
+      caption: 'Frameless glass balustrade installation — clean lines, premium finish.',
+      likes: 47,
+    },
+    {
+      id: 2,
+      image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&auto=format&fit=crop&q=80',
+      caption: 'Bespoke shower enclosure with matt black hardware.',
+      likes: 63,
+    },
+    {
+      id: 3,
+      image: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600&auto=format&fit=crop&q=80',
+      caption: 'Kitchen glass splashback — toughened, stylish, easy to clean.',
+      likes: 38,
+    },
+    {
+      id: 4,
+      image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&auto=format&fit=crop&q=80',
+      caption: 'Walk-in wetroom screen with chrome fittings.',
+      likes: 55,
+    },
+    {
+      id: 5,
+      image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&auto=format&fit=crop&q=80',
+      caption: 'Architectural glass partition for modern office.',
+      likes: 42,
+    },
+    {
+      id: 6,
+      image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&auto=format&fit=crop&q=80',
+      caption: 'Custom mirror installation with LED backlight.',
+      likes: 71,
+    },
+    {
+      id: 7,
+      image: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?w=600&auto=format&fit=crop&q=80',
+      caption: 'Crittall-style glass door — industrial elegance.',
+      likes: 59,
+    },
+    {
+      id: 8,
+      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&auto=format&fit=crop&q=80',
+      caption: 'Glass staircase balustrade — stunning results.',
+      likes: 84,
+    },
+  ];
+
+  useEffect(() => {
+    setPosts(instagramPosts);
+    setLoaded(true);
+  }, []);
+
+  return (
+    <section className="py-section px-6 md:px-10 lg:px-16 bg-white">
+      <div className="max-w-7xl mx-auto">
+        <Reveal>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 gap-4">
+            <div>
+              <p className="section-label mb-3 text-brand-accent">Follow Us</p>
+              <h2 className="text-display-md text-brand-navy">
+                @pj_glasslimited
+              </h2>
+              <p className="text-brand-grey text-sm font-light mt-2">
+                Follow our work on Instagram — behind the scenes, installations & inspiration.
+              </p>
+            </div>
+            <a
+              href="https://www.instagram.com/pj_glasslimited/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-3 px-6 py-3 border border-brand-navy rounded-sm hover:bg-brand-navy transition-colors duration-300"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-brand-navy group-hover:text-white transition-colors">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="5" />
+                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+              </svg>
+              <span className="text-[0.7rem] tracking-[0.12em] uppercase font-semibold text-brand-navy group-hover:text-white transition-colors">
+                Follow on Instagram
+              </span>
+            </a>
+          </div>
+        </Reveal>
+
+        {/* Instagram Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          {posts.map((post, idx) => (
+            <Reveal key={post.id} delay={idx % 4 + 1}>
+              <a
+                href="https://www.instagram.com/pj_glasslimited/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative aspect-square overflow-hidden bg-brand-offwhite block"
+              >
+                <Image
+                  src={post.image}
+                  alt={post.caption}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                />
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/70 transition-all duration-300 flex items-center justify-center">
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center px-4">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                      </svg>
+                      <span className="text-white text-sm font-medium">{post.likes}</span>
+                    </div>
+                    <p className="text-white/80 text-xs leading-relaxed line-clamp-2">
+                      {post.caption}
+                    </p>
+                  </div>
+                </div>
+                {/* Instagram icon corner */}
+                <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" />
+                    <circle cx="12" cy="12" r="5" />
+                    <circle cx="17.5" cy="6.5" r="1.5" fill="white" stroke="none" />
+                  </svg>
+                </div>
+              </a>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─── Full-width Image Break ─── */
 function ImageBreak() {
   return (
@@ -1144,6 +1287,7 @@ export default function HomePage() {
       <ImageBreak />
       <FeaturedProjects />
       <ClientStories />
+      <InstagramFeed />
       <ValuesSection />
     </>
   );

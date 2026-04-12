@@ -173,8 +173,21 @@ export default function Header() {
             </div>
           </nav>
 
-          {/* Get a Quote Button + Cart */}
+          {/* Instagram + Cart + Get a Quote */}
           <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
+            <a
+              href="https://www.instagram.com/pj_glasslimited/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 transition-colors duration-300 text-brand-navy/70 hover:text-brand-navy"
+              aria-label="Instagram"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="5" />
+                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+              </svg>
+            </a>
             <button
               onClick={() => setCartOpen(true)}
               className="relative p-2 transition-colors duration-300 text-brand-navy/70 hover:text-brand-navy"
@@ -305,6 +318,22 @@ export default function Header() {
           >
             Get a Quote
           </Link>
+          <a
+            href="https://www.instagram.com/pj_glasslimited/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`mt-4 flex items-center gap-2 text-white/60 hover:text-brand-accent transition-all duration-500 ${
+              mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+            style={{ transitionDelay: mobileMenuOpen ? `${(navLinks.length + 1) * 100}ms` : '0ms' }}
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" />
+              <circle cx="12" cy="12" r="5" />
+              <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+            </svg>
+            <span className="text-sm tracking-wider">@pj_glasslimited</span>
+          </a>
         </nav>
       </div>
     </>
