@@ -120,7 +120,7 @@ function ProductsContent() {
             </div>
             <div className="relative col-span-1 row-span-1 overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1564540586988-aa4e53ab3394?w=600&auto=format&fit=crop&q=80"
+                src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&auto=format&fit=crop&q=80"
                 alt="Walk-in glass shower"
                 fill
                 className="object-cover"
@@ -129,7 +129,7 @@ function ProductsContent() {
             </div>
             <div className="relative col-span-1 row-span-1 overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1631048500395-ed4085565188?w=600&auto=format&fit=crop&q=80"
+                src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&auto=format&fit=crop&q=80"
                 alt="Designer shower screen"
                 fill
                 className="object-cover"
