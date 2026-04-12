@@ -41,96 +41,51 @@ export default function CheckoutPage() {
 
   const grandTotal = totalPrice + (delivery && !delivery.error ? delivery.total : 0);
 
-  const orderSummaryText = items
-    .map(
-      (item) =>
-        `${item.quantity}x ${item.name}${item.selectedSize ? ` (${item.selectedSize})` : ''} - £${(item.priceFrom * item.quantity).toFixed(2)}`
-    )
-    .join('\n');
-
   const handleSubmitOrder = async (e) => {
     e.preventDefault();
     setSubmitting(true);
     setError('');
 
-    const orderData = {
-      items: items.map((item) => ({
-        name: item.name,
-        quantity: item.quantity,
-        size: item.selectedSize,
-        price: item.priceFrom,
-        subtotal: item.priceFrom * item.quantity,
-      })),
-      subtotal: totalPrice,
-      delivery: delivery?.total || 0,
-      grandTotal,
-      requiresApproval,
-      customer,
-    };
-
-    const orderText = `
---- NEW ORDER ---
-${requiresApproval ? '⚠️ REQUIRES APPROVAL (£100+)' : '✅ AUTO-APPROVED'}
-
-Customer: ${customer.name}
-Email: ${customer.email}
-Phone: ${customer.phone}
-Address: ${customer.address}, ${customer.city}, ${customer.postcode}
-
-Items:
-${orderSummaryText}
-
-Subtotal: £${totalPrice.toFixed(2)}
-Delivery (${delivery?.zone || 'TBC'}): ${delivery?.totalLabel || 'TBC'}
-GRAND TOTAL: £${grandTotal.toFixed(2)}
-
-Notes: ${customer.notes || 'None'}
-    `.trim();
-
     try {
-      // 1. Send email to P&J Glass (info@pj-glass.co.uk)
-      const adminEmail = await fetch('https://api.web3forms.com/submit', {
+      // Send to Stripe Checkout
+      const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          access_key: 'dc36a5e6-c87c-47b4-b6dd-f94fa7d43ce9',
-          subject: `${requiresApproval ? '⚠️ APPROVAL REQUIRED' : '✅ New Order'} — ${customer.name} — £${grandTotal.toFixed(2)}`,
-          from_name: customer.name,
-          replyto: customer.email,
-          message: orderText,
+          items: items.map((item) => ({
+            name: item.name,
+            size: item.selectedSize || '',
+            price: item.priceFrom,
+            quantity: item.quantity,
+          })),
+          customer: {
+            name: customer.name,
+            email: customer.email,
+            phone: customer.phone,
+            address: customer.address,
+            city: customer.city,
+            postcode: customer.postcode,
+            notes: customer.notes,
+          },
+          delivery: delivery ? { total: delivery.total, zone: delivery.zone } : null,
         }),
       });
 
-      if (!adminEmail.ok) {
-        throw new Error('Failed to send admin notification');
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to create checkout session');
       }
 
-      // 2. Send confirmation email to buyer
-      await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_key: 'dc36a5e6-c87c-47b4-b6dd-f94fa7d43ce9',
-          subject: `Your P&J Glass Order ${requiresApproval ? '(Pending Approval)' : 'Confirmation'} — £${grandTotal.toFixed(2)}`,
-          from_name: 'P&J Glass',
-          name: customer.name,
-          email: customer.email,
-          message: `Hi ${customer.name},\n\nThank you for your order with P&J Glass.\n\n${requiresApproval ? '⏳ Your order exceeds £100 and requires approval. We will review it and contact you within 24 hours to confirm.\n\n' : ''}${orderText}\n\nIf you have questions, call us on 020 8599 1622 or reply to this email.\n\nBest regards,\nP&J Glass Team\n1181 High Rd, Romford RM6 4AL`,
-        }),
-      });
-
-      // 3. Open WhatsApp with order summary
-      const whatsappNumber = '442085991622';
-      const whatsappText = encodeURIComponent(
-        `🛒 New Order from ${customer.name}\n\n${orderSummaryText}\n\nSubtotal: £${totalPrice.toFixed(2)}\nDelivery: ${delivery?.totalLabel || 'TBC'}\nTotal: £${grandTotal.toFixed(2)}\n\n📧 ${customer.email}\n📞 ${customer.phone}\n📍 ${customer.address}, ${customer.city}, ${customer.postcode}${requiresApproval ? '\n\n⚠️ REQUIRES APPROVAL (£100+)' : ''}`
-      );
-
-      window.open(`https://wa.me/${whatsappNumber}?text=${whatsappText}`, '_blank');
-
-      setStep(3);
-      clearCart();
+      // Redirect to Stripe Checkout
+      if (data.url) {
+        clearCart();
+        window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL returned');
+      }
     } catch (err) {
-      setError('Failed to submit order. Please call us on 020 8599 1622.');
+      setError(err.message || 'Failed to process payment. Please call us on 020 8599 1622.');
     } finally {
       setSubmitting(false);
     }
@@ -467,10 +422,8 @@ Notes: ${customer.notes || 'None'}
                     className="btn-filled disabled:opacity-50"
                   >
                     {submitting
-                      ? 'Submitting...'
-                      : requiresApproval
-                      ? 'Submit for Approval'
-                      : 'Place Order'}
+                      ? 'Redirecting to payment...'
+                      : `Pay £${grandTotal.toFixed(2)} with Stripe`}
                   </button>
                 </div>
                 {error && <p className="text-red-500 text-sm mt-3">{error}</p>}
