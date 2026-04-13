@@ -144,6 +144,6 @@ export async function POST(request) {
         return NextResponse.json({ error: 'Stripe authentication failed and fallback order save failed. Check STRIPE_SECRET_KEY and Supabase.' }, { status: 500 });
       }
     }
-    return NextResponse.json({ error: 'Failed to create checkout session' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to create checkout session', detail: err?.message || String(err) }, { status: 500 });
   }
 }
