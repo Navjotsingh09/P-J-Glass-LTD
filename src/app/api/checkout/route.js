@@ -104,7 +104,6 @@ export async function POST(request) {
     };
 
     let orderSaved = true;
-    let dbError = null;
     try {
       await createOrder({
         ...orderData,
@@ -112,13 +111,12 @@ export async function POST(request) {
       });
     } catch (dbErr) {
       orderSaved = false;
-      dbError = dbErr?.message || String(dbErr);
       console.error('Order persistence warning (continuing to Stripe checkout):', dbErr);
     }
 
-    return NextResponse.json({ sessionId: session.id, url: session.url, orderSaved, ...(dbError ? { dbError } : {}) });
+    return NextResponse.json({ sessionId: session.id, url: session.url, orderSaved });
   } catch (err) {
     console.error('Stripe checkout error:', err);
-    return NextResponse.json({ error: 'Failed to create checkout session', detail: err?.message || String(err) }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to create checkout session' }, { status: 500 });
   }
 }

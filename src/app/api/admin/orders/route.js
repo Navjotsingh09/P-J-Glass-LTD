@@ -9,7 +9,7 @@ function isAuthorized(request) {
 
 export async function GET(request) {
   if (!isAuthorized(request)) {
-    return NextResponse.json({ error: 'Unauthorized', keyLen: process.env.ADMIN_SECRET_KEY?.length || 0 }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const { searchParams } = new URL(request.url);
