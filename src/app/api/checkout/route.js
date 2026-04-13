@@ -3,6 +3,9 @@ import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 import { createOrder } from '@/lib/db';
 
+export const runtime = 'nodejs';
+export const maxDuration = 30;
+
 export async function POST(request) {
   try {
     if (!process.env.STRIPE_SECRET_KEY) {
@@ -10,9 +13,7 @@ export async function POST(request) {
     }
 
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      httpClient: Stripe.createNodeHttpClient(),
-      timeout: 30000,
-      maxNetworkRetries: 1,
+      apiVersion: '2023-10-16',
     });
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || new URL(request.url).origin;
     const body = await request.json();

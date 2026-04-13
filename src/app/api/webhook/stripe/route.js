@@ -4,6 +4,9 @@ import { getOrderByStripeSession, updateOrderStatus, createInvoice, createOrder 
 import { sendOrderConfirmation, sendNewOrderAlert } from '@/lib/email';
 import { sendOrderWhatsAppCopy } from '@/lib/whatsapp';
 
+export const runtime = 'nodejs';
+export const maxDuration = 30;
+
 export async function POST(request) {
   if (!process.env.STRIPE_SECRET_KEY) {
     return NextResponse.json({ error: 'Stripe is not configured (missing STRIPE_SECRET_KEY)' }, { status: 500 });
@@ -14,9 +17,7 @@ export async function POST(request) {
   }
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    httpClient: Stripe.createNodeHttpClient(),
-    timeout: 30000,
-    maxNetworkRetries: 1,
+    apiVersion: '2023-10-16',
   });
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
   const body = await request.text();
