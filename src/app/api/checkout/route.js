@@ -5,7 +5,12 @@ import { createOrder } from '@/lib/db';
 
 export async function POST(request) {
   try {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      return NextResponse.json({ error: 'Stripe is not configured (missing STRIPE_SECRET_KEY)' }, { status: 500 });
+    }
+
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || new URL(request.url).origin;
     const body = await request.json();
     const { items, customer, delivery } = body;
 
@@ -49,26 +54,8 @@ export async function POST(request) {
 
     const subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
     const grandTotal = subtotal + (delivery?.total || 0);
-
-    // Create Stripe Checkout Session
-    const session = await stripe.checkout.sessions.create({
-      mode: 'payment',
-      payment_method_types: ['card'],
-      line_items: lineItems,
-      customer_email: customer.email,
-      metadata: {
-        order_id: orderId,
-        customer_name: customer.name,
-        customer_phone: customer.phone || '',
-      },
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout`,
-    });
-
-    // Create order in database as pending
-    await createOrder({
+    const orderData = {
       id: orderId,
-      stripeSessionId: session.id,
       status: 'pending',
       customerName: customer.name,
       customerEmail: customer.email,
@@ -88,11 +75,75 @@ export async function POST(request) {
         quantity: i.quantity,
         subtotal: i.price * i.quantity,
       })),
+    };
+
+    // Create Stripe Checkout Session
+    const session = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      payment_method_types: ['card'],
+      line_items: lineItems,
+      customer_email: customer.email,
+      metadata: {
+        order_id: orderId,
+        customer_name: customer.name,
+        customer_phone: customer.phone || '',
+      },
+      success_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/checkout`,
     });
 
-    return NextResponse.json({ sessionId: session.id, url: session.url });
+    let orderSaved = true;
+    try {
+      // Persist the pending order for admin/tracking flows.
+      await createOrder({
+        ...orderData,
+        stripeSessionId: session.id,
+      });
+    } catch (dbErr) {
+      orderSaved = false;
+      console.error('Order persistence warning (continuing to Stripe checkout):', dbErr);
+    }
+
+    return NextResponse.json({ sessionId: session.id, url: session.url, orderSaved });
   } catch (err) {
     console.error('Stripe checkout error:', err);
+    if (err?.type === 'StripeAuthenticationError') {
+      try {
+        // Graceful fallback: capture the order even if Stripe credentials are temporarily invalid.
+        const fallbackOrder = await createOrder({
+          id: orderId,
+          stripeSessionId: null,
+          status: 'pending',
+          customerName: customer.name,
+          customerEmail: customer.email,
+          customerPhone: customer.phone || '',
+          address: customer.address || '',
+          city: customer.city || '',
+          postcode: customer.postcode || '',
+          notes: [customer.notes, 'Stripe auth unavailable: requires manual payment follow-up'].filter(Boolean).join(' | '),
+          subtotal,
+          deliveryCost: delivery?.total || 0,
+          deliveryZone: delivery?.zone || '',
+          grandTotal,
+          items: items.map((i) => ({
+            name: i.name,
+            size: i.size || '',
+            price: i.price,
+            quantity: i.quantity,
+            subtotal: i.price * i.quantity,
+          })),
+        });
+
+        return NextResponse.json({
+          manualOrder: true,
+          orderNumber: fallbackOrder?.order_number,
+          message: 'Payment is temporarily unavailable. Your order was saved and our team will contact you shortly.',
+        });
+      } catch (fallbackErr) {
+        console.error('Fallback order creation failed:', fallbackErr);
+        return NextResponse.json({ error: 'Stripe authentication failed and fallback order save failed. Check STRIPE_SECRET_KEY and Supabase.' }, { status: 500 });
+      }
+    }
     return NextResponse.json({ error: 'Failed to create checkout session' }, { status: 500 });
   }
 }

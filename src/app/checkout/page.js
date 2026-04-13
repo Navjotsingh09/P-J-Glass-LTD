@@ -11,6 +11,7 @@ export default function CheckoutPage() {
   const [step, setStep] = useState(1); // 1: cart, 2: details, 3: confirmation
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [manualOrderNumber, setManualOrderNumber] = useState('');
 
   // Delivery
   const [postcode, setPostcode] = useState('');
@@ -73,6 +74,13 @@ export default function CheckoutPage() {
 
       const data = await res.json();
 
+      if (res.ok && data.manualOrder) {
+        setManualOrderNumber(data.orderNumber || '');
+        clearCart();
+        setStep(3);
+        return;
+      }
+
       if (!res.ok) {
         throw new Error(data.error || 'Failed to create checkout session');
       }
@@ -126,6 +134,11 @@ export default function CheckoutPage() {
               ? 'Your order exceeds £100 and requires manual approval. We\'ll review it and contact you within 24 hours to confirm.'
               : 'Your order has been received. We\'ll send you a confirmation email shortly.'}
           </p>
+          {manualOrderNumber && (
+            <p className="text-brand-grey text-sm mb-4">
+              Payment is temporarily unavailable. Your order has been saved as <strong>{manualOrderNumber}</strong> and our team will contact you to complete payment.
+            </p>
+          )}
           <p className="text-brand-grey text-sm mb-8">
             A WhatsApp message has been prepared with your order details. Please send it to complete the notification.
           </p>
