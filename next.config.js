@@ -50,7 +50,6 @@ const nextConfig = {
       { source: '/trade-account', destination: '/trade', permanent: true },
       { source: '/trade-account/', destination: '/trade', permanent: true },
       { source: '/trade-accounts', destination: '/trade', permanent: true },
-      { source: '/glass-calculator', destination: '/glass-calculator', permanent: false },
       // WordPress blog/feed remnants
       { source: '/feed', destination: '/', permanent: true },
       { source: '/feed/', destination: '/', permanent: true },
