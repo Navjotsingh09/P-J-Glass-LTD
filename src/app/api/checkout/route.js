@@ -10,6 +10,7 @@ export async function POST(request) {
     }
 
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      httpClient: Stripe.createNodeHttpClient(),
       timeout: 30000,
       maxNetworkRetries: 1,
     });
