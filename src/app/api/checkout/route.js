@@ -9,7 +9,10 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Stripe is not configured (missing STRIPE_SECRET_KEY)' }, { status: 500 });
     }
 
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      timeout: 30000,
+      maxNetworkRetries: 1,
+    });
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || new URL(request.url).origin;
     const body = await request.json();
     const { items, customer, delivery } = body;
@@ -144,6 +147,6 @@ export async function POST(request) {
         return NextResponse.json({ error: 'Stripe authentication failed and fallback order save failed. Check STRIPE_SECRET_KEY and Supabase.' }, { status: 500 });
       }
     }
-    return NextResponse.json({ error: 'Failed to create checkout session', detail: err?.message || String(err) }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to create checkout session', detail: err?.message || String(err), keyPrefix: process.env.STRIPE_SECRET_KEY?.substring(0, 8) || 'MISSING' }, { status: 500 });
   }
 }
